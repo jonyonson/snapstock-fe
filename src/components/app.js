@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react';
+import SearchBar from './search-bar';
 
 function App() {
   return (
     <Fragment>
-      <h1>Hello, world</h1>
+      <SearchBar />
     </Fragment>
   );
 }
