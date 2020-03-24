@@ -1,10 +1,11 @@
 import React from 'react';
+import AuthWrapper from '../../styles/auth.styled';
 
 function SignIn() {
   return (
-    <div>
+    <AuthWrapper>
       <h1>Sign In</h1>
-    </div>
+    </AuthWrapper>
   );
 }
 

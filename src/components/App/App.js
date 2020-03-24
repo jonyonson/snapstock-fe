@@ -1,8 +1,9 @@
 import React, { StrictMode } from 'react';
 import { Route } from 'react-router-dom';
-import GlobalStyle from '../../global-styles';
+import GlobalStyle from '../../styles/global-styles';
 import SignIn from '../SignIn';
 import SignUp from '../SignUp';
+import Protected from '../Protected';
 
 const Home = () => <h1>Hello, world!</h1>;
 
@@ -12,7 +13,7 @@ function App() {
       <div className="app">
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/signin" component={SignIn} />
-        <Route exact path="/" component={Home} />
+        <Protected exact path="/" component={Home} />
       </div>
       <GlobalStyle />
     </StrictMode>
