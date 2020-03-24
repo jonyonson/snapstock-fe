@@ -1,5 +1,5 @@
 import React from 'react';
-import AuthWrapper from '../../styles/auth.styled';
+import AuthWrapper from '../styles/auth.styled';
 
 function SignIn() {
   return (
