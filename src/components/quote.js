@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import format from 'date-fns/format';
 
 function Quote({ selection }) {
   const [quote, setQuote] = useState(null);
@@ -26,11 +27,14 @@ function Quote({ selection }) {
         <div>
           <h1 className="symbol">{quote.symbol}</h1>
           <h2 className="company-name">{quote.name}</h2>
-          <div className="price">{quote.price}</div>
-          <span className="change">{quote.change}</span>
-          <span className="change-percent">{quote.change_percent}</span>
+          <div className="price">{Number(quote.price).toFixed(2)}</div>
+          <span className="change">{Number(quote.change).toFixed(2)}</span>
+          <span className="change-percent">
+            {Number(quote.change_percent.split('%')[0]).toFixed(2) + '%'}
+          </span>
           <div className="latest-trading-day">
-            Data as of {quote.latest_trading_day}
+            Data as of{' '}
+            {format(new Date(quote.latest_trading_day), 'MMM dd, yyyy')}
           </div>
         </div>
         <img className="logo" src={quote.logo_url} alt={`${quote.name} Logo`} />
