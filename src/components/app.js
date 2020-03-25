@@ -1,6 +1,7 @@
 import React, { useState, Fragment, useEffect } from 'react';
 import SearchBar from './search-bar';
 import Quote from './quote';
+import StockChart from './stock-chart';
 import CompanyNews from './company-news';
 import axios from 'axios';
 
@@ -36,6 +37,7 @@ function App() {
     <Fragment>
       <SearchBar onSelect={handleSearchSelection} />
       <Quote logoURL={logoURL} quote={quote} />
+      <StockChart />
       {false && <CompanyNews news={news} />}
     </Fragment>
   );
