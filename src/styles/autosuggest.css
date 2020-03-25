@@ -5,7 +5,7 @@
 .react-autosuggest__input {
   width: 100%;
   font-size: 20px;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
 }
 
 .react-autosuggest__input--focused {
