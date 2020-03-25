@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import format from 'date-fns/format';
 
 function Quote({ selection }) {
   const [quote, setQuote] = useState(null);
+  const [logoURL, setLogoURL] = useState(null);
 
   useEffect(() => {
     if (selection !== null) {
@@ -15,7 +15,9 @@ function Quote({ selection }) {
         .get(url)
         .then((res) => {
           console.log(res.data);
-          setQuote({ name: selection.name, ...res.data });
+          // setQuote({ name: selection.name, ...res.data });
+          setQuote(res.data.quote);
+          setLogoURL(res.data.logo.url);
         })
         .catch((err) => console.log(err));
     }
@@ -26,18 +28,17 @@ function Quote({ selection }) {
       <div className="data-header">
         <div>
           <h1 className="symbol">{quote.symbol}</h1>
-          <h2 className="company-name">{quote.name}</h2>
-          <div className="price">{Number(quote.price).toFixed(2)}</div>
+          <h2 className="company-name">{quote.companyName}</h2>
+          <div className="price">{Number(quote.latestPrice).toFixed(2)}</div>
           <span className="change">{Number(quote.change).toFixed(2)}</span>
           <span className="change-percent">
-            {Number(quote.change_percent.split('%')[0]).toFixed(2) + '%'}
+            {Number(quote.changePercent * 100).toFixed(2) + '%'}
           </span>
           <div className="latest-trading-day">
-            Data as of{' '}
-            {format(new Date(quote.latest_trading_day), 'MMM dd, yyyy')}
+            Data as of {quote.latestTime}
           </div>
         </div>
-        <img className="logo" src={quote.logo_url} alt={`${quote.name} Logo`} />
+        <img className="logo" src={logoURL} alt={`${quote.name} Logo`} />
       </div>
 
       <div className="data-table">
@@ -47,7 +48,7 @@ function Quote({ selection }) {
         </div>
         <div>
           <span>Previous Close</span>
-          <span>{Number(quote.previous_close).toFixed(2)}</span>
+          <span>{Number(quote.previousClose).toFixed(2)}</span>
         </div>
         <div>
           <span>Day High</span>
