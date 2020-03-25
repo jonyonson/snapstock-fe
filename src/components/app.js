@@ -1,7 +1,6 @@
 import React, { useState, Fragment, useEffect } from 'react';
 import SearchBar from './search-bar';
 import Quote from './quote';
-import axios from 'axios';
 
 function App() {
   const [selection, setSelection] = useState(null);
