@@ -1,38 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 import styled from 'styled-components';
 
-function Quote({ selection }) {
-  const [quote, setQuote] = useState(null);
-  const [logoURL, setLogoURL] = useState(null);
-
-  useEffect(() => {
-    if (selection !== null) {
-      const { symbol } = selection;
-      // const url = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${API_KEY}`;
-      const url = `http://localhost:5000/api/stocks/${symbol}`;
-      axios
-        .get(url)
-        .then((res) => {
-          console.log(res.data);
-          // setQuote({ name: selection.name, ...res.data });
-          setQuote(res.data.quote);
-          setLogoURL(res.data.logo.url);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [selection]);
-
+function Quote({ quote, logoURL }) {
   return quote === null ? null : (
     <QuoteWrapper>
       <div className="data-header">
-        <div>
+        <div className={quote.changePercent > 0 ? 'green' : 'red'}>
           <h1 className="symbol">{quote.symbol}</h1>
-          <h2 className="company-name">{quote.companyName}</h2>
-          <div className="price">{Number(quote.latestPrice).toFixed(2)}</div>
+          <h2 className="company-name test">{quote.companyName}</h2>
+          <div className="price">${Number(quote.latestPrice).toFixed(2)}</div>
           <span className="change">{Number(quote.change).toFixed(2)}</span>
           <span className="change-percent">
-            {Number(quote.changePercent * 100).toFixed(2) + '%'}
+            ({Number(quote.changePercent * 100).toFixed(2) + '%'})
           </span>
           <div className="latest-trading-day">
             Data as of {quote.latestTime}
@@ -70,13 +49,16 @@ function Quote({ selection }) {
 const QuoteWrapper = styled.div`
   margin-top: 1rem;
   padding: 0 1rem;
+
   .data-header {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
   }
 
   .logo {
-    height: 60px;
+    margin-top: 5px;
+    max-height: 60px;
   }
 
   .symbol {
@@ -93,6 +75,16 @@ const QuoteWrapper = styled.div`
 
   .price {
     font-size: 1.5rem;
+  }
+
+  .green .change,
+  .green .change-percent {
+    color: green;
+  }
+
+  .red .change,
+  .red .change-percent {
+    color: red;
   }
 
   .change {
