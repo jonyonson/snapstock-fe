@@ -43,19 +43,19 @@ function Quote({ selection }) {
       <div className="data-table">
         <div>
           <span>Open</span>
-          <span>{quote.open}</span>
+          <span>{Number(quote.open).toFixed(2)}</span>
         </div>
         <div>
           <span>Previous Close</span>
-          <span>{quote.previous_close}</span>
+          <span>{Number(quote.previous_close).toFixed(2)}</span>
         </div>
         <div>
           <span>Day High</span>
-          <span>{quote.high}</span>
+          <span>{Number(quote.high).toFixed(2)}</span>
         </div>
         <div>
           <span>Day Low</span>
-          <span>{quote.low}</span>
+          <span>{Number(quote.low).toFixed(2)}</span>
         </div>
         <div>
           <span>Volume</span>
@@ -115,6 +115,9 @@ const QuoteWrapper = styled.div`
     div {
       display: flex;
       justify-content: space-between;
+      border-bottom: 1px solid black;
+      padding-bottom: 0.15rem;
+      margin-bottom: 0.5rem;
     }
   }
 `;
