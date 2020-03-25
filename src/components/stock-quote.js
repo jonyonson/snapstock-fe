@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function Quote({ quote, logoURL }) {
+function StockQuote({ quote, logoURL }) {
   return quote === null ? null : (
     <QuoteWrapper>
       <div className="data-header">
@@ -115,4 +115,4 @@ const QuoteWrapper = styled.div`
   }
 `;
 
-export default Quote;
+export default StockQuote;
