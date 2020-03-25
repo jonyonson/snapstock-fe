@@ -45,6 +45,7 @@ function SearchBar({ onSelect }) {
     } = suggestion;
 
     onSelect({ symbol, name, type, region, currency });
+    setValue('');
   };
 
   const onChange = (_, { newValue }) => setValue(newValue);
