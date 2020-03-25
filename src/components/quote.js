@@ -59,7 +59,7 @@ function Quote({ selection }) {
         </div>
         <div>
           <span>Volume</span>
-          <span>{quote.volume}</span>
+          <span>{Number(quote.volume).toLocaleString()}</span>
         </div>
       </div>
     </QuoteWrapper>
