@@ -1,10 +1,22 @@
-import React, { Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import SearchBar from './search-bar';
+import Quote from './quote';
+import axios from 'axios';
 
 function App() {
+  const [selection, setSelection] = useState(null);
+
+  useEffect(() => {}, [selection]);
+
+  const handleSearchSelection = (selection) => {
+    console.log(selection);
+    setSelection(selection);
+  };
+
   return (
     <Fragment>
-      <SearchBar />
+      <SearchBar onSelect={handleSearchSelection} />
+      <Quote selection={selection} />
     </Fragment>
   );
 }

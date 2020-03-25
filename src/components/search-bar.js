@@ -4,7 +4,6 @@ import axios from 'axios';
 import '../styles/autosuggest.css';
 
 const renderSuggestion = (suggestion) => {
-  // console.log('suggestion', suggestion);
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
       <div>{suggestion['2. name']}</div>
@@ -13,7 +12,7 @@ const renderSuggestion = (suggestion) => {
   );
 };
 
-function SearchBar() {
+function SearchBar({ onSelect }) {
   const [value, setValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [matches, setMatches] = useState([]);
@@ -33,12 +32,25 @@ function SearchBar() {
       symbol: selection['1. symbol'],
       name: selection['2. name'],
     };
-    console.log(suggestion);
     return `${suggestion.symbol}, ${suggestion.name}`;
   };
 
+  const onSuggestionSelected = (_, { suggestion }) => {
+    const {
+      '1. symbol': symbol,
+      '2. name': name,
+      '3. type': type,
+      '4. region': region,
+      '8. currency': currency,
+    } = suggestion;
+
+    onSelect({ symbol, name, type, region, currency });
+  };
+
   const onChange = (_, { newValue }) => setValue(newValue);
+
   const onSuggestionsFetchRequested = ({ value }) => fetchBestMatches(value);
+
   const onSuggestionsClearRequested = () => setSuggestions([]);
 
   const fetchBestMatches = (input) => {
@@ -65,6 +77,7 @@ function SearchBar() {
       suggestions={suggestions}
       onSuggestionsFetchRequested={onSuggestionsFetchRequested}
       onSuggestionsClearRequested={onSuggestionsClearRequested}
+      onSuggestionSelected={onSuggestionSelected}
       getSuggestionValue={getSuggestionValue}
       renderSuggestion={renderSuggestion}
       inputProps={inputProps}
