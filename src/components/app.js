@@ -7,7 +7,6 @@ import axios from 'axios';
 function App() {
   const [selection, setSelection] = useState(null);
   const [quote, setQuote] = useState(null);
-  const [logoURL, setLogoURL] = useState(null);
   const [chart, setChart] = useState({
     intraday: [],
     fiveDay: [],
@@ -33,7 +32,6 @@ function App() {
           const intraday = res.data['intraday-prices'];
           setChart((prev) => ({ ...prev, intraday, type: 'intraday' }));
           setQuote(res.data.quote);
-          setLogoURL(res.data.logo.url);
         })
         .catch((err) => {
           console.log(err);
@@ -48,7 +46,7 @@ function App() {
   return (
     <Fragment>
       <SearchBar onSelect={handleSearchSelection} />
-      <StockQuote logoURL={logoURL} quote={quote} />
+      <StockQuote quote={quote} />
       <StockChart chart={chart} setChart={setChart} selection={selection} />
     </Fragment>
   );

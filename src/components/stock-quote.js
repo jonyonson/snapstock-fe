@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function StockQuote({ quote, logoURL }) {
+function StockQuote({ quote }) {
   return quote === null ? null : (
     <QuoteWrapper>
       <div className="data-header">
@@ -17,7 +17,11 @@ function StockQuote({ quote, logoURL }) {
             Data as of {quote.latestTime}
           </div>
         </div>
-        <img className="logo" src={logoURL} alt={`${quote.name} Logo`} />
+        <img
+          className="logo"
+          src={`https://storage.googleapis.com/iex/api/logos/${quote.symbol}.png`}
+          alt={`${quote.name} Logo`}
+        />
       </div>
 
       <div className="data-table">
