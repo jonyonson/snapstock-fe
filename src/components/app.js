@@ -32,7 +32,6 @@ function App() {
           console.log(res.data);
           const intraday = res.data['intraday-prices'];
           setChart((prev) => ({ ...prev, intraday, type: 'intraday' }));
-          // setChart({ intraday, type: 'intraday' });
           setQuote(res.data.quote);
           setLogoURL(res.data.logo.url);
         })

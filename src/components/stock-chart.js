@@ -1,75 +1,37 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import format from 'date-fns/format';
 import axios from 'axios';
 import 'react-vis/dist/style.css';
-import {
-  XYPlot,
-  XAxis,
-  YAxis,
-  // HorizontalGridLines,
-  // VerticalGridLines,
-  LineSeries,
-} from 'react-vis';
+import { XYPlot, XAxis, YAxis, LineSeries } from 'react-vis';
 
 function StockChart({ chart, setChart, selection }) {
-  const [data, setData] = useState();
   console.log(chart);
 
-  // const getChart = () => {
-  //   axios
-  //     .get(url)
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       // setChart((prev) => ({ ...prev, type: 'historical' }));
-  //       setChart({ data: res.data, type: 'historical' });
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
-
-  // async function fetchChart(range) {
-  //   const { symbol } = selection;
-  //   const url = `http://localhost:5000/api/stocks/${symbol}/chart/${range}`;
-  //   if (range === '5d') {
-  //     if (!chart.fiveDay.length) {
-  //       const data = await axios.get(url);
-  //       console.log(data);
-  //       // setChart((prev) => ({ ...prev, fiveDay: data, type: 'intraday' }));
-  //     }
-  //   }
-  // }
-
   const fetchChart = (range) => {
+    console.log('range', range);
     const { symbol } = selection;
     const url = `http://localhost:5000/api/stocks/${symbol}/chart/${range}`;
 
-    if (range === '5d') {
+    if (range === '1d') {
+      setChart((prev) => ({ ...prev, data: prev.intraday, type: 'intraday' }));
+    } else if (range === '5d') {
       if (!chart.fiveDay.length) {
-        // const data = await axios.get(url);
-        // console.log(data);
         axios.get(url).then((res) => {
           setChart((prev) => ({
             ...prev,
             fiveDay: res.data,
             data: res.data,
-            type: 'historical',
+            type: range,
           }));
         });
       } else {
         setChart((prev) => ({
           ...prev,
           data: prev.fiveDay,
-          type: 'historical',
+          type: range,
         }));
       }
-    } else if (range === '1d') {
-      setChart((prev) => ({
-        ...prev,
-        data: prev.intraday,
-        type: 'intraday',
-      }));
     } else if (range === '1m') {
       if (!chart.oneMonth.length) {
         axios.get(url).then((res) => {
@@ -77,14 +39,14 @@ function StockChart({ chart, setChart, selection }) {
             ...prev,
             oneMonth: res.data,
             data: res.data,
-            type: 'historical',
+            type: range,
           }));
         });
       } else {
         setChart((prev) => ({
           ...prev,
           data: prev.oneMonth,
-          type: 'historical',
+          type: range,
         }));
       }
     } else if (range === '3m') {
@@ -94,14 +56,14 @@ function StockChart({ chart, setChart, selection }) {
             ...prev,
             threeMonth: res.data,
             data: res.data,
-            type: 'historical',
+            type: range,
           }));
         });
       } else {
         setChart((prev) => ({
           ...prev,
           data: prev.threeMonth,
-          type: 'historical',
+          type: range,
         }));
       }
     } else if (range === '6m') {
@@ -111,14 +73,14 @@ function StockChart({ chart, setChart, selection }) {
             ...prev,
             sixMonth: res.data,
             data: res.data,
-            type: 'historical',
+            type: range,
           }));
         });
       } else {
         setChart((prev) => ({
           ...prev,
           data: prev.sixMonth,
-          type: 'historical',
+          type: range,
         }));
       }
     } else if (range === '1y') {
@@ -128,14 +90,14 @@ function StockChart({ chart, setChart, selection }) {
             ...prev,
             oneYear: res.data,
             data: res.data,
-            type: 'historical',
+            type: range,
           }));
         });
       } else {
         setChart((prev) => ({
           ...prev,
           data: prev.oneYear,
-          type: 'historical',
+          type: range,
         }));
       }
     } else if (range === 'ytd') {
@@ -145,14 +107,14 @@ function StockChart({ chart, setChart, selection }) {
             ...prev,
             ytd: res.data,
             data: res.data,
-            type: 'historical',
+            type: range,
           }));
         });
       } else {
         setChart((prev) => ({
           ...prev,
           data: prev.ytd,
-          type: 'historical',
+          type: range,
         }));
       }
     } else if (range === '2y') {
@@ -162,14 +124,14 @@ function StockChart({ chart, setChart, selection }) {
             ...prev,
             twoYear: res.data,
             data: res.data,
-            type: 'historical',
+            type: range,
           }));
         });
       } else {
         setChart((prev) => ({
           ...prev,
           data: prev.twoYear,
-          type: 'historical',
+          type: range,
         }));
       }
     } else if (range === '5y') {
@@ -179,14 +141,14 @@ function StockChart({ chart, setChart, selection }) {
             ...prev,
             fiveYear: res.data,
             data: res.data,
-            type: 'historical',
+            type: range,
           }));
         });
       } else {
         setChart((prev) => ({
           ...prev,
           data: prev.fiveYear,
-          type: 'historical',
+          type: range,
         }));
       }
     } else if (range === 'max') {
@@ -196,14 +158,14 @@ function StockChart({ chart, setChart, selection }) {
             ...prev,
             max: res.data,
             data: res.data,
-            type: 'historical',
+            type: range,
           }));
         });
       } else {
         setChart((prev) => ({
           ...prev,
           data: prev.max,
-          type: 'historical',
+          type: range,
         }));
       }
     }
@@ -225,40 +187,50 @@ function StockChart({ chart, setChart, selection }) {
   }
 
   const handleTickFormat = (tick) => {
-    let tickFormat;
     if (chart.type === 'intraday') {
-      tickFormat = format(tick, 'h:mm');
+      return format(tick, 'h:mm');
+    } else if (chart.type === 'ytd') {
+      return format(tick, 'M/d');
+    } else if (chart.type === '5d') {
+      return format(tick, 'MMM d');
+    } else if (chart.type === '1m') {
+      return format(tick, 'MMM d');
+    } else if (chart.type === '3m') {
+      return format(tick, 'MMMM');
+    } else if (chart.type === '6m') {
+      return format(tick, 'MMM');
+    } else if (chart.type === '1y') {
+      return format(tick, 'MMM');
+    } else if (chart.type === '2y' || chart.type === '5y') {
+      return format(tick, 'M/yyyy');
     }
-
-    return tickFormat;
   };
 
   return chart.intraday.length ? (
     <ChartWrapper>
+      <ChartRanges>
+        <button onClick={() => fetchChart('1d')}>1D</button>
+        <button onClick={() => fetchChart('5d')}>5D</button>
+        <button onClick={() => fetchChart('1m')}>1M</button>
+        <button onClick={() => fetchChart('3m')}>3M</button>
+        <button onClick={() => fetchChart('6m')}>6M</button>
+        <button onClick={() => fetchChart('ytd')}>YTD</button>
+        <button onClick={() => fetchChart('1y')}>1Y</button>
+        <button onClick={() => fetchChart('2y')}>2Y</button>
+        <button onClick={() => fetchChart('5y')}>5Y</button>
+        {/* <button onClick={() => fetchChart('max')}>MAX</button> */}
+      </ChartRanges>
       <XYPlot
         xType="time"
         width={415}
         height={240}
-        animation
         margin={{ left: 50 }}
+        animation
       >
-        {/* <HorizontalGridLines /> */}
-        {/* <VerticalGridLines /> */}
         <XAxis tickTotal={6} tickFormat={handleTickFormat} />
         <YAxis />
-
         <LineSeries getNull={(d) => d.y !== null} data={chartData} />
       </XYPlot>
-      <button onClick={() => fetchChart('1d')}>1 Day</button>
-      <button onClick={() => fetchChart('5d')}>5 Day</button>
-      <button onClick={() => fetchChart('1m')}>1 Month</button>
-      <button onClick={() => fetchChart('3m')}>3 Month</button>
-      <button onClick={() => fetchChart('6m')}>6 Month</button>
-      <button onClick={() => fetchChart('ytd')}>YTD</button>
-      <button onClick={() => fetchChart('1y')}>1 Year</button>
-      <button onClick={() => fetchChart('2y')}>2 Year</button>
-      <button onClick={() => fetchChart('5y')}>5 Year</button>
-      {/* <button onClick={() => fetchChart('max')}>MAX</button> */}
     </ChartWrapper>
   ) : null;
 }
@@ -266,8 +238,21 @@ function StockChart({ chart, setChart, selection }) {
 const ChartWrapper = styled.div`
   margin: 2rem 1rem;
   margin-bottom: 0;
-  padding-top: 1rem;
   border: 1px solid #ccc;
+`;
+
+const ChartRanges = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  margin-right: 1rem;
+
+  button {
+    border: none;
+    font-size: 0.75rem;
+    outline: none;
+  }
 `;
 
 export default StockChart;
