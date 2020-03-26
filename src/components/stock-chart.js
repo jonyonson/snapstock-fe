@@ -9,7 +9,6 @@ function StockChart({ chart, setChart, selection }) {
   console.log(chart);
 
   const fetchChart = (range) => {
-    console.log('range', range);
     const { symbol } = selection;
     const url = `http://localhost:5000/api/stocks/${symbol}/chart/${range}`;
 
