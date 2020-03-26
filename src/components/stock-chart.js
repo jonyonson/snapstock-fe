@@ -191,18 +191,16 @@ function StockChart({ chart, setChart, selection }) {
       return format(tick, 'h:mm');
     } else if (chart.type === 'ytd') {
       return format(tick, 'M/d');
-    } else if (chart.type === '5d') {
-      return format(tick, 'MMM d');
-    } else if (chart.type === '1m') {
+    } else if (chart.type === '5d' || chart.type === '1m') {
       return format(tick, 'MMM d');
     } else if (chart.type === '3m') {
       return format(tick, 'MMMM');
-    } else if (chart.type === '6m') {
+    } else if (chart.type === '6m' || chart.type === '1y') {
       return format(tick, 'MMM');
-    } else if (chart.type === '1y') {
-      return format(tick, 'MMM');
-    } else if (chart.type === '2y' || chart.type === '5y') {
-      return format(tick, 'M/yyyy');
+    } else if (chart.type === '2y') {
+      return format(tick, 'MM-yy');
+    } else if (chart.type === '5y' || chart.type === 'max') {
+      return format(tick, 'yyyy');
     }
   };
 
@@ -218,7 +216,7 @@ function StockChart({ chart, setChart, selection }) {
         <button onClick={() => fetchChart('1y')}>1Y</button>
         <button onClick={() => fetchChart('2y')}>2Y</button>
         <button onClick={() => fetchChart('5y')}>5Y</button>
-        {/* <button onClick={() => fetchChart('max')}>MAX</button> */}
+        <button onClick={() => fetchChart('max')}>MAX</button>
       </ChartRanges>
       <XYPlot
         xType="time"
