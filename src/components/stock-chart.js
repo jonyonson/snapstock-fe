@@ -240,10 +240,11 @@ const ChartWrapper = styled.div`
 
 const ChartRanges = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   margin-top: 1rem;
   margin-bottom: 1rem;
   margin-right: 1rem;
+  margin-left: 3rem;
 
   button {
     border: none;
