@@ -9,12 +9,12 @@ function App() {
   const [selection, setSelection] = useState(null);
   const [quote, setQuote] = useState(null);
   const [news, setNews] = useState([]);
+  const [chart, setChart] = useState([]);
   const [logoURL, setLogoURL] = useState(null);
 
   useEffect(() => {
     if (selection !== null) {
       const { symbol } = selection;
-      // const url = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${API_KEY}`;
       const url = `http://localhost:5000/api/stocks/${symbol}`;
       axios
         .get(url)
@@ -23,8 +23,11 @@ function App() {
           setQuote(res.data.quote);
           setLogoURL(res.data.logo.url);
           setNews(res.data.news);
+          setChart(res.data['intraday-prices'] || res.data.chart);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }, [selection]);
 
@@ -37,7 +40,7 @@ function App() {
     <Fragment>
       <SearchBar onSelect={handleSearchSelection} />
       <StockQuote logoURL={logoURL} quote={quote} />
-      <StockChart />
+      <StockChart data={chart} />
       {false && <CompanyNews news={news} />}
     </Fragment>
   );
