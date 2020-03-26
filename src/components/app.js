@@ -7,8 +7,8 @@ import axios from 'axios';
 function App() {
   const [selection, setSelection] = useState(null);
   const [quote, setQuote] = useState(null);
-  const [chart, setChart] = useState([]);
   const [logoURL, setLogoURL] = useState(null);
+  const [chart, setChart] = useState({ data: [] });
 
   useEffect(() => {
     if (selection !== null) {
@@ -20,7 +20,7 @@ function App() {
           console.log(res.data);
           setQuote(res.data.quote);
           setLogoURL(res.data.logo.url);
-          setChart(res.data['intraday-prices'] || res.data.chart);
+          setChart({ data: res.data['intraday-prices'], type: 'intraday' });
         })
         .catch((err) => {
           console.log(err);
@@ -37,7 +37,7 @@ function App() {
     <Fragment>
       <SearchBar onSelect={handleSearchSelection} />
       <StockQuote logoURL={logoURL} quote={quote} />
-      <StockChart data={chart} />
+      <StockChart chart={chart} />
     </Fragment>
   );
 }

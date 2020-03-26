@@ -11,20 +11,31 @@ import {
   LineSeries,
 } from 'react-vis';
 
-function StockChart({ data }) {
-  console.log('hello');
-  console.log(data);
-  const chartData = data
-    .filter((interval) => interval.high !== null)
-    .map((interval) => {
-      return {
-        x: new Date(`${interval.date} ${interval.minute}`),
-        y: Number(interval.high),
-        // y: interval.high !== null ? Number(interval.high) : null,
-      };
-    });
+function StockChart({ chart }) {
+  console.log(chart);
+  const chartData =
+    chart.type === 'intraday'
+      ? chart.data
+          .filter((interval) => interval.high !== null)
+          .map((interval) => ({
+            x: new Date(`${interval.date} ${interval.minute}`),
+            y: Number(interval.high),
+          }))
+      : chart.data.map((interval) => ({
+          x: new Date(interval.date),
+          y: Number(interval.close),
+        }));
 
-  return data.length ? (
+  const handleTickFormat = (tick) => {
+    let tickFormat;
+    if (chart.type === 'intraday') {
+      tickFormat = format(tick, 'h:mm');
+    }
+
+    return tickFormat;
+  };
+
+  return chart.data.length ? (
     <ChartWrapper>
       <XYPlot
         xType="time"
@@ -35,7 +46,7 @@ function StockChart({ data }) {
       >
         {/* <HorizontalGridLines /> */}
         {/* <VerticalGridLines /> */}
-        <XAxis tickTotal={6} tickFormat={(t) => format(t, 'h:mm')} />
+        <XAxis tickTotal={6} tickFormat={handleTickFormat} />
         <YAxis />
 
         <LineSeries getNull={(d) => d.y !== null} data={chartData} />
