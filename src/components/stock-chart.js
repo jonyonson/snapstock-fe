@@ -215,7 +215,6 @@ function StockChart({ chart, setChart, selection }) {
         <button onClick={() => fetchChart('ytd')}>YTD</button>
         <button onClick={() => fetchChart('1y')}>1Y</button>
         <button onClick={() => fetchChart('2y')}>2Y</button>
-        <button onClick={() => fetchChart('5y')}>5Y</button>
         <button onClick={() => fetchChart('max')}>MAX</button>
       </ChartRanges>
       <XYPlot
