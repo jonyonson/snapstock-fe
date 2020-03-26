@@ -49,6 +49,7 @@ function StockQuote({ quote, logoURL }) {
 const QuoteWrapper = styled.div`
   margin-top: 1rem;
   padding: 0 1rem;
+  position: relative;
 
   .data-header {
     display: flex;
@@ -99,7 +100,6 @@ const QuoteWrapper = styled.div`
     font-size: 0.5rem;
     text-transform: uppercase;
     font-weight: 900;
-    opacity: 0.65;
   }
 
   .data-table {
