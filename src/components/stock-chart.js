@@ -12,11 +12,11 @@ import {
 } from 'react-vis';
 
 function StockChart({ data }) {
+  console.log('hello');
   console.log(data);
   const chartData = data
     .filter((interval) => interval.high !== null)
     .map((interval) => {
-      console.log(new Date(`${interval.date} ${interval.minute}`));
       return {
         x: new Date(`${interval.date} ${interval.minute}`),
         y: Number(interval.high),
@@ -45,7 +45,7 @@ function StockChart({ data }) {
 }
 
 const ChartWrapper = styled.div`
-  margin: 1rem;
+  margin: 2rem 1rem;
   margin-bottom: 0;
   padding-top: 1rem;
   border: 1px solid #ccc;
