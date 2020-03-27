@@ -8,13 +8,13 @@ import { XYPlot, XAxis, YAxis, LineSeries } from 'react-vis';
 function StockChart({ chart, setChart, selection }) {
   console.log(chart);
 
-  const fetchChart = (range) => {
+  const displayChart = (range) => {
     const { symbol } = selection;
     const url = `http://localhost:5000/api/stocks/${symbol}/chart/${range}`;
 
     let r;
     if (range === '1d') {
-      r = 'oneDay';
+      r = 'intraday';
     } else if (range === '5d') {
       r = 'fiveDay';
     } else if (range === '1m') {
@@ -35,186 +35,19 @@ function StockChart({ chart, setChart, selection }) {
 
     if (range === '1d') {
       setChart((prev) => ({ ...prev, data: prev.intraday, type: 'intraday' }));
-    } else if (range === r) {
-      if (chart[r]) {
-        setChart((prev) => ({ ...prev, data: prev[r], type: range }));
-      } else {
-        axios.get(url).then((res) => {
-          setChart((prev) => ({
-            ...prev,
-            [r]: res.data,
-            data: res.data,
-            type: r,
-          }));
-        });
-      }
+    } else if (chart[r]) {
+      setChart((prev) => ({ ...prev, data: prev[r], type: range }));
+    } else {
+      axios.get(url).then((res) => {
+        setChart((prev) => ({
+          ...prev,
+          [r]: res.data,
+          data: res.data,
+          type: r,
+        }));
+      });
     }
   };
-
-  // const fetchChart = (range) => {
-  //   const { symbol } = selection;
-  //   const url = `http://localhost:5000/api/stocks/${symbol}/chart/${range}`;
-
-  //   if (range === '1d') {
-  //     setChart((prev) => ({ ...prev, data: prev.intraday, type: 'intraday' }));
-  //   } else if (range === '5d') {
-  //     if (!chart.fiveDay) {
-  //       axios
-  //         .get(url)
-  //         .then((res) => {
-  //           setChart((prev) => ({
-  //             ...prev,
-  //             fiveDay: res.data,
-  //             data: res.data,
-  //             type: range,
-  //           }));
-  //         })
-  //         .catch((err) => console.log(err));
-  //     } else {
-  //       setChart((prev) => ({
-  //         ...prev,
-  //         data: prev.fiveDay,
-  //         type: range,
-  //       }));
-  //     }
-  //   } else if (range === '1m') {
-  //     if (!chart.oneMonth) {
-  //       axios.get(url).then((res) => {
-  //         setChart((prev) => ({
-  //           ...prev,
-  //           oneMonth: res.data,
-  //           data: res.data,
-  //           type: range,
-  //         }));
-  //       });
-  //     } else {
-  //       setChart((prev) => ({
-  //         ...prev,
-  //         data: prev.oneMonth,
-  //         type: range,
-  //       }));
-  //     }
-  //   } else if (range === '3m') {
-  //     if (!chart.threeMonth) {
-  //       axios.get(url).then((res) => {
-  //         setChart((prev) => ({
-  //           ...prev,
-  //           threeMonth: res.data,
-  //           data: res.data,
-  //           type: range,
-  //         }));
-  //       });
-  //     } else {
-  //       setChart((prev) => ({
-  //         ...prev,
-  //         data: prev.threeMonth,
-  //         type: range,
-  //       }));
-  //     }
-  //   } else if (range === '6m') {
-  //     if (!chart.sixMonth) {
-  //       axios.get(url).then((res) => {
-  //         setChart((prev) => ({
-  //           ...prev,
-  //           sixMonth: res.data,
-  //           data: res.data,
-  //           type: range,
-  //         }));
-  //       });
-  //     } else {
-  //       setChart((prev) => ({
-  //         ...prev,
-  //         data: prev.sixMonth,
-  //         type: range,
-  //       }));
-  //     }
-  //   } else if (range === '1y') {
-  //     if (!chart.oneYear) {
-  //       axios.get(url).then((res) => {
-  //         setChart((prev) => ({
-  //           ...prev,
-  //           oneYear: res.data,
-  //           data: res.data,
-  //           type: range,
-  //         }));
-  //       });
-  //     } else {
-  //       setChart((prev) => ({
-  //         ...prev,
-  //         data: prev.oneYear,
-  //         type: range,
-  //       }));
-  //     }
-  //   } else if (range === 'ytd') {
-  //     if (!chart.ytd) {
-  //       axios.get(url).then((res) => {
-  //         setChart((prev) => ({
-  //           ...prev,
-  //           ytd: res.data,
-  //           data: res.data,
-  //           type: range,
-  //         }));
-  //       });
-  //     } else {
-  //       setChart((prev) => ({
-  //         ...prev,
-  //         data: prev.ytd,
-  //         type: range,
-  //       }));
-  //     }
-  //   } else if (range === '2y') {
-  //     if (!chart.twoYear) {
-  //       axios.get(url).then((res) => {
-  //         setChart((prev) => ({
-  //           ...prev,
-  //           twoYear: res.data,
-  //           data: res.data,
-  //           type: range,
-  //         }));
-  //       });
-  //     } else {
-  //       setChart((prev) => ({
-  //         ...prev,
-  //         data: prev.twoYear,
-  //         type: range,
-  //       }));
-  //     }
-  //   } else if (range === '5y') {
-  //     if (!chart.fiveYear) {
-  //       axios.get(url).then((res) => {
-  //         setChart((prev) => ({
-  //           ...prev,
-  //           fiveYear: res.data,
-  //           data: res.data,
-  //           type: range,
-  //         }));
-  //       });
-  //     } else {
-  //       setChart((prev) => ({
-  //         ...prev,
-  //         data: prev.fiveYear,
-  //         type: range,
-  //       }));
-  //     }
-  //   } else if (range === 'max') {
-  //     if (!chart.max) {
-  //       axios.get(url).then((res) => {
-  //         setChart((prev) => ({
-  //           ...prev,
-  //           max: res.data,
-  //           data: res.data,
-  //           type: range,
-  //         }));
-  //       });
-  //     } else {
-  //       setChart((prev) => ({
-  //         ...prev,
-  //         data: prev.max,
-  //         type: range,
-  //       }));
-  //     }
-  //   }
-  // };
 
   let chartData;
   if (chart.type === 'intraday') {
@@ -252,15 +85,15 @@ function StockChart({ chart, setChart, selection }) {
   return chart.intraday.length ? (
     <ChartWrapper>
       <ChartRanges>
-        <button onClick={() => fetchChart('1d')}>1D</button>
-        <button onClick={() => fetchChart('5d')}>5D</button>
-        <button onClick={() => fetchChart('1m')}>1M</button>
-        <button onClick={() => fetchChart('3m')}>3M</button>
-        <button onClick={() => fetchChart('6m')}>6M</button>
-        <button onClick={() => fetchChart('ytd')}>YTD</button>
-        <button onClick={() => fetchChart('1y')}>1Y</button>
-        <button onClick={() => fetchChart('2y')}>2Y</button>
-        <button onClick={() => fetchChart('max')}>MAX</button>
+        <button onClick={() => displayChart('1d')}>1D</button>
+        <button onClick={() => displayChart('5d')}>5D</button>
+        <button onClick={() => displayChart('1m')}>1M</button>
+        <button onClick={() => displayChart('3m')}>3M</button>
+        <button onClick={() => displayChart('6m')}>6M</button>
+        <button onClick={() => displayChart('ytd')}>YTD</button>
+        <button onClick={() => displayChart('1y')}>1Y</button>
+        <button onClick={() => displayChart('2y')}>2Y</button>
+        <button onClick={() => displayChart('max')}>MAX</button>
       </ChartRanges>
       <XYPlot
         xType="time"
