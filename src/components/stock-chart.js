@@ -13,7 +13,7 @@ function StockChart({ chart, setChart, selection }) {
     const url = `http://localhost:5000/api/stocks/${symbol}/chart/${range}`;
 
     if (chart[range]) {
-      setChart((prev) => ({ ...prev, type: range }));
+      setChart((prev) => ({ ...prev, data: prev[range], type: range }));
     } else {
       axios.get(url).then((res) => {
         const data = res.data;
@@ -44,7 +44,6 @@ function StockChart({ chart, setChart, selection }) {
     '1y': 'MMM',
     ytd: 'M/d',
     '2y': 'MM-yy',
-    '5y': 'yyyy',
     max: 'yyyy',
   };
 
