@@ -19,23 +19,17 @@ function App() {
         .then((res) => {
           console.log(res.data);
           const intraday = res.data['intraday-prices'];
-          setChart((prev) => ({
-            ...prev,
-            '1d': intraday,
-            data: intraday,
-            type: '1d',
-          }));
+          setChart({ '1d': intraday, data: intraday, type: '1d' });
           setQuote(res.data.quote);
         })
         .catch((err) => {
+          // TODO: handle error
           console.log(err);
         });
     }
   }, [selection]);
 
-  const handleSearchSelection = (selection) => {
-    setSelection(selection);
-  };
+  const handleSearchSelection = (selection) => setSelection(selection);
 
   return (
     <Fragment>
