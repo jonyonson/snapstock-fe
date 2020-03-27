@@ -66,11 +66,13 @@ function SearchBar({ setSelection }) {
       .catch((err) => console.error(err));
   };
 
+  // Pass through arbitrary props to the input
+  // Must contain at least `value` and `onChange`
   const inputProps = {
-    placeholder: 'Search by symbol or name',
+    // placeholder: 'Search by symbol or company name',
     type: 'search',
-    value,
     onChange,
+    value,
   };
 
   return (
