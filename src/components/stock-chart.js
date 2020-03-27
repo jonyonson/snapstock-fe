@@ -35,35 +35,29 @@ function StockChart({ chart, setChart, selection }) {
           y: Number(marker.close),
         }));
 
-  const handleTickFormat = (tick) => {
-    const dateFormats = {
-      '1d': 'h:mm',
-      '5d': 'MMM d',
-      '1m': 'MMM d',
-      '3m': 'MMMM',
-      '6m': 'MMM',
-      '1y': 'MMM',
-      ytd: 'M/d',
-      '2y': 'MM-yy',
-      '5y': 'yyyy',
-      max: 'yyyy',
-    };
-
-    return format(tick, dateFormats[chart.type]);
+  const ranges = {
+    '1d': 'h:mm',
+    '5d': 'MMM d',
+    '1m': 'MMM d',
+    '3m': 'MMMM',
+    '6m': 'MMM',
+    '1y': 'MMM',
+    ytd: 'M/d',
+    '2y': 'MM-yy',
+    '5y': 'yyyy',
+    max: 'yyyy',
   };
+
+  const handleTickFormat = (tick) => format(tick, ranges[chart.type]);
 
   return chart.data.length ? (
     <ChartWrapper>
       <ChartRanges>
-        <button onClick={() => displayChart('1d')}>1D</button>
-        <button onClick={() => displayChart('5d')}>5D</button>
-        <button onClick={() => displayChart('1m')}>1M</button>
-        <button onClick={() => displayChart('3m')}>3M</button>
-        <button onClick={() => displayChart('6m')}>6M</button>
-        <button onClick={() => displayChart('ytd')}>YTD</button>
-        <button onClick={() => displayChart('1y')}>1Y</button>
-        <button onClick={() => displayChart('2y')}>2Y</button>
-        <button onClick={() => displayChart('max')}>MAX</button>
+        {Object.keys(ranges).map((range) => (
+          <button key={range} onClick={() => displayChart(range)}>
+            {range.toUpperCase()}
+          </button>
+        ))}
       </ChartRanges>
       <XYPlot
         xType="time"
