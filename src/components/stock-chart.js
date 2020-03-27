@@ -36,21 +36,20 @@ function StockChart({ chart, setChart, selection }) {
         }));
 
   const handleTickFormat = (tick) => {
-    if (chart.type === '1d') {
-      return format(tick, 'h:mm');
-    } else if (chart.type === 'ytd') {
-      return format(tick, 'M/d');
-    } else if (chart.type === '5d' || chart.type === '1m') {
-      return format(tick, 'MMM d');
-    } else if (chart.type === '3m') {
-      return format(tick, 'MMMM');
-    } else if (chart.type === '6m' || chart.type === '1y') {
-      return format(tick, 'MMM');
-    } else if (chart.type === '2y') {
-      return format(tick, 'MM-yy');
-    } else if (chart.type === '5y' || chart.type === 'max') {
-      return format(tick, 'yyyy');
-    }
+    const dateFormats = {
+      '1d': 'h:mm',
+      '5d': 'MMM d',
+      '1m': 'MMM d',
+      '3m': 'MMMM',
+      '6m': 'MMM',
+      '1y': 'MMM',
+      ytd: 'M/d',
+      '2y': 'MM-yy',
+      '5y': 'yyyy',
+      max: 'yyyy',
+    };
+
+    return format(tick, dateFormats[chart.type]);
   };
 
   return chart.data.length ? (
