@@ -12,6 +12,7 @@
     "react-router-dom": "^5.1.2",
     "react-vis": "^1.11.7",
     "sanitize.css": "^11.0.0",
+    "styled": "^1.0.0",
     "styled-components": "^5.0.1"
   },
   "devDependencies": {

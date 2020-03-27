@@ -1,4 +1,5 @@
 import React, { useState, Fragment, useEffect } from 'react';
+import Header from './header';
 import SearchBar from './search-bar';
 import StockQuote from './stock-quote';
 import StockChart from './stock-chart';
@@ -33,6 +34,7 @@ function App() {
 
   return (
     <Fragment>
+      <Header />
       <SearchBar onSelect={handleSearchSelection} />
       <StockQuote quote={quote} />
       <StockChart chart={chart} setChart={setChart} selection={selection} />
