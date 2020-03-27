@@ -12,46 +12,19 @@ function StockChart({ chart, setChart, selection }) {
     const { symbol } = selection;
     const url = `http://localhost:5000/api/stocks/${symbol}/chart/${range}`;
 
-    let r;
-    if (range === '1d') {
-      r = 'intraday';
-    } else if (range === '5d') {
-      r = 'fiveDay';
-    } else if (range === '1m') {
-      r = 'oneMonth';
-    } else if (range === '3m') {
-      r = 'threeMonth';
-    } else if (range === '6m') {
-      r = 'sixMonth';
-    } else if (range === '1y') {
-      r = 'oneYear';
-    } else if (range === '2y') {
-      r = 'twoYear';
-    } else if (range === '5y') {
-      r = 'fiveYear';
-    } else {
-      r = range;
-    }
-
-    if (range === '1d') {
-      setChart((prev) => ({ ...prev, data: prev.intraday, type: 'intraday' }));
-    } else if (chart[r]) {
-      setChart((prev) => ({ ...prev, data: prev[r], type: range }));
+    if (chart[range]) {
+      setChart((prev) => ({ ...prev, type: range }));
     } else {
       axios.get(url).then((res) => {
-        setChart((prev) => ({
-          ...prev,
-          [r]: res.data,
-          data: res.data,
-          type: r,
-        }));
+        const data = res.data;
+        setChart((prev) => ({ ...prev, [range]: data, type: range, data }));
       });
     }
   };
 
   let chartData;
-  if (chart.type === 'intraday') {
-    chartData = chart.intraday
+  if (chart.type === '1d') {
+    chartData = chart['1d']
       .filter((interval) => interval.high !== null)
       .map((interval) => ({
         x: new Date(`${interval.date} ${interval.minute}`),
@@ -65,7 +38,7 @@ function StockChart({ chart, setChart, selection }) {
   }
 
   const handleTickFormat = (tick) => {
-    if (chart.type === 'intraday') {
+    if (chart.type === '1d') {
       return format(tick, 'h:mm');
     } else if (chart.type === 'ytd') {
       return format(tick, 'M/d');
@@ -82,7 +55,7 @@ function StockChart({ chart, setChart, selection }) {
     }
   };
 
-  return chart.intraday.length ? (
+  return chart.data.length ? (
     <ChartWrapper>
       <ChartRanges>
         <button onClick={() => displayChart('1d')}>1D</button>

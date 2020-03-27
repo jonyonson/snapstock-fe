@@ -8,7 +8,7 @@ import axios from 'axios';
 function App() {
   const [selection, setSelection] = useState(null);
   const [quote, setQuote] = useState(null);
-  const [chart, setChart] = useState({ intraday: [], type: 'intraday' });
+  const [chart, setChart] = useState({ data: [] });
 
   useEffect(() => {
     if (selection) {
@@ -19,7 +19,12 @@ function App() {
         .then((res) => {
           console.log(res.data);
           const intraday = res.data['intraday-prices'];
-          setChart((prev) => ({ ...prev, intraday, type: 'intraday' }));
+          setChart((prev) => ({
+            ...prev,
+            '1d': intraday,
+            data: intraday,
+            type: '1d',
+          }));
           setQuote(res.data.quote);
         })
         .catch((err) => {
