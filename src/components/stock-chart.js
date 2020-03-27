@@ -55,7 +55,11 @@ function StockChart({ chart, setChart, selection }) {
     <ChartWrapper>
       <ChartRanges>
         {Object.keys(ranges).map((range) => (
-          <button key={range} onClick={() => displayChart(range)}>
+          <button
+            key={range}
+            className={chart.type === range && 'active'}
+            onClick={() => displayChart(range)}
+          >
             {range.toUpperCase()}
           </button>
         ))}
@@ -77,16 +81,25 @@ const ChartWrapper = styled.div`
 
 const ChartRanges = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   margin-top: 1rem;
   margin-bottom: 1rem;
   margin-right: 1rem;
-  margin-left: 3rem;
+  /* margin-left: 3rem; */
 
   button {
     border: none;
     font-size: 0.75rem;
     outline: none;
+    padding: 0.2rem 0.4rem;
+    margin-left: 0.1rem;
+
+    &.active {
+      font-weight: bold;
+      background: #12939a;
+      color: #fff;
+      border-radius: 3px;
+    }
   }
 `;
 
