@@ -7,19 +7,7 @@ import axios from 'axios';
 function App() {
   const [selection, setSelection] = useState(null);
   const [quote, setQuote] = useState(null);
-  const [chart, setChart] = useState({
-    intraday: [],
-    fiveDay: [],
-    oneMonth: [],
-    threeMonth: [],
-    sixMonth: [],
-    ytd: [],
-    oneYear: [],
-    twoYear: [],
-    fiveYear: [],
-    max: [],
-    type: 'intraday',
-  });
+  const [chart, setChart] = useState({ intraday: [], type: 'intraday' });
 
   useEffect(() => {
     if (selection) {
