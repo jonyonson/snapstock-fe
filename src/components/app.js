@@ -29,12 +29,12 @@ function App() {
     }
   }, [selection]);
 
-  const handleSearchSelection = (selection) => setSelection(selection);
+  // const handleSearchSelection = (selection) => setSelection(selection);
 
   return (
     <Fragment>
       <Header />
-      <SearchBar onSelect={handleSearchSelection} />
+      <SearchBar setSelection={setSelection} />
       <StockQuote quote={quote} />
       <StockChart chart={chart} setChart={setChart} selection={selection} />
     </Fragment>

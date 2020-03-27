@@ -12,7 +12,7 @@ const renderSuggestion = (suggestion) => {
   );
 };
 
-function SearchBar({ onSelect }) {
+function SearchBar({ setSelection }) {
   const [value, setValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [matches, setMatches] = useState([]);
@@ -27,12 +27,12 @@ function SearchBar({ onSelect }) {
     }
   }, [matches]);
 
-  const getSuggestionValue = (selection) => {
-    const suggestion = {
-      symbol: selection['1. symbol'],
-      name: selection['2. name'],
-    };
-    return `${suggestion.symbol}, ${suggestion.name}`;
+  // determine the input value for each suggestion
+  const getSuggestionValue = (suggestion) => {
+    const symbol = suggestion['1. symbol'];
+    const name = suggestion['2. name'];
+
+    return `${symbol}, ${name}`;
   };
 
   const onSuggestionSelected = (_, { suggestion }) => {
@@ -44,7 +44,7 @@ function SearchBar({ onSelect }) {
       '8. currency': currency,
     } = suggestion;
 
-    onSelect({ symbol, name, type, region, currency });
+    setSelection({ symbol, name, type, region, currency });
     setValue('');
   };
 
