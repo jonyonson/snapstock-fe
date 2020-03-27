@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import format from 'date-fns/format';
 import axios from 'axios';
-import 'react-vis/dist/style.css';
 import { XYPlot, XAxis, YAxis, LineSeries } from 'react-vis';
+import 'react-vis/dist/style.css';
 
 function StockChart({ chart, setChart, selection }) {
   console.log(chart);
@@ -22,20 +22,18 @@ function StockChart({ chart, setChart, selection }) {
     }
   };
 
-  let chartData;
-  if (chart.type === '1d') {
-    chartData = chart['1d']
-      .filter((interval) => interval.high !== null)
-      .map((interval) => ({
-        x: new Date(`${interval.date} ${interval.minute}`),
-        y: Number(interval.high),
-      }));
-  } else {
-    chartData = chart.data.map((interval) => ({
-      x: new Date(interval.date),
-      y: Number(interval.close),
-    }));
-  }
+  const data =
+    chart.type === '1d'
+      ? chart['1d']
+          .filter((marker) => marker.high !== null)
+          .map((marker) => ({
+            x: new Date(`${marker.date} ${marker.minute}`),
+            y: Number(marker.high),
+          }))
+      : chart.data.map((marker) => ({
+          x: new Date(marker.date),
+          y: Number(marker.close),
+        }));
 
   const handleTickFormat = (tick) => {
     if (chart.type === '1d') {
@@ -77,7 +75,7 @@ function StockChart({ chart, setChart, selection }) {
       >
         <XAxis tickTotal={6} tickFormat={handleTickFormat} />
         <YAxis />
-        <LineSeries getNull={(d) => d.y !== null} data={chartData} />
+        <LineSeries getNull={(d) => d.y !== null} data={data} />
       </XYPlot>
     </ChartWrapper>
   ) : null;
