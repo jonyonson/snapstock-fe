@@ -21,6 +21,8 @@ function App() {
           const intraday = res.data['intraday-prices'];
           setChart({ '1d': intraday, data: intraday, type: '1d' });
           setQuote(res.data.quote);
+          // TODO: replace logo when no longer using sandbox
+          // setLogo(res.data.logo.url);
         })
         .catch((err) => {
           // TODO: handle error

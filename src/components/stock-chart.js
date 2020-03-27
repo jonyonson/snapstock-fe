@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import format from 'date-fns/format';
 import axios from 'axios';
-import { XYPlot, XAxis, YAxis, LineSeries } from 'react-vis';
+import { XYPlot, XAxis, YAxis, LineSeries, makeWidthFlexible } from 'react-vis';
 import 'react-vis/dist/style.css';
 
 function StockChart({ chart, setChart, selection }) {
@@ -49,6 +49,8 @@ function StockChart({ chart, setChart, selection }) {
 
   const handleTickFormat = (tick) => format(tick, ranges[chart.type]);
 
+  const FlexibleXYPlot = makeWidthFlexible(XYPlot);
+
   return chart.data.length ? (
     <ChartWrapper>
       <ChartRanges>
@@ -58,17 +60,11 @@ function StockChart({ chart, setChart, selection }) {
           </button>
         ))}
       </ChartRanges>
-      <XYPlot
-        xType="time"
-        width={415}
-        height={240}
-        margin={{ left: 50 }}
-        animation
-      >
+      <FlexibleXYPlot xType="time" height={240} margin={{ left: 50 }} animation>
         <XAxis tickTotal={6} tickFormat={handleTickFormat} />
         <YAxis />
         <LineSeries getNull={(d) => d.y !== null} data={data} />
-      </XYPlot>
+      </FlexibleXYPlot>
     </ChartWrapper>
   ) : null;
 }
