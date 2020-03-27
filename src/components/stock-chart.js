@@ -12,166 +12,209 @@ function StockChart({ chart, setChart, selection }) {
     const { symbol } = selection;
     const url = `http://localhost:5000/api/stocks/${symbol}/chart/${range}`;
 
+    let r;
+    if (range === '1d') {
+      r = 'oneDay';
+    } else if (range === '5d') {
+      r = 'fiveDay';
+    } else if (range === '1m') {
+      r = 'oneMonth';
+    } else if (range === '3m') {
+      r = 'threeMonth';
+    } else if (range === '6m') {
+      r = 'sixMonth';
+    } else if (range === '1y') {
+      r = 'oneYear';
+    } else if (range === '2y') {
+      r = 'twoYear';
+    } else if (range === '5y') {
+      r = 'fiveYear';
+    } else {
+      r = range;
+    }
+
     if (range === '1d') {
       setChart((prev) => ({ ...prev, data: prev.intraday, type: 'intraday' }));
-    } else if (range === '5d') {
-      if (!chart.fiveDay) {
-        axios
-          .get(url)
-          .then((res) => {
-            setChart((prev) => ({
-              ...prev,
-              fiveDay: res.data,
-              data: res.data,
-              type: range,
-            }));
-          })
-          .catch((err) => console.log(err));
+    } else if (range === r) {
+      if (chart[r]) {
+        setChart((prev) => ({ ...prev, data: prev[r], type: range }));
       } else {
-        setChart((prev) => ({
-          ...prev,
-          data: prev.fiveDay,
-          type: range,
-        }));
-      }
-    } else if (range === '1m') {
-      if (!chart.oneMonth) {
         axios.get(url).then((res) => {
           setChart((prev) => ({
             ...prev,
-            oneMonth: res.data,
+            [r]: res.data,
             data: res.data,
-            type: range,
+            type: r,
           }));
         });
-      } else {
-        setChart((prev) => ({
-          ...prev,
-          data: prev.oneMonth,
-          type: range,
-        }));
-      }
-    } else if (range === '3m') {
-      if (!chart.threeMonth) {
-        axios.get(url).then((res) => {
-          setChart((prev) => ({
-            ...prev,
-            threeMonth: res.data,
-            data: res.data,
-            type: range,
-          }));
-        });
-      } else {
-        setChart((prev) => ({
-          ...prev,
-          data: prev.threeMonth,
-          type: range,
-        }));
-      }
-    } else if (range === '6m') {
-      if (!chart.sixMonth) {
-        axios.get(url).then((res) => {
-          setChart((prev) => ({
-            ...prev,
-            sixMonth: res.data,
-            data: res.data,
-            type: range,
-          }));
-        });
-      } else {
-        setChart((prev) => ({
-          ...prev,
-          data: prev.sixMonth,
-          type: range,
-        }));
-      }
-    } else if (range === '1y') {
-      if (!chart.oneYear) {
-        axios.get(url).then((res) => {
-          setChart((prev) => ({
-            ...prev,
-            oneYear: res.data,
-            data: res.data,
-            type: range,
-          }));
-        });
-      } else {
-        setChart((prev) => ({
-          ...prev,
-          data: prev.oneYear,
-          type: range,
-        }));
-      }
-    } else if (range === 'ytd') {
-      if (!chart.ytd) {
-        axios.get(url).then((res) => {
-          setChart((prev) => ({
-            ...prev,
-            ytd: res.data,
-            data: res.data,
-            type: range,
-          }));
-        });
-      } else {
-        setChart((prev) => ({
-          ...prev,
-          data: prev.ytd,
-          type: range,
-        }));
-      }
-    } else if (range === '2y') {
-      if (!chart.twoYear) {
-        axios.get(url).then((res) => {
-          setChart((prev) => ({
-            ...prev,
-            twoYear: res.data,
-            data: res.data,
-            type: range,
-          }));
-        });
-      } else {
-        setChart((prev) => ({
-          ...prev,
-          data: prev.twoYear,
-          type: range,
-        }));
-      }
-    } else if (range === '5y') {
-      if (!chart.fiveYear) {
-        axios.get(url).then((res) => {
-          setChart((prev) => ({
-            ...prev,
-            fiveYear: res.data,
-            data: res.data,
-            type: range,
-          }));
-        });
-      } else {
-        setChart((prev) => ({
-          ...prev,
-          data: prev.fiveYear,
-          type: range,
-        }));
-      }
-    } else if (range === 'max') {
-      if (!chart.max) {
-        axios.get(url).then((res) => {
-          setChart((prev) => ({
-            ...prev,
-            max: res.data,
-            data: res.data,
-            type: range,
-          }));
-        });
-      } else {
-        setChart((prev) => ({
-          ...prev,
-          data: prev.max,
-          type: range,
-        }));
       }
     }
   };
+
+  // const fetchChart = (range) => {
+  //   const { symbol } = selection;
+  //   const url = `http://localhost:5000/api/stocks/${symbol}/chart/${range}`;
+
+  //   if (range === '1d') {
+  //     setChart((prev) => ({ ...prev, data: prev.intraday, type: 'intraday' }));
+  //   } else if (range === '5d') {
+  //     if (!chart.fiveDay) {
+  //       axios
+  //         .get(url)
+  //         .then((res) => {
+  //           setChart((prev) => ({
+  //             ...prev,
+  //             fiveDay: res.data,
+  //             data: res.data,
+  //             type: range,
+  //           }));
+  //         })
+  //         .catch((err) => console.log(err));
+  //     } else {
+  //       setChart((prev) => ({
+  //         ...prev,
+  //         data: prev.fiveDay,
+  //         type: range,
+  //       }));
+  //     }
+  //   } else if (range === '1m') {
+  //     if (!chart.oneMonth) {
+  //       axios.get(url).then((res) => {
+  //         setChart((prev) => ({
+  //           ...prev,
+  //           oneMonth: res.data,
+  //           data: res.data,
+  //           type: range,
+  //         }));
+  //       });
+  //     } else {
+  //       setChart((prev) => ({
+  //         ...prev,
+  //         data: prev.oneMonth,
+  //         type: range,
+  //       }));
+  //     }
+  //   } else if (range === '3m') {
+  //     if (!chart.threeMonth) {
+  //       axios.get(url).then((res) => {
+  //         setChart((prev) => ({
+  //           ...prev,
+  //           threeMonth: res.data,
+  //           data: res.data,
+  //           type: range,
+  //         }));
+  //       });
+  //     } else {
+  //       setChart((prev) => ({
+  //         ...prev,
+  //         data: prev.threeMonth,
+  //         type: range,
+  //       }));
+  //     }
+  //   } else if (range === '6m') {
+  //     if (!chart.sixMonth) {
+  //       axios.get(url).then((res) => {
+  //         setChart((prev) => ({
+  //           ...prev,
+  //           sixMonth: res.data,
+  //           data: res.data,
+  //           type: range,
+  //         }));
+  //       });
+  //     } else {
+  //       setChart((prev) => ({
+  //         ...prev,
+  //         data: prev.sixMonth,
+  //         type: range,
+  //       }));
+  //     }
+  //   } else if (range === '1y') {
+  //     if (!chart.oneYear) {
+  //       axios.get(url).then((res) => {
+  //         setChart((prev) => ({
+  //           ...prev,
+  //           oneYear: res.data,
+  //           data: res.data,
+  //           type: range,
+  //         }));
+  //       });
+  //     } else {
+  //       setChart((prev) => ({
+  //         ...prev,
+  //         data: prev.oneYear,
+  //         type: range,
+  //       }));
+  //     }
+  //   } else if (range === 'ytd') {
+  //     if (!chart.ytd) {
+  //       axios.get(url).then((res) => {
+  //         setChart((prev) => ({
+  //           ...prev,
+  //           ytd: res.data,
+  //           data: res.data,
+  //           type: range,
+  //         }));
+  //       });
+  //     } else {
+  //       setChart((prev) => ({
+  //         ...prev,
+  //         data: prev.ytd,
+  //         type: range,
+  //       }));
+  //     }
+  //   } else if (range === '2y') {
+  //     if (!chart.twoYear) {
+  //       axios.get(url).then((res) => {
+  //         setChart((prev) => ({
+  //           ...prev,
+  //           twoYear: res.data,
+  //           data: res.data,
+  //           type: range,
+  //         }));
+  //       });
+  //     } else {
+  //       setChart((prev) => ({
+  //         ...prev,
+  //         data: prev.twoYear,
+  //         type: range,
+  //       }));
+  //     }
+  //   } else if (range === '5y') {
+  //     if (!chart.fiveYear) {
+  //       axios.get(url).then((res) => {
+  //         setChart((prev) => ({
+  //           ...prev,
+  //           fiveYear: res.data,
+  //           data: res.data,
+  //           type: range,
+  //         }));
+  //       });
+  //     } else {
+  //       setChart((prev) => ({
+  //         ...prev,
+  //         data: prev.fiveYear,
+  //         type: range,
+  //       }));
+  //     }
+  //   } else if (range === 'max') {
+  //     if (!chart.max) {
+  //       axios.get(url).then((res) => {
+  //         setChart((prev) => ({
+  //           ...prev,
+  //           max: res.data,
+  //           data: res.data,
+  //           type: range,
+  //         }));
+  //       });
+  //     } else {
+  //       setChart((prev) => ({
+  //         ...prev,
+  //         data: prev.max,
+  //         type: range,
+  //       }));
+  //     }
+  //   }
+  // };
 
   let chartData;
   if (chart.type === 'intraday') {
