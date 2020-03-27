@@ -2,7 +2,7 @@
   "name": "react-starter",
   "version": "1.0.0",
   "description": "",
-  "main": "src/app.js",
+  "main": "src/index.js",
   "dependencies": {
     "axios": "^0.19.2",
     "date-fns": "^2.11.0",
