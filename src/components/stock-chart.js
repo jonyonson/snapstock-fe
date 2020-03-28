@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import format from 'date-fns/format';
 import axios from 'axios';
@@ -6,9 +6,13 @@ import { XYPlot, XAxis, YAxis, LineSeries, makeWidthFlexible } from 'react-vis';
 import 'react-vis/dist/style.css';
 
 function StockChart({ chart, setChart, selection }) {
+  const [activeRangeButton, setActiveRangeButton] = useState('1d');
   console.log(chart);
 
   const displayChart = (range) => {
+    // sets the button to active before the potential api call
+    setActiveRangeButton(range);
+
     const { symbol } = selection;
     const url = `http://localhost:5000/api/stocks/${symbol}/chart/${range}`;
 
@@ -57,14 +61,14 @@ function StockChart({ chart, setChart, selection }) {
         {Object.keys(ranges).map((range) => (
           <button
             key={range}
-            className={chart.type === range && 'active'}
+            className={range === activeRangeButton && 'active'}
             onClick={() => displayChart(range)}
           >
             {range.toUpperCase()}
           </button>
         ))}
       </ChartRanges>
-      <FlexibleXYPlot xType="time" height={240} margin={{ left: 50 }} animation>
+      <FlexibleXYPlot xType="time" height={240} margin={{ left: 50 }}>
         <XAxis tickTotal={6} tickFormat={handleTickFormat} />
         <YAxis />
         <LineSeries getNull={(d) => d.y !== null} data={data} />
@@ -85,7 +89,6 @@ const ChartRanges = styled.div`
   margin-top: 1rem;
   margin-bottom: 1rem;
   margin-right: 1rem;
-  /* margin-left: 3rem; */
 
   button {
     border: none;
