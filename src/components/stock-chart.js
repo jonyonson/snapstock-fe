@@ -63,7 +63,7 @@ function StockChart({ chart, setChart, selection }) {
         {Object.keys(ranges).map((range) => (
           <button
             key={range}
-            className={range === activeRangeButton && 'active'}
+            className={range === activeRangeButton ? 'active' : undefined}
             onClick={() => displayChart(range)}
           >
             {range.toUpperCase()}
