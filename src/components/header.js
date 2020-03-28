@@ -11,7 +11,7 @@ function Header() {
 
 const StyledHeader = styled.div`
   padding: 1rem;
-  background-color: #12939a;
+  background-color: ${(props) => props.theme.colors.primary};
   color: #fff;
 
   h1 {

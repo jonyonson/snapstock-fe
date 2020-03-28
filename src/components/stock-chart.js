@@ -4,6 +4,7 @@ import format from 'date-fns/format';
 import axios from 'axios';
 import { XYPlot, XAxis, YAxis, LineSeries, makeWidthFlexible } from 'react-vis';
 import 'react-vis/dist/style.css';
+import { useTheme } from 'styled-components';
 
 function StockChart({ chart, setChart, selection }) {
   const [activeRangeButton, setActiveRangeButton] = useState('1d');
@@ -54,6 +55,7 @@ function StockChart({ chart, setChart, selection }) {
   const handleTickFormat = (tick) => format(tick, ranges[chart.type]);
 
   const FlexibleXYPlot = makeWidthFlexible(XYPlot);
+  const strokeColor = useTheme().colors.primary;
 
   return chart.data.length ? (
     <ChartWrapper>
@@ -68,7 +70,12 @@ function StockChart({ chart, setChart, selection }) {
           </button>
         ))}
       </ChartRanges>
-      <FlexibleXYPlot xType="time" height={240} margin={{ left: 50 }}>
+      <FlexibleXYPlot
+        xType="time"
+        height={240}
+        margin={{ left: 50 }}
+        stroke={strokeColor}
+      >
         <XAxis tickTotal={6} tickFormat={handleTickFormat} />
         <YAxis />
         <LineSeries getNull={(d) => d.y !== null} data={data} />
@@ -99,7 +106,7 @@ const ChartRanges = styled.div`
 
     &.active {
       font-weight: bold;
-      background: #12939a;
+      background: ${(props) => props.theme.colors.primary};
       color: #fff;
       border-radius: 3px;
     }
