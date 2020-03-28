@@ -8,7 +8,12 @@ function StockQuote({ quote }) {
         <div className={quote.changePercent > 0 ? 'green' : 'red'}>
           <h1 className="symbol">{quote.symbol}</h1>
           <h2 className="company-name test">{quote.companyName}</h2>
-          <div className="price">${Number(quote.latestPrice).toFixed(2)}</div>
+          <div className="price-wrapper">
+            <span className="price">
+              ${Number(quote.latestPrice).toFixed(2)}
+            </span>
+            {quote.changePercent > 0 ? <ArrowUp /> : <ArrowDown />}
+          </div>
           <span className="change">{Number(quote.change).toFixed(2)}</span>
           <span className="change-percent">
             ({Number(quote.changePercent * 100).toFixed(2) + '%'})
@@ -78,18 +83,25 @@ const QuoteWrapper = styled.div`
     margin: 0;
   }
 
+  .price-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
   .price {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
+    line-height: 1.6rem;
+    margin-right: 0.75rem;
   }
 
   .green .change,
   .green .change-percent {
-    color: green;
+    color: ${(props) => props.theme.colors.gain};
   }
 
   .red .change,
   .red .change-percent {
-    color: red;
+    color: ${(props) => props.theme.colors.loss};
   }
 
   .change {
@@ -117,6 +129,22 @@ const QuoteWrapper = styled.div`
       margin-bottom: 0.5rem;
     }
   }
+`;
+
+const ArrowUp = styled.div`
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 16px solid ${(props) => props.theme.colors.gain};
+`;
+
+const ArrowDown = styled.div`
+  width: 0;
+  height: 0;
+  border-top: 16px solid ${(props) => props.theme.colors.loss};
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
 `;
 
 export default StockQuote;
