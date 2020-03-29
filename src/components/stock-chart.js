@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import format from 'date-fns/format';
 import axios from 'axios';
@@ -8,7 +8,10 @@ import { useTheme } from 'styled-components';
 
 function StockChart({ chart, setChart, selection }) {
   const [activeRangeButton, setActiveRangeButton] = useState('1d');
-  console.log(chart);
+
+  useEffect(() => {
+    setActiveRangeButton('1d');
+  }, [selection]);
 
   const displayChart = (range) => {
     // sets the button to active before the potential api call
@@ -56,6 +59,8 @@ function StockChart({ chart, setChart, selection }) {
 
   const FlexibleXYPlot = makeWidthFlexible(XYPlot);
   const strokeColor = useTheme().colors.primary;
+
+  console.log(chart);
 
   return chart.data.length ? (
     <ChartWrapper>
