@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import format from 'date-fns/format';
 import axios from 'axios';
+import { useTheme } from 'styled-components';
 import { XYPlot, XAxis, YAxis, LineSeries, makeWidthFlexible } from 'react-vis';
 import 'react-vis/dist/style.css';
-import { useTheme } from 'styled-components';
 
 function StockChart({ chart, setChart, selection }) {
   const [activeRangeButton, setActiveRangeButton] = useState('1d');
@@ -67,7 +67,9 @@ function StockChart({ chart, setChart, selection }) {
     max: 'yyyy',
   };
 
-  const handleTickFormat = (tick) => format(tick, ranges[chart.type]);
+  const handleTickFormat = (tick) => {
+    format(tick, ranges[chart.type]);
+  };
 
   const FlexibleXYPlot = makeWidthFlexible(XYPlot);
   const strokeColor = useTheme().colors.secondary;
