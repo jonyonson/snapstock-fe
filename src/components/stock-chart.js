@@ -13,6 +13,11 @@ function StockChart({ chart, setChart, selection }) {
     setActiveRangeButton('1d');
   }, [selection]);
 
+  useEffect(() => {
+    if (chart.loading) console.log('LOADING CHART');
+    else console.log('CHART LOADED');
+  }, [chart]);
+
   const displayChart = (range) => {
     // sets the button to active before the potential api call
     setActiveRangeButton(range);
@@ -20,12 +25,24 @@ function StockChart({ chart, setChart, selection }) {
     const { symbol } = selection;
     const url = `http://localhost:5000/api/stocks/${symbol}/chart/${range}`;
 
+    setChart((prev) => ({ ...prev, loading: true }));
     if (chart[range]) {
-      setChart((prev) => ({ ...prev, data: prev[range], type: range }));
+      setChart((prev) => ({
+        ...prev,
+        data: prev[range],
+        type: range,
+        loading: false,
+      }));
     } else {
       axios.get(url).then((res) => {
         const data = res.data;
-        setChart((prev) => ({ ...prev, [range]: data, type: range, data }));
+        setChart((prev) => ({
+          ...prev,
+          [range]: data,
+          type: range,
+          data,
+          loading: false,
+        }));
       });
     }
   };
@@ -81,6 +98,7 @@ function StockChart({ chart, setChart, selection }) {
         margin={{ left: 50 }}
         stroke={strokeColor}
       >
+        {chart.loading && <LoadingMask />}
         <XAxis tickTotal={6} tickFormat={handleTickFormat} />
         <YAxis />
         <LineSeries getNull={(d) => d.y !== null} data={data} />
@@ -116,6 +134,15 @@ const ChartRanges = styled.div`
       border-radius: 3px;
     }
   }
+`;
+
+const LoadingMask = styled.div`
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 240px;
+  z-index: 100;
+  background-color: rgba(255, 255, 255, 0.9);
 `;
 
 export default StockChart;
