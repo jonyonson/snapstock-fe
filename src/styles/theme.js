@@ -4,4 +4,6 @@ export default {
     gain: 'green',
     loss: 'red',
   },
+
+  maxWidth: '100%',
 };

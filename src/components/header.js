@@ -4,7 +4,9 @@ import styled from 'styled-components';
 function Header() {
   return (
     <StyledHeader>
-      <h1>Snapstock</h1>
+      <div className="container">
+        <h1>Snapstock</h1>
+      </div>
     </StyledHeader>
   );
 }
@@ -18,6 +20,11 @@ const StyledHeader = styled.div`
     font-size: 1.5rem;
     margin: 0;
     color: #fff;
+  }
+
+  .container {
+    max-width: ${(props) => props.theme.maxWidth};
+    margin: 0 auto;
   }
 `;
 
