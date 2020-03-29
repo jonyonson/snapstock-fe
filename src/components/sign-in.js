@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import AuthWrapper from '../styles/auth.styled';
+import Header from './header';
 
 function SignIn() {
   return (
-    <AuthWrapper>
-      <h1>Sign In</h1>
-    </AuthWrapper>
+    <Fragment>
+      <Header />
+      <AuthWrapper>
+        <h1>Sign In</h1>
+        <Link className="signup-link" to="/signup">
+          Create an account
+        </Link>
+      </AuthWrapper>
+    </Fragment>
   );
 }
 

@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { ThemeProvider } from 'styled-components';
-import theme from '../styles/theme';
+import React, { useState, useEffect, Fragment } from 'react';
 import Header from './header';
 import SearchBar from './search-bar';
 import StockQuote from './stock-quote';
@@ -41,12 +39,12 @@ function App() {
   }, [selection]);
 
   return (
-    <ThemeProvider theme={theme}>
+    <Fragment>
       <Header />
       <SearchBar setSelection={setSelection} />
       <StockQuote quote={quote} />
       <StockChart chart={chart} setChart={setChart} selection={selection} />
-    </ThemeProvider>
+    </Fragment>
   );
 }
 
