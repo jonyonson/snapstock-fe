@@ -70,7 +70,7 @@ function StockChart({ chart, setChart, selection }) {
   const handleTickFormat = (tick) => format(tick, ranges[chart.type]);
 
   const FlexibleXYPlot = makeWidthFlexible(XYPlot);
-  const strokeColor = useTheme().colors.primary;
+  const strokeColor = useTheme().colors.accent;
 
   console.log(chart);
 
