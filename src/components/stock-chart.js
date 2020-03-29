@@ -13,11 +13,6 @@ function StockChart({ chart, setChart, selection }) {
     setActiveRangeButton('1d');
   }, [selection]);
 
-  useEffect(() => {
-    if (chart.loading) console.log('LOADING CHART');
-    else console.log('CHART LOADED');
-  }, [chart]);
-
   const displayChart = (range) => {
     // sets the button to active before the potential api call
     setActiveRangeButton(range);
@@ -142,7 +137,7 @@ const LoadingMask = styled.div`
   width: 100%;
   height: 240px;
   z-index: 100;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.8);
 `;
 
 export default StockChart;
