@@ -1,11 +1,12 @@
 import React, { useState, Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
 import AuthWrapper from '../styles/auth.styled';
 import Header from './header';
 
 function SignIn() {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
+  const history = useHistory();
 
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -20,6 +21,7 @@ function SignIn() {
       .then((res) => {
         console.log(res);
         localStorage.setItem('token', res.data.token);
+        history.push('/');
       })
       .catch((err) => {
         // TODO: handle errors
