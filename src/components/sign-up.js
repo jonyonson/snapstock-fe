@@ -1,14 +1,55 @@
-import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, Fragment } from 'react';
+import { useHistory, Link } from 'react-router-dom';
+import axios from 'axios';
 import AuthWrapper from '../styles/auth.styled';
 import Header from './header';
 
 function SignUp() {
+  const [credentials, setCredentials] = useState({ email: '', password: '' });
+  const history = useHistory();
+
+  const handleChange = (e) => {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(credentials);
+
+    axios
+      .post('http://localhost:5000/auth/register', credentials)
+      .then((res) => {
+        console.log(res);
+        localStorage.setItem('token', res.data.token);
+        history.push('/');
+      })
+      .catch((err) => {
+        // TODO: handle errors
+        // TODO: handle already registered
+        console.log(err);
+      });
+  };
+
   return (
     <Fragment>
       <Header />
       <AuthWrapper>
         <h1>Sign Up</h1>
+        <form onSubmit={handleSubmit}>
+          <input
+            name="email"
+            type="email"
+            onChange={handleChange}
+            value={credentials.email}
+          />
+          <input
+            name="password"
+            type="password"
+            onChange={handleChange}
+            value={credentials.password}
+          />
+          <button type="submit">Sign In</button>
+        </form>
         Already have an account?{' '}
         <Link className="signup-link" to="/signin">
           Sign in.
