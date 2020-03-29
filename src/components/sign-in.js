@@ -1,5 +1,6 @@
 import React, { useState, Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import AuthWrapper from '../styles/auth.styled';
 import Header from './header';
 
@@ -13,6 +14,17 @@ function SignIn() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(credentials);
+
+    axios
+      .post('http://localhost:5000/auth/login', credentials)
+      .then((res) => {
+        console.log(res);
+        localStorage.setItem('token', res.data.token);
+      })
+      .catch((err) => {
+        // TODO: handle errors
+        console.log(err);
+      });
   };
 
   return (
