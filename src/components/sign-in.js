@@ -19,7 +19,6 @@ function SignIn() {
     axios
       .post('http://localhost:5000/auth/login', credentials)
       .then((res) => {
-        console.log(res);
         localStorage.setItem('token', res.data.token);
         history.push('/');
       })
@@ -37,11 +36,13 @@ function SignIn() {
         <form onSubmit={handleSubmit}>
           <input
             name="email"
+            type="email"
             onChange={handleChange}
             value={credentials.email}
           />
           <input
             name="password"
+            type="password"
             onChange={handleChange}
             value={credentials.password}
           />

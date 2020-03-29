@@ -19,7 +19,6 @@ function SignUp() {
     axios
       .post('http://localhost:5000/auth/register', credentials)
       .then((res) => {
-        console.log(res);
         localStorage.setItem('token', res.data.token);
         history.push('/');
       })
