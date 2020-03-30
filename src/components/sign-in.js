@@ -46,6 +46,7 @@ function SignIn() {
           <input
             name="email"
             type="email"
+            autoComplete="email"
             onChange={handleChange}
             value={credentials.email}
           />
