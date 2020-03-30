@@ -6,6 +6,7 @@ function Header({ setSelection, setQuote }) {
   const history = useHistory();
 
   const logout = () => {
+    handleReset();
     localStorage.removeItem('token');
     history.push('/');
   };

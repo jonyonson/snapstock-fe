@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import theme from './styles/theme';
-import 'sanitize.css/sanitize.css';
 import App from './components/app';
 import GlobalStyle from './styles/global-styles';
 import SignIn from './components/sign-in';
 import SignUp from './components/sign-up';
 // import Protected from './components/Protected';
+import 'sanitize.css/sanitize.css';
 
 ReactDOM.render(
   <BrowserRouter>

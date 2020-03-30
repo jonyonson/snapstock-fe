@@ -6,4 +6,4 @@ if (process.env.NODE_ENV === 'development') {
   BASE_API_URL = 'https://snapstock.herokuapp.com';
 }
 
-BASE_API_URL = 'https://snapstock.herokuapp.com';
+// BASE_API_URL = 'https://snapstock.herokuapp.com';
