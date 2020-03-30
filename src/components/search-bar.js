@@ -4,16 +4,7 @@ import Autosuggest from 'react-autosuggest';
 import axios from 'axios';
 import '../styles/autosuggest.css';
 
-const renderSuggestion = (suggestion) => {
-  return (
-    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-      <div>{suggestion['2. name']}</div>
-      <div>{suggestion['1. symbol']}</div>
-    </div>
-  );
-};
-
-function SearchBar({ setSelection }) {
+function SearchBar({ setSymbol }) {
   const [value, setValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [matches, setMatches] = useState([]);
@@ -38,24 +29,32 @@ function SearchBar({ setSelection }) {
   };
 
   const onSuggestionSelected = (_, { suggestion }) => {
-    const {
-      '1. symbol': symbol,
-      '2. name': name,
-      '3. type': type,
-      '4. region': region,
-      '8. currency': currency,
-    } = suggestion;
-
-    setSelection({ symbol, name, type, region, currency });
-    history.push(`/stocks/${symbol.toLowerCase()}`);
+    const { '1. symbol': symbol } = suggestion;
+    setSymbol(symbol);
     setValue('');
+    history.push(`/stocks/${symbol.toLowerCase()}`);
   };
 
-  const onChange = (_, { newValue }) => setValue(newValue);
+  const onChange = (_, { newValue }) => {
+    setValue(newValue);
+  };
 
-  const onSuggestionsFetchRequested = ({ value }) => fetchBestMatches(value);
+  const onSuggestionsFetchRequested = ({ value }) => {
+    fetchBestMatches(value);
+  };
 
-  const onSuggestionsClearRequested = () => setSuggestions([]);
+  const onSuggestionsClearRequested = () => {
+    setSuggestions([]);
+  };
+
+  const renderSuggestion = (suggestion) => {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div>{suggestion['2. name']}</div>
+        <div>{suggestion['1. symbol']}</div>
+      </div>
+    );
+  };
 
   const fetchBestMatches = (input) => {
     const API_KEY = process.env.REACT_APP_ALPHA_VANTAGE_API_KEY;
@@ -64,6 +63,7 @@ function SearchBar({ setSelection }) {
     axios
       .get(url)
       .then((res) => {
+        console.log(res);
         setMatches(res.data.bestMatches || []);
       })
       .catch((err) => console.error(err));

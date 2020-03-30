@@ -5,34 +5,24 @@ import SearchBar from './search-bar';
 import StockQuote from './stock-quote';
 import StockChart from './stock-chart';
 import axios from 'axios';
+
 import { BASE_API_URL } from '../constants';
 
 function App() {
-  const [selection, setSelection] = useState(null);
+  const [symbol, setSymbol] = useState(null);
   const [quote, setQuote] = useState(null);
   const [chart, setChart] = useState({ data: [], loading: false });
-  const [symbol, setSymbol] = useState('');
   const params = useParams();
 
-  // set the current symbol based on the input selection
-  // if selection is null, check the params for a symbol
   useEffect(() => {
-    // if the user was routed here by selected a stock from the search
-    if (selection) {
-      setSymbol(selection.symbol);
-      console.log(selection);
-      // in case the user navitated to this route manually `/stocks/aapl`
-    } else if (params.symbol) {
+    if (params.symbol) {
+      // setChart({ data: [], loading: false });
       setSymbol(params.symbol);
-      // else make sure everyhting is set back to the default
-    } else {
-      setSelection(null);
-      setChart({ data: [], loading: false });
     }
-  }, [params, selection]);
+  }, [params]);
 
   useEffect(() => {
-    if (symbol.length) {
+    if (symbol) {
       const url = `${BASE_API_URL}/api/stocks/${symbol}`;
       setChart((prev) => ({ ...prev, loading: true }));
       axios
@@ -61,8 +51,8 @@ function App() {
 
   return (
     <Fragment>
-      <Header setSelection={setSelection} setQuote={setQuote} />
-      <SearchBar setSelection={setSelection} />
+      <Header setSymbol={setSymbol} setQuote={setQuote} />
+      <SearchBar setSymbol={setSymbol} />
       <StockQuote quote={quote} />
       <StockChart chart={chart} setChart={setChart} symbol={symbol} />
     </Fragment>
