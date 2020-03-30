@@ -72,7 +72,7 @@ function SearchBar({ setSymbol }) {
   // Pass through arbitrary props to the input
   // Must contain at least `value` and `onChange`
   const inputProps = {
-    // placeholder: 'Search by symbol or company name',
+    placeholder: 'Search by symbol or company name',
     type: 'search',
     onChange,
     value,
