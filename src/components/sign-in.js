@@ -53,6 +53,7 @@ function SignIn() {
           <input
             name="password"
             type="password"
+            autoComplete="current-password"
             onChange={handleChange}
             value={credentials.password}
           />

@@ -45,6 +45,7 @@ function SignUp() {
           <input
             name="password"
             type="password"
+            autoComplete="current-password"
             onChange={handleChange}
             value={credentials.password}
           />
