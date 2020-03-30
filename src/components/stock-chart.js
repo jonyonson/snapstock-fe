@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useTheme } from 'styled-components';
 import { XYPlot, XAxis, YAxis, LineSeries, makeWidthFlexible } from 'react-vis';
 import 'react-vis/dist/style.css';
+import { BASE_API_URL } from '../constants';
 
 function StockChart({ chart, setChart, selection }) {
   const [activeRangeButton, setActiveRangeButton] = useState('1d');
@@ -18,7 +19,7 @@ function StockChart({ chart, setChart, selection }) {
     setActiveRangeButton(range);
 
     const { symbol } = selection;
-    const url = `http://localhost:5000/api/stocks/${symbol}/chart/${range}`;
+    const url = `${BASE_API_URL}/api/stocks/${symbol}/chart/${range}`;
 
     setChart((prev) => ({ ...prev, loading: true }));
     if (chart[range]) {

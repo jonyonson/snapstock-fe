@@ -3,6 +3,7 @@ import { useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
 import AuthWrapper from '../styles/auth.styled';
 import Header from './header';
+import { BASE_API_URL } from '../constants';
 
 function SignIn() {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
@@ -17,8 +18,9 @@ function SignIn() {
     console.log(credentials);
 
     axios
-      .post('http://localhost:5000/auth/login', credentials)
+      .post(`${BASE_API_URL}/auth/login`, credentials)
       .then((res) => {
+        console.log(res);
         localStorage.setItem('token', res.data.token);
         history.push('/');
       })

@@ -6,14 +6,15 @@ function Header({ setSelection, setQuote }) {
   const history = useHistory();
 
   const logout = () => {
-    console.log('sign out');
     localStorage.removeItem('token');
     history.push('/');
   };
 
   const handleReset = () => {
-    setSelection(null);
-    setQuote(null);
+    if (setSelection) {
+      setSelection(null);
+      setQuote(null);
+    }
   };
 
   return (

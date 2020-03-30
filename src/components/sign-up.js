@@ -3,6 +3,7 @@ import { useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
 import AuthWrapper from '../styles/auth.styled';
 import Header from './header';
+import { BASE_API_URL } from '../constants';
 
 function SignUp() {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
@@ -15,8 +16,9 @@ function SignUp() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post('http://localhost:5000/auth/register', credentials)
+      .post(`${BASE_API_URL}/auth/register`, credentials)
       .then((res) => {
+        console.log(res);
         localStorage.setItem('token', res.data.token);
         history.push('/');
       })

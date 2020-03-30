@@ -5,6 +5,7 @@ import SearchBar from './search-bar';
 import StockQuote from './stock-quote';
 import StockChart from './stock-chart';
 import axios from 'axios';
+import { BASE_API_URL } from '../constants';
 
 function App() {
   const [selection, setSelection] = useState(null);
@@ -31,7 +32,7 @@ function App() {
 
   useEffect(() => {
     if (symbol.length) {
-      const url = `http://localhost:5000/api/stocks/${symbol}`;
+      const url = `${BASE_API_URL}/api/stocks/${symbol}`;
       setChart((prev) => ({ ...prev, loading: true }));
       axios
         .get(url)
