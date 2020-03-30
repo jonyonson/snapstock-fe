@@ -7,18 +7,18 @@ import { XYPlot, XAxis, YAxis, LineSeries, makeWidthFlexible } from 'react-vis';
 import 'react-vis/dist/style.css';
 import { BASE_API_URL } from '../constants';
 
-function StockChart({ chart, setChart, selection }) {
+function StockChart({ chart, setChart, symbol }) {
   const [activeRangeButton, setActiveRangeButton] = useState('1d');
 
   useEffect(() => {
     setActiveRangeButton('1d');
-  }, [selection]);
+  }, [symbol]);
 
   const displayChart = (range) => {
     // sets the button to active before the potential api call
     setActiveRangeButton(range);
 
-    const { symbol } = selection;
+    // const { symbol } = selection;
     const url = `${BASE_API_URL}/api/stocks/${symbol}/chart/${range}`;
 
     setChart((prev) => ({ ...prev, loading: true }));

@@ -20,6 +20,7 @@ function App() {
     // if the user was routed here by selected a stock from the search
     if (selection) {
       setSymbol(selection.symbol);
+      console.log(selection);
       // in case the user navitated to this route manually `/stocks/aapl`
     } else if (params.symbol) {
       setSymbol(params.symbol);
@@ -63,7 +64,7 @@ function App() {
       <Header setSelection={setSelection} setQuote={setQuote} />
       <SearchBar setSelection={setSelection} />
       <StockQuote quote={quote} />
-      <StockChart chart={chart} setChart={setChart} selection={selection} />
+      <StockChart chart={chart} setChart={setChart} symbol={symbol} />
     </Fragment>
   );
 }
