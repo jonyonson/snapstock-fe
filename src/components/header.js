@@ -26,15 +26,20 @@ function Header({ setSelection, setQuote }) {
             Snapstock
           </Link>
 
-          {!localStorage.getItem('token') ? (
-            <Link className="login" to="/signin">
-              Log in
+          <div>
+            <Link className="nav-item" to="/watchlist">
+              Watchlist
             </Link>
-          ) : (
-            <button className="logout" onClick={logout}>
-              Log out
-            </button>
-          )}
+            {!localStorage.getItem('token') ? (
+              <Link className="nav-item login" to="/signin">
+                Log in
+              </Link>
+            ) : (
+              <button className="nav-item logout" onClick={logout}>
+                Log out
+              </button>
+            )}
+          </div>
         </div>
       </StyledHeader>
     </Fragment>
@@ -44,12 +49,6 @@ function Header({ setSelection, setQuote }) {
 const StyledHeader = styled.div`
   padding: 1rem;
   background-color: ${(props) => props.theme.colors.primary};
-
-  h1 {
-    font-size: 1.5rem;
-    margin: 0;
-    color: #fff;
-  }
 
   .container {
     max-width: ${(props) => props.theme.maxWidth};
@@ -71,15 +70,20 @@ const StyledHeader = styled.div`
 
   .login,
   .logout {
-    color: ${(props) => props.theme.colors.headerText};
-    text-transform: uppercase;
-    font-size: 0.8rem;
   }
 
   .logout {
     background: transparent;
     border: none;
     padding: 0;
+  }
+
+  .nav-item {
+    color: ${(props) => props.theme.colors.headerText};
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    margin-left: 0.5rem;
   }
 `;
 

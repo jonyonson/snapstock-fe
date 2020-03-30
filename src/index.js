@@ -7,7 +7,7 @@ import App from './components/app';
 import GlobalStyle from './styles/global-styles';
 import SignIn from './components/sign-in';
 import SignUp from './components/sign-up';
-// import Protected from './components/Protected';
+import Watchlist from './components/watchlist';
 import 'sanitize.css/sanitize.css';
 
 ReactDOM.render(
@@ -19,7 +19,7 @@ ReactDOM.render(
           <Route exact path="/signin" component={SignIn} />
           <Route exact path="/" component={App} />
           <Route path="/stocks/:symbol" component={App} />
-          {/* <Protected exact path="/" component={App} /> */}
+          <Route path="/watchlist" component={Watchlist} />
         </Switch>
       </div>
       <GlobalStyle />

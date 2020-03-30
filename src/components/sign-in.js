@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { useLocation, useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
 import AuthWrapper from '../styles/auth.styled';
 import Header from './header';
@@ -8,6 +8,7 @@ import { BASE_API_URL } from '../constants';
 function SignIn() {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
   const history = useHistory();
+  const location = useLocation();
 
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -35,6 +36,12 @@ function SignIn() {
       <Header />
       <AuthWrapper>
         <h1>Sign In</h1>
+        {location.state && location.state.referrer === 'watchlist' && (
+          <div>
+            You must be signed in in order to save securities to you watchlist.
+            Log in or <Link to="/signup">create an account.</Link>
+          </div>
+        )}
         <form onSubmit={handleSubmit}>
           <input
             name="email"
