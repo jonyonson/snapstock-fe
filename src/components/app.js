@@ -57,33 +57,6 @@ function App() {
     }
   }, [symbol]);
 
-  //   if (selection) {
-  //     const { symbol } = selection;
-  //     const url = `http://localhost:5000/api/stocks/${symbol}`;
-  //     setChart((prev) => ({ ...prev, loading: true }));
-  //     axios
-  //       .get(url)
-  //       .then((res) => {
-  //         console.log(res.data);
-  //         const intraday = res.data['intraday-prices'];
-  //         setChart({
-  //           '1d': intraday,
-  //           data: intraday,
-  //           type: '1d',
-  //           loading: false,
-  //         });
-  //         setQuote(res.data.quote);
-  //         // TODO: replace logo when no longer using sandbox
-  //         // setLogo(res.data.logo.url);
-  //       })
-  //       .catch((err) => {
-  //         setChart((prev) => ({ ...prev, loading: false }));
-  //         // TODO: handle error
-  //         console.log(err);
-  //       });
-  //   }
-  // }, [selection]);
-
   return (
     <Fragment>
       <Header setSelection={setSelection} setQuote={setQuote} />
