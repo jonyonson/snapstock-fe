@@ -13,15 +13,11 @@ import 'sanitize.css/sanitize.css';
 ReactDOM.render(
   <BrowserRouter>
     <ThemeProvider theme={theme}>
-      <div className="app">
-        <Switch>
-          <Route exact path="/" component={App} />
-          <Route path="/signup" component={SignUp} />
-          <Route path="/signin" component={SignIn} />
-          <Route path="/stocks/:symbol" component={App} />
-          <Route path="/watchlist" component={Watchlist} />
-        </Switch>
-      </div>
+      <Route exact path="/" component={App} />
+      <Route path="/signup" component={SignUp} />
+      <Route path="/signin" component={SignIn} />
+      <Route path="/stocks/:symbol" component={App} />
+      <Route path="/watchlist" component={Watchlist} />
       <GlobalStyle />
     </ThemeProvider>
   </BrowserRouter>,
