@@ -74,8 +74,6 @@ function StockChart({ chart, setChart, selection }) {
   const FlexibleXYPlot = makeWidthFlexible(XYPlot);
   const strokeColor = useTheme().colors.secondary;
 
-  console.log(chart);
-
   return chart.data.length ? (
     <ChartWrapper>
       <ChartRanges>

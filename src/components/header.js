@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { useHistory, Link } from 'react-router-dom';
 
-function Header() {
+function Header({ setSelection, setQuote }) {
   const history = useHistory();
 
   const logout = () => {
@@ -11,11 +11,16 @@ function Header() {
     history.push('/');
   };
 
+  const handleReset = () => {
+    setSelection(null);
+    setQuote(null);
+  };
+
   return (
     <Fragment>
       <StyledHeader>
         <div className="container">
-          <Link className="logo" to="/">
+          <Link className="logo" to="/" onClick={() => handleReset()}>
             Snapstock
           </Link>
 

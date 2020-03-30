@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import Autosuggest from 'react-autosuggest';
 import axios from 'axios';
 import '../styles/autosuggest.css';
@@ -16,6 +17,7 @@ function SearchBar({ setSelection }) {
   const [value, setValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [matches, setMatches] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     if (matches.length > 0) {
@@ -45,6 +47,7 @@ function SearchBar({ setSelection }) {
     } = suggestion;
 
     setSelection({ symbol, name, type, region, currency });
+    history.push(`/stocks/${symbol.toLowerCase()}`);
     setValue('');
   };
 

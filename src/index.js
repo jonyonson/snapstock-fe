@@ -18,6 +18,7 @@ ReactDOM.render(
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/signin" component={SignIn} />
           <Route exact path="/" component={App} />
+          <Route path="/stocks/:symbol" component={App} />
           {/* <Protected exact path="/" component={App} /> */}
         </Switch>
       </div>
