@@ -38,8 +38,8 @@ function SignIn() {
         <h1>Sign In</h1>
         {location.state && location.state.referrer === 'watchlist' && (
           <div>
-            You must be signed in in order to save securities to you watchlist.
-            Log in or <Link to="/signup">create an account.</Link>
+            You must be signed in in order to save securities to your watchlist.
+            Log in below or <Link to="/signup">create an account.</Link>
           </div>
         )}
         <form onSubmit={handleSubmit}>
