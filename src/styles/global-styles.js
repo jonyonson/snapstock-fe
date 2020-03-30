@@ -43,6 +43,11 @@ const GlobalStyle = createGlobalStyle`
   button {
     cursor: pointer
   }
+
+  a {
+    color: ${(props) => props.theme.colors.secondary};
+    text-decoration: none;
+  }
 `;
 
 export default GlobalStyle;
