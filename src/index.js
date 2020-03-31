@@ -8,13 +8,13 @@ import 'sanitize.css/sanitize.css';
 import * as serviceWorker from './utils/serviceWorker';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
-    </BrowserRouter>
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
+  </BrowserRouter>,
+  // </React.StrictMode>,
   document.getElementById('root'),
 );
 
