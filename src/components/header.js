@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { useHistory, Link } from 'react-router-dom';
 
-function Header({ setSymbol, setQuote }) {
+function Header({ setSymbol, setQuote, setWatchlist }) {
   const history = useHistory();
 
   const logout = () => {
@@ -14,6 +14,7 @@ function Header({ setSymbol, setQuote }) {
   const handleReset = () => {
     setSymbol && setSymbol(null);
     setQuote && setQuote(null);
+    setWatchlist && setWatchlist([]);
   };
 
   return (
