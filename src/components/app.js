@@ -57,6 +57,7 @@ function App() {
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
+      console.log('watchlist', watchlist);
       const USER_ID = localStorage.getItem('userId');
       const url = `${BASE_API_URL}/api/watchlist/${USER_ID}`;
       axios
