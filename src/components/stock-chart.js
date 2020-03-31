@@ -70,7 +70,7 @@ function StockChart({ chart, setChart, symbol }) {
   };
 
   const handleTickFormat = (tick) => {
-    format(tick, ranges[chart.type]);
+    return format(tick, ranges[chart.type]);
   };
 
   const FlexibleXYPlot = makeWidthFlexible(XYPlot);
