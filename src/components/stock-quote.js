@@ -10,7 +10,7 @@ function StockQuote({ quote }) {
           className={
             quote.changePercent > 0
               ? 'green data-header__left'
-              : 'red data-header__right'
+              : 'red data-header__left'
           }
         >
           <h1 className="symbol">{quote.symbol}</h1>
