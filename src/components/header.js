@@ -14,7 +14,7 @@ function Header({ setSymbol, setQuote, setWatchlist }) {
   const handleReset = () => {
     setSymbol && setSymbol(null);
     setQuote && setQuote(null);
-    setWatchlist && setWatchlist([]);
+    setWatchlist && setWatchlist(null);
   };
 
   return (

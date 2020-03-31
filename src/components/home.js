@@ -8,11 +8,30 @@ import axios from 'axios';
 
 import { BASE_API_URL } from '../constants';
 
-function Home({ setWatchlist, watchlist }) {
+function Home() {
   const [symbol, setSymbol] = useState(null);
   const [quote, setQuote] = useState(null);
   const [chart, setChart] = useState({ data: [], loading: false });
+  const [watchlist, setWatchlist] = useState(null);
   const params = useParams();
+
+  useEffect(() => {
+    if (!watchlist) {
+      if (localStorage.getItem('token')) {
+        const USER_ID = localStorage.getItem('userId');
+        const url = `${BASE_API_URL}/api/watchlist/${USER_ID}`;
+        axios
+          .get(url)
+          .then((res) => {
+            setWatchlist(res.data);
+          })
+          .catch((err) => {
+            // TODO: handle errors
+            console.error(err);
+          });
+      }
+    }
+  });
 
   useEffect(() => {
     if (params.symbol) {
@@ -53,26 +72,6 @@ function Home({ setWatchlist, watchlist }) {
         });
     }
   }, [symbol]);
-
-  useEffect(() => {
-    console.log('watchlist', watchlist);
-
-    if (watchlist.length === 0) {
-      if (localStorage.getItem('token')) {
-        const USER_ID = localStorage.getItem('userId');
-        const url = `${BASE_API_URL}/api/watchlist/${USER_ID}`;
-        axios
-          .get(url)
-          .then((res) => {
-            setWatchlist(res.data);
-          })
-          .catch((err) => {
-            // TODO: handle errors
-            console.error(err);
-          });
-      }
-    }
-  });
 
   return (
     <Fragment>
