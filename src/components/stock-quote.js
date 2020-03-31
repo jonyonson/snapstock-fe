@@ -1,13 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
+import WatchlistButton from './watchlist-button';
 
 function StockQuote({ quote }) {
   return !quote ? null : (
     <QuoteWrapper>
       <div className="data-header">
-        <div className={quote.changePercent > 0 ? 'green' : 'red'}>
+        <div
+          className={
+            quote.changePercent > 0
+              ? 'green data-header__left'
+              : 'red data-header__right'
+          }
+        >
           <h1 className="symbol">{quote.symbol}</h1>
-          <h2 className="company-name test">{quote.companyName}</h2>
+          <h2 className="company-name">{quote.companyName}</h2>
           <div className="price-wrapper">
             <span className="price">
               ${Number(quote.latestPrice).toFixed(2)}
@@ -22,11 +29,14 @@ function StockQuote({ quote }) {
             Data as of {quote.latestTime}
           </div>
         </div>
-        <img
-          className="logo"
-          src={`https://storage.googleapis.com/iex/api/logos/${quote.symbol}.png`}
-          alt={`${quote.name} Logo`}
-        />
+        <div className="data-header__right">
+          <img
+            className="logo"
+            src={`https://storage.googleapis.com/iex/api/logos/${quote.symbol}.png`}
+            alt={`${quote.name} Logo`}
+          />
+          <WatchlistButton />
+        </div>
       </div>
 
       <div className="data-table">
@@ -63,7 +73,13 @@ const QuoteWrapper = styled.div`
   .data-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+  }
+
+  .data-header__right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
   }
 
   .logo {
