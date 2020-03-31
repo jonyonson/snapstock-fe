@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FaPlus } from 'react-icons/fa';
+import { FaPlus, FaCheck } from 'react-icons/fa';
 
-function WatchlistButton() {
+function WatchlistButton({ addToWatchlist, isWatchlisted }) {
   return (
-    <StyledButton onClick={() => console.log('add to watchlist')}>
-      <FaPlus />
+    <StyledButton onClick={addToWatchlist}>
+      {isWatchlisted ? <FaCheck /> : <FaPlus />}
+
       <span className="button-text">Add to Watchlist</span>
     </StyledButton>
   );

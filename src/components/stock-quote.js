@@ -1,8 +1,40 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 import WatchlistButton from './watchlist-button';
 
-function StockQuote({ quote }) {
+import { BASE_API_URL } from '../constants';
+
+function StockQuote({ quote, setWatchlist, watchlist }) {
+  const [isWatchlisted, setIsWatchlisted] = useState();
+
+  useEffect(() => {
+    if (watchlist && quote) {
+      setIsWatchlisted(
+        watchlist.some((stock) => stock.symbol === quote.symbol),
+      );
+    }
+  }, [watchlist, quote]);
+
+  const addToWatchlist = () => {
+    console.log(isWatchlisted);
+    if (!isWatchlisted) {
+      const { symbol, companyName: company_name } = quote;
+      const URL = `${BASE_API_URL}/api/watchlist`;
+      const USER_ID = localStorage.getItem('userId');
+      axios
+        .post(URL, { symbol, company_name, user_id: USER_ID })
+        .then((res) => {
+          const { id, symbol, company_name } = res.data;
+          setWatchlist((prev) => prev.concat({ id, symbol, company_name }));
+        })
+        .catch((err) => {
+          // TODO: handle errors
+          console.error(err);
+        });
+    }
+  };
+
   return !quote ? null : (
     <QuoteWrapper>
       <div className="data-header">
@@ -35,7 +67,10 @@ function StockQuote({ quote }) {
             src={`https://storage.googleapis.com/iex/api/logos/${quote.symbol}.png`}
             alt={`${quote.name} Logo`}
           />
-          <WatchlistButton />
+          <WatchlistButton
+            addToWatchlist={addToWatchlist}
+            isWatchlisted={isWatchlisted}
+          />
         </div>
       </div>
 

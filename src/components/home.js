@@ -73,6 +73,7 @@ function Home() {
     }
   }, [symbol]);
 
+  // console.log(watchlist);
   return (
     <Fragment>
       <Header
@@ -81,8 +82,17 @@ function Home() {
         setWatchlist={setWatchlist}
       />
       <SearchBar setSymbol={setSymbol} />
-      <StockQuote quote={quote} />
+      <StockQuote
+        quote={quote}
+        setWatchlist={setWatchlist}
+        watchlist={watchlist}
+      />
       <StockChart chart={chart} setChart={setChart} symbol={symbol} />
+
+      {watchlist &&
+        watchlist.map((stock) => {
+          return <div key={stock.id}>{stock.symbol}</div>;
+        })}
     </Fragment>
   );
 }
