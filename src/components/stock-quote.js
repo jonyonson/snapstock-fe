@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 function StockQuote({ quote }) {
-  return quote === null ? null : (
+  // return quote === null ? null : (
+  return !quote ? null : (
     <QuoteWrapper>
       <div className="data-header">
         <div className={quote.changePercent > 0 ? 'green' : 'red'}>
