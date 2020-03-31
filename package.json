@@ -1,53 +1,45 @@
 {
-  "name": "snapstock-fe",
-  "version": "1.0.0",
-  "description": "",
-  "main": "src/index.js",
+  "name": "new",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
-    "date-fns": "^2.11.0",
-    "react": "^16.13.0",
+    "date-fns": "^2.11.1",
+    "react": "^16.13.1",
     "react-autosuggest": "^9.4.3",
-    "react-dom": "^16.13.0",
+    "react-dom": "^16.13.1",
     "react-icons": "^3.9.0",
     "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.1",
     "react-vis": "^1.11.7",
     "sanitize.css": "^11.0.0",
-    "styled": "^1.0.0",
     "styled-components": "^5.0.1"
   },
-  "devDependencies": {
-    "@babel/core": "7.9.0",
-    "@babel/plugin-proposal-class-properties": "7.8.3",
-    "@babel/preset-env": "7.9.0",
-    "@babel/preset-react": "7.9.1",
-    "babel-eslint": "10.1.0",
-    "eslint": "6.8.0",
-    "eslint-config-prettier": "6.10.1",
-    "eslint-plugin-import": "2.20.1",
-    "eslint-plugin-jsx-a11y": "6.2.3",
-    "eslint-plugin-react": "7.19.0",
-    "eslint-plugin-react-hooks": "2.5.1",
-    "parcel-bundler": "1.12.4",
-    "prettier": "2.0.2"
-  },
   "scripts": {
-    "clear-build-cache": "rm -rf .cache/ dist/",
-    "start": "parcel src/index.html",
-    "build": "parcel build src/index.html",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "author": "Jonathan Taylor <taylor.jonathan.craig@gmail.com>",
-  "license": "MIT",
-  "browserslist": [
-    "last 2 Chrome versions",
-    "last 2 ChromeAndroid versions",
-    "last 2 Firefox versions",
-    "last 2 FirefoxAndroid versions",
-    "last 2 Safari versions",
-    "last 2 iOS versions",
-    "last 2 Edge versions",
-    "last 2 Opera versions",
-    "last 2 OperaMobile versions"
-  ]
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "prettier": "^2.0.2"
+  }
 }
