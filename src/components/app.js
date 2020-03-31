@@ -23,30 +23,60 @@ function App() {
 
   useEffect(() => {
     if (symbol) {
-      const url = `${BASE_API_URL}/api/stocks/${symbol}`;
+      const quoteURL = `${BASE_API_URL}/api/stocks/${symbol}`;
+      const chartURL = `${BASE_API_URL}/api/stocks/av/${symbol}/chart/1d`;
+
       setChart((prev) => ({ ...prev, loading: true }));
+
+      const quoteRequest = axios.get(quoteURL);
+      const chartRequest = axios.get(chartURL);
+
       axios
-        .get(url)
-        .then((res) => {
-          console.log(res.data);
-          const intraday = res.data['intraday-prices'];
-          setChart({
-            '1d': intraday,
-            data: intraday,
-            type: '1d',
-            loading: false,
-          });
-          setQuote(res.data.quote);
-          // TODO: replace logo when no longer using sandbox
-          // setLogo(res.data.logo.url);
-        })
-        .catch((err) => {
+        .all([quoteRequest, chartRequest])
+        .then(
+          axios.spread((...responses) => {
+            const quoteResponse = responses[0];
+            const chartResponse = responses[1];
+
+            setQuote(quoteResponse.data.quote);
+            setChart({
+              '1d': chartResponse.data,
+              data: chartResponse.data,
+              type: '1d',
+              loading: false,
+            });
+          }),
+        )
+        .catch((errors) => {
           setChart((prev) => ({ ...prev, loading: false }));
           // TODO: handle errors
-          // TODO: if a symbol couldn't be found redirect to '/'
-          console.log(err);
+          console.log('ERRORS', errors);
         });
     }
+    // axios
+    //   .get(url)
+    //   .then((res) => {
+    //     console.log(res.data);
+    //     // const intraday = res.data['intraday-prices'];
+    //     // setChart({
+    //     //   '1d': intraday,
+    //     //   data: intraday,
+    //     //   type: '1d',
+    //     //   loading: false,
+    //     // });
+    //     setQuote(res.data.quote);
+    //     // TODO: replace logo when no longer using sandbox
+    //     // setLogo(res.data.logo.url);
+    //   }).then(res => {
+
+    //   })
+    //   .catch((err) => {
+    //     setChart((prev) => ({ ...prev, loading: false }));
+    //     // TODO: handle errors
+    //     // TODO: if a symbol couldn't be found redirect to '/'
+    //     console.log(err);
+    //   });
+    // }
   }, [symbol]);
 
   return (

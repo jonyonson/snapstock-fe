@@ -48,7 +48,8 @@ function StockChart({ chart, setChart, symbol }) {
       ? chart['1d']
           .filter((marker) => marker.high !== null)
           .map((marker) => ({
-            x: new Date(`${marker.date} ${marker.minute}`),
+            // x: new Date(`${marker.date} ${marker.minute}`),
+            x: new Date(marker.date),
             y: Number(marker.high),
           }))
       : chart.data.map((marker) => ({
