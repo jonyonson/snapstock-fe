@@ -12,6 +12,7 @@ function App() {
   const [symbol, setSymbol] = useState(null);
   const [quote, setQuote] = useState(null);
   const [chart, setChart] = useState({ data: [], loading: false });
+  const [watchlist, setWatchlist] = useState([]);
   const params = useParams();
 
   useEffect(() => {
@@ -53,6 +54,22 @@ function App() {
         });
     }
   }, [symbol]);
+
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      const USER_ID = localStorage.getItem('userId');
+      const url = `${BASE_API_URL}/api/watchlist/${USER_ID}`;
+      axios
+        .get(url)
+        .then((res) => {
+          setWatchlist(res.data);
+        })
+        .catch((err) => {
+          // TODO: handle errors
+          console.error(err);
+        });
+    }
+  }, []);
 
   return (
     <Fragment>
