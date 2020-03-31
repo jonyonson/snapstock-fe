@@ -7,7 +7,6 @@ import Watchlist from './watchlist';
 import GlobalStyle from '../styles/global-styles';
 
 function App() {
-  console.log(process.env.NODE_ENV);
   return (
     <Fragment>
       <Route exact path="/" component={Home} />

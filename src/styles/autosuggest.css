@@ -1,12 +1,19 @@
 .react-autosuggest__container {
   position: relative;
 }
-
+input {
+  -webkit-appearance: none;
+}
 .react-autosuggest__input {
   width: 100%;
   font-size: 20px;
   padding: 0.5rem 1rem;
   cursor: text;
+}
+
+input[type='search'] {
+  -webkit-appearance: none;
+  border-radius: 0;
 }
 
 .react-autosuggest__input--focused {
