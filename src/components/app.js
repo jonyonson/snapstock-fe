@@ -16,13 +16,13 @@ function App() {
 
   useEffect(() => {
     if (params.symbol) {
-      // setChart({ data: [], loading: false });
       setSymbol(params.symbol);
     }
   }, [params]);
 
   useEffect(() => {
     if (symbol) {
+      // SET THE CHART COMPONENT'S LOADING STATE TO TRUE
       const quoteURL = `${BASE_API_URL}/api/stocks/${symbol}`;
       const chartURL = `${BASE_API_URL}/api/stocks/av/${symbol}/chart/1d`;
 
@@ -37,7 +37,6 @@ function App() {
           axios.spread((...responses) => {
             const quoteResponse = responses[0];
             const chartResponse = responses[1];
-
             setQuote(quoteResponse.data.quote);
             setChart({
               '1d': chartResponse.data,
@@ -47,36 +46,12 @@ function App() {
             });
           }),
         )
-        .catch((errors) => {
+        .catch((error) => {
           setChart((prev) => ({ ...prev, loading: false }));
           // TODO: handle errors
-          console.log('ERRORS', errors);
+          console.log(error);
         });
     }
-    // axios
-    //   .get(url)
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     // const intraday = res.data['intraday-prices'];
-    //     // setChart({
-    //     //   '1d': intraday,
-    //     //   data: intraday,
-    //     //   type: '1d',
-    //     //   loading: false,
-    //     // });
-    //     setQuote(res.data.quote);
-    //     // TODO: replace logo when no longer using sandbox
-    //     // setLogo(res.data.logo.url);
-    //   }).then(res => {
-
-    //   })
-    //   .catch((err) => {
-    //     setChart((prev) => ({ ...prev, loading: false }));
-    //     // TODO: handle errors
-    //     // TODO: if a symbol couldn't be found redirect to '/'
-    //     console.log(err);
-    //   });
-    // }
   }, [symbol]);
 
   return (
