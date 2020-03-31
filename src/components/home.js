@@ -57,8 +57,7 @@ function Home({ setWatchlist, watchlist }) {
   useEffect(() => {
     console.log('watchlist', watchlist);
 
-    if (watchlist.length == 0) {
-      console.log('asdf');
+    if (watchlist.length === 0) {
       if (localStorage.getItem('token')) {
         const USER_ID = localStorage.getItem('userId');
         const url = `${BASE_API_URL}/api/watchlist/${USER_ID}`;
