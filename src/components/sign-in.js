@@ -43,6 +43,7 @@ function SignIn() {
           </div>
         )}
         <form onSubmit={handleSubmit}>
+          <label>Email address</label>
           <input
             name="email"
             type="email"
@@ -50,6 +51,7 @@ function SignIn() {
             onChange={handleChange}
             value={credentials.email}
           />
+          <label>Password</label>
           <input
             name="password"
             type="password"
@@ -59,9 +61,10 @@ function SignIn() {
           />
           <button type="submit">Sign In</button>
         </form>
-        <Link className="signup-link" to="/signup">
-          Create an account
-        </Link>
+        <div className="link-text">
+          <span>Don't have an account?</span>
+          <Link to="/signup">Sign up</Link>
+        </div>
       </AuthWrapper>
     </Fragment>
   );

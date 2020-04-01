@@ -35,6 +35,7 @@ function SignUp() {
       <AuthWrapper>
         <h1>Sign Up</h1>
         <form onSubmit={handleSubmit}>
+          <label>Email address</label>
           <input
             name="email"
             type="email"
@@ -42,6 +43,7 @@ function SignUp() {
             onChange={handleChange}
             value={credentials.email}
           />
+          <label>Password</label>
           <input
             name="password"
             type="password"
@@ -51,10 +53,10 @@ function SignUp() {
           />
           <button type="submit">Sign In</button>
         </form>
-        Already have an account?{' '}
-        <Link className="signup-link" to="/signin">
-          Sign in.
-        </Link>
+        <div className="link-text">
+          <span>Already have an account?</span>
+          <Link to="/signin">Sign in</Link>
+        </div>
       </AuthWrapper>
     </Fragment>
   );
