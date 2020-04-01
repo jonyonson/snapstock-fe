@@ -137,7 +137,7 @@ const QuoteWrapper = styled.div`
   .company-name {
     font-size: 1.1rem;
     font-weight: 900;
-    margin: 0;
+    margin: 0 0 2rem;
   }
 
   .price-wrapper {
