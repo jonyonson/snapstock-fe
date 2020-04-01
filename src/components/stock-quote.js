@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 import WatchlistButton from './watchlist-button';
@@ -7,6 +8,7 @@ import { BASE_API_URL } from '../constants';
 
 function StockQuote({ quote, setWatchlist, watchlist }) {
   const [isWatchlisted, setIsWatchlisted] = useState();
+  const history = useHistory();
 
   useEffect(() => {
     if (watchlist && quote) {
@@ -17,8 +19,12 @@ function StockQuote({ quote, setWatchlist, watchlist }) {
   }, [watchlist, quote]);
 
   const addToWatchlist = () => {
-    console.log(isWatchlisted);
-    if (!isWatchlisted) {
+    if (!localStorage.getItem('token')) {
+      history.push({
+        pathname: '/signin',
+        state: { referrer: 'watchlist' },
+      });
+    } else if (!isWatchlisted) {
       const { symbol, companyName: company_name } = quote;
       const URL = `${BASE_API_URL}/api/watchlist`;
       const USER_ID = localStorage.getItem('userId');
