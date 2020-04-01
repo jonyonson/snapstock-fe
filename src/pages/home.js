@@ -89,10 +89,10 @@ function Home() {
       />
       <StockChart chart={chart} setChart={setChart} symbol={symbol} />
 
-      {watchlist &&
+      {/* {watchlist &&
         watchlist.map((stock) => {
           return <div key={stock.id}>{stock.symbol}</div>;
-        })}
+        })} */}
     </Fragment>
   );
 }
