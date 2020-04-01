@@ -1,9 +1,9 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { useParams } from 'react-router-dom';
-import Header from './header';
-import SearchBar from './search-bar';
-import StockQuote from './stock-quote';
-import StockChart from './stock-chart';
+import Header from '../components/header';
+import SearchBar from '../components/search-bar';
+import StockQuote from '../components/stock-quote';
+import StockChart from '../components/stock-chart';
 import axios from 'axios';
 
 import { BASE_API_URL } from '../constants';

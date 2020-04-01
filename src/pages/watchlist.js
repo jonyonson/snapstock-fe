@@ -2,7 +2,7 @@ import React, { useEffect, useState, Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
-import Header from './header';
+import Header from '../components/header';
 
 import { BASE_API_URL } from '../constants';
 

@@ -1,13 +1,15 @@
 import React, { useState, Fragment } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { useLocation, useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
 import AuthWrapper from '../styles/auth.styled';
-import Header from './header';
+import Header from '../components/header';
+
 import { BASE_API_URL } from '../constants';
 
-function SignUp() {
+function SignIn() {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
   const history = useHistory();
+  const location = useLocation();
 
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -15,8 +17,10 @@ function SignUp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(credentials);
+
     axios
-      .post(`${BASE_API_URL}/auth/register`, credentials)
+      .post(`${BASE_API_URL}/auth/login`, credentials)
       .then((res) => {
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('userId', res.data.id);
@@ -24,7 +28,6 @@ function SignUp() {
       })
       .catch((err) => {
         // TODO: handle errors
-        // TODO: handle already registered
         console.log(err);
       });
   };
@@ -33,7 +36,13 @@ function SignUp() {
     <Fragment>
       <Header />
       <AuthWrapper>
-        <h1>Sign Up</h1>
+        <h1>Sign In</h1>
+        {location.state && location.state.referrer === 'watchlist' && (
+          <div>
+            You must be signed in in order to save securities to your watchlist.
+            Log in below or <Link to="/signup">create an account.</Link>
+          </div>
+        )}
         <form onSubmit={handleSubmit}>
           <label>Email address</label>
           <input
@@ -54,12 +63,12 @@ function SignUp() {
           <button type="submit">Sign In</button>
         </form>
         <div className="link-text">
-          <span>Already have an account?</span>
-          <Link to="/signin">Sign in</Link>
+          <span>Don't have an account?</span>
+          <Link to="/signup">Sign up</Link>
         </div>
       </AuthWrapper>
     </Fragment>
   );
 }
 
-export default SignUp;
+export default SignIn;
