@@ -7,7 +7,11 @@ const AuthWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 auto;
+  margin: 8% auto 0;
+
+  h1 {
+    margin: 0 0 1rem;
+  }
 
   form {
     width: 100%;
@@ -20,15 +24,12 @@ const AuthWrapper = styled.div`
   button {
     -webkit-appearance: none;
     border-radius: 0;
-    /* margin-bottom: 1.5rem; */
   }
 
   input {
-    /* border: none; */
-    /* border-bottom: 1px solid black; */
     padding: 0.75rem;
     font-size: 20px;
-    margin-bottom: 1.2rem;
+    margin-bottom: 1rem;
     border: 1px solid black;
   }
 
@@ -43,7 +44,7 @@ const AuthWrapper = styled.div`
     padding: 1rem;
     text-transform: uppercase;
     margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     border: 1px solid transparent;
     background-color: ${(props) => props.theme.colors.accent};
   }
@@ -62,18 +63,6 @@ const AuthWrapper = styled.div`
       }
     }
   }
-
-  /* .signup-link,
-  .signin-link {
-    margin-left: 5px;
-    font-weight: bold;
-    text-decoration: none;
-    color: ${(props) => props.theme.colors.secondary};
-
-    &:hover {
-      border-bottom: 2px solid currentColor;
-    }
-  } */
 `;
 
 export default AuthWrapper;
