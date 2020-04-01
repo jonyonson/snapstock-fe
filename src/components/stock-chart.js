@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import format from 'date-fns/format';
+import parse from 'date-fns/parse';
 import axios from 'axios';
 import { useTheme } from 'styled-components';
 import { XYPlot, XAxis, YAxis, LineSeries, makeWidthFlexible } from 'react-vis';
 import 'react-vis/dist/style.css';
+
 import { BASE_API_URL } from '../constants';
 
 function StockChart({ chart, setChart, symbol }) {
@@ -18,7 +20,6 @@ function StockChart({ chart, setChart, symbol }) {
     // sets the button to active before the potential api call
     setActiveRangeButton(range);
 
-    // const { symbol } = selection;
     const url = `${BASE_API_URL}/api/stocks/${symbol}/chart/${range}`;
 
     setChart((prev) => ({ ...prev, loading: true }));
@@ -47,15 +48,18 @@ function StockChart({ chart, setChart, symbol }) {
     chart.type === '1d'
       ? chart['1d']
           .filter((marker) => marker.high !== null)
-          .map((marker) => ({
-            // x: new Date(`${marker.date} ${marker.minute}`),
-            x: new Date(marker.date),
-            y: Number(marker.high),
-          }))
-      : chart.data.map((marker) => ({
-          x: new Date(marker.date),
-          y: Number(marker.close),
-        }));
+          .map((marker) => {
+            return {
+              x: parse(marker.date, 'yyyy-MM-dd HH:mm:ss', new Date()),
+              y: Number(marker.high),
+            };
+          })
+      : chart.data.map((marker) => {
+          return {
+            x: parse(marker.date, 'yyyy-MM-dd', new Date()),
+            y: Number(marker.close),
+          };
+        });
 
   const ranges = {
     '1d': 'h:mm',
