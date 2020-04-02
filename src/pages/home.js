@@ -13,7 +13,7 @@ import { BASE_API_URL, ROUTES } from '../constants';
 function Home() {
   const [symbol, setSymbol] = useState(null);
   const [quote, setQuote] = useState(null);
-  const [chart, setChart] = useState({ data: [], loading: false });
+  const [chart, setChart] = useState({ data: [] });
   const [chartLoading, setChartLoading] = useState(false);
   const [watchlist, setWatchlist] = useState(null);
   const [showSearch, setShowSearch] = useState(false);
@@ -55,13 +55,10 @@ function Home() {
 
   useEffect(() => {
     if (symbol) {
-      // SET THE CHART COMPONENT'S LOADING STATE TO TRUE
-      const quoteURL = `${BASE_API_URL}/api/stocks/${symbol}`;
-      const chartURL = `${BASE_API_URL}/api/stocks/av/${symbol}/chart/1d`;
-
-      setChart((prev) => ({ ...prev, loading: true }));
       setChartLoading(true);
 
+      const quoteURL = `${BASE_API_URL}/api/stocks/${symbol}`;
+      const chartURL = `${BASE_API_URL}/api/stocks/av/${symbol}/chart/1d`;
       const quoteRequest = axios.get(quoteURL);
       const chartRequest = axios.get(chartURL);
 
@@ -70,19 +67,15 @@ function Home() {
         .then(
           axios.spread((...responses) => {
             const quoteResponse = responses[0];
-            const chartResponse = responses[1];
             setQuote(quoteResponse.data.quote);
-            setChart({
-              '1d': chartResponse.data,
-              data: chartResponse.data,
-              type: '1d',
-              loading: false,
-            });
+
+            const chartResponse = responses[1];
+            const chartData = chartResponse.data;
+            setChart({ '1d': chartData, data: chartData, type: '1d' });
             setChartLoading(false);
           }),
         )
         .catch((error) => {
-          setChart((prev) => ({ ...prev, loading: false }));
           setChartLoading(false);
           // TODO: handle errors
           console.log(error);

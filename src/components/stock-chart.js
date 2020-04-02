@@ -25,29 +25,15 @@ function StockChart({
   const displayChart = (range) => {
     // sets the button to active before the potential api call
     setActiveRangeButton(range);
-
     const url = `${BASE_API_URL}/api/stocks/${symbol}/chart/${range}`;
-
-    setChart((prev) => ({ ...prev, loading: true }));
     setChartLoading(true);
     if (chart[range]) {
-      setChart((prev) => ({
-        ...prev,
-        data: prev[range],
-        type: range,
-        loading: false,
-      }));
+      setChart((prev) => ({ ...prev, data: prev[range], type: range }));
       setChartLoading(false);
     } else {
       axios.get(url).then((res) => {
         const data = res.data;
-        setChart((prev) => ({
-          ...prev,
-          [range]: data,
-          type: range,
-          data,
-          loading: false,
-        }));
+        setChart((prev) => ({ ...prev, [range]: data, type: range, data }));
         setChartLoading(false);
       });
     }
