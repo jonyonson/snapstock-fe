@@ -1,10 +1,14 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory, useLocation, Link } from 'react-router-dom';
 import isAuthenticated from '../utils/isAuthenticated';
+import { FaSearch } from 'react-icons/fa';
 
-function Header({ setSymbol, setQuote, setWatchlist }) {
+import { ROUTES } from '../constants';
+
+function Header({ setSymbol, setQuote, setWatchlist, setShowSearch }) {
   const history = useHistory();
+  const location = useLocation();
 
   const logout = () => {
     handleReset();
@@ -18,6 +22,20 @@ function Header({ setSymbol, setQuote, setWatchlist }) {
     setWatchlist && setWatchlist(null);
   };
 
+  const findSymbol = () => {
+    // If we are not in the <Home/> component, we need to push to '/'...
+    // ... and pass some state letting the <Home/> component know...
+    // ...to set showSearchBar to true. If we are Home, set showSearch to true
+    if (ROUTES.includes(location.pathname)) {
+      history.push({
+        pathname: '/',
+        state: { previousPath: location.pathname },
+      });
+    } else {
+      setShowSearch(true);
+    }
+  };
+
   return (
     <Fragment>
       <StyledHeader>
@@ -27,6 +45,10 @@ function Header({ setSymbol, setQuote, setWatchlist }) {
           </Link>
 
           <div>
+            <button className="search-button" onClick={findSymbol}>
+              <FaSearch />
+              <span>Find Symbol</span>
+            </button>
             <Link className="nav-item" to="/watchlist">
               Watchlist
             </Link>
@@ -72,12 +94,22 @@ const StyledHeader = styled.div`
   .logout {
   }
 
-  .logout {
+  button {
     background: transparent;
     border: none;
-    padding: 0;
   }
 
+  .search-button {
+    border: 1px solid ${(props) => props.theme.colors.headerText};
+    padding: 0.5rem;
+    border-radius: 3px;
+
+    span {
+      margin-left: 10px;
+    }
+  }
+
+  .search-button,
   .nav-item {
     color: ${(props) => props.theme.colors.headerText};
     text-transform: uppercase;

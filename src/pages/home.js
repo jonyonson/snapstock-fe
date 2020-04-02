@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation, useHistory } from 'react-router-dom';
 import isAuthenticated from '../utils/isAuthenticated';
 import Header from '../components/header';
 import SearchBar from '../components/search-bar';
@@ -8,14 +8,18 @@ import StockQuote from '../components/stock-quote';
 import StockChart from '../components/stock-chart';
 // import StockWidget from '../components/stock-widget';
 
-import { BASE_API_URL } from '../constants';
+import { BASE_API_URL, ROUTES } from '../constants';
 
 function Home() {
   const [symbol, setSymbol] = useState(null);
   const [quote, setQuote] = useState(null);
   const [chart, setChart] = useState({ data: [], loading: false });
   const [watchlist, setWatchlist] = useState(null);
+  const [showSearch, setShowSearch] = useState(false);
+
   const params = useParams();
+  const location = useLocation();
+  const history = useHistory();
 
   useEffect(() => {
     if (!watchlist) {
@@ -33,7 +37,14 @@ function Home() {
           });
       }
     }
-  });
+
+    if (location.state) {
+      if (ROUTES.includes(location.state.previousPath)) {
+        setShowSearch(true);
+        history.replace();
+      }
+    }
+  }, [history, watchlist, location.state]);
 
   useEffect(() => {
     if (params.symbol) {
@@ -75,15 +86,20 @@ function Home() {
     }
   }, [symbol]);
 
-  // console.log(watchlist);
   return (
     <Fragment>
       <Header
         setSymbol={setSymbol}
         setQuote={setQuote}
         setWatchlist={setWatchlist}
+        setShowSearch={setShowSearch}
       />
-      <SearchBar setSymbol={setSymbol} />
+      <SearchBar
+        setSymbol={setSymbol}
+        symbol={symbol}
+        showSearch={showSearch}
+        setShowSearch={setShowSearch}
+      />
       <StockQuote
         quote={quote}
         setWatchlist={setWatchlist}

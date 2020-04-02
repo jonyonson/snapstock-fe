@@ -1,14 +1,18 @@
 .react-autosuggest__container {
   position: relative;
+  text-align: center;
 }
 
 .react-autosuggest__input {
   width: 100%;
   font-size: 20px;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0;
   cursor: text;
   border: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  /* border-bottom: 1px solid rgba(0, 0, 0, 0.2); */
+  border-bottom: 1px solid white;
+  background: transparent;
+  color: white;
 }
 
 input[type='search'] {
@@ -31,13 +35,16 @@ input[type='search'] {
 
 .react-autosuggest__suggestions-container--open {
   display: block;
-  position: absolute;
+  /* position: absolute; */
   width: 100%;
   border: 1px solid #aaa;
   background-color: #fff;
   font-size: 16px;
-  z-index: 2;
+  z-index: 100;
   overflow-y: scroll;
+  color: white;
+  background: transparent;
+  margin: 0 auto;
 }
 
 .react-autosuggest__suggestions-list {

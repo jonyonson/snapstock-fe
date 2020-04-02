@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import Autosuggest from 'react-autosuggest';
 import axios from 'axios';
+import styled from 'styled-components';
+import Autosuggest from 'react-autosuggest';
+import { IoMdClose } from 'react-icons/io';
 import '../styles/autosuggest.css';
 
-function SearchBar({ setSymbol }) {
+function SearchBar({ setSymbol, showSearch, setShowSearch }) {
   const [value, setValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [matches, setMatches] = useState([]);
@@ -32,6 +34,7 @@ function SearchBar({ setSymbol }) {
     const { '1. symbol': symbol } = suggestion;
     setSymbol(symbol);
     setValue('');
+    setShowSearch(false);
     history.push(`/stocks/${symbol.toLowerCase()}`);
   };
 
@@ -72,22 +75,46 @@ function SearchBar({ setSymbol }) {
   // Pass through arbitrary props to the input
   // Must contain at least `value` and `onChange`
   const inputProps = {
-    placeholder: 'Search by symbol or company name',
+    placeholder: 'SEARCH BY SYMBOL OR NAME',
     type: 'search',
     onChange,
     value,
+    autoFocus: true,
   };
 
-  return (
-    <Autosuggest
-      suggestions={suggestions}
-      onSuggestionsFetchRequested={onSuggestionsFetchRequested}
-      onSuggestionsClearRequested={onSuggestionsClearRequested}
-      onSuggestionSelected={onSuggestionSelected}
-      getSuggestionValue={getSuggestionValue}
-      renderSuggestion={renderSuggestion}
-      inputProps={inputProps}
-    />
-  );
+  return showSearch ? (
+    <SearchContainer>
+      <IoMdClose onClick={() => setShowSearch(false)} className="close" />
+      <Autosuggest
+        suggestions={suggestions}
+        onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+        onSuggestionsClearRequested={onSuggestionsClearRequested}
+        onSuggestionSelected={onSuggestionSelected}
+        getSuggestionValue={getSuggestionValue}
+        renderSuggestion={renderSuggestion}
+        inputProps={inputProps}
+      />
+    </SearchContainer>
+  ) : null;
 }
+
+const SearchContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: ${(props) => props.theme.colors.primary};
+  bottom: 0;
+  right: 0;
+  z-index: 100;
+  padding: 5rem 2rem 1rem;
+
+  .close {
+    color: white;
+    font-size: 32px;
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    cursor: pointer;
+  }
+`;
 export default SearchBar;
