@@ -3,7 +3,7 @@ import { useLocation, useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
 import AuthWrapper from '../styles/auth.styled';
 import Header from '../components/header';
-import Alert from '../components/ui/alert';
+import Alert from '../components/common/alert';
 
 import { BASE_API_URL } from '../constants';
 
