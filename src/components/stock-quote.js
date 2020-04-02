@@ -20,7 +20,7 @@ function StockQuote({ quote, setWatchlist, watchlist }) {
   }, [watchlist, quote]);
 
   const addToWatchlist = () => {
-    if (isAuthenticated()) {
+    if (!isAuthenticated()) {
       history.push({
         pathname: '/signin',
         state: { referrer: 'watchlist' },
