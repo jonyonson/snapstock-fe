@@ -46,8 +46,8 @@ function Header({ setSymbol, setQuote, setWatchlist, setShowSearch }) {
 
           <div>
             <button className="search-button" onClick={findSymbol}>
-              <FaSearch />
-              <span>Find Symbol</span>
+              <FaSearch size="18" />
+              {/* <span>Symbol</span> */}
             </button>
             <Link className="nav-item" to="/watchlist">
               Watchlist
@@ -100,9 +100,10 @@ const StyledHeader = styled.div`
   }
 
   .search-button {
-    border: 1px solid ${(props) => props.theme.colors.headerText};
+    /* border: 1px solid ${(props) => props.theme.colors.headerText}; */
     padding: 0.5rem;
     border-radius: 3px;
+    outline: none;
 
     span {
       margin-left: 10px;
