@@ -72,6 +72,13 @@ function SearchBar({ setSymbol, showSearch, setShowSearch }) {
       .catch((err) => console.error(err));
   };
 
+  const handleKeyUp = (e) => {
+    if (e.keyCode === 27) {
+      setValue('');
+      setShowSearch(false);
+    }
+  };
+
   // Pass through arbitrary props to the input
   // Must contain at least `value` and `onChange`
   const inputProps = {
@@ -83,7 +90,7 @@ function SearchBar({ setSymbol, showSearch, setShowSearch }) {
   };
 
   return showSearch ? (
-    <SearchContainer>
+    <SearchContainer onKeyUp={handleKeyUp}>
       <IoMdClose onClick={() => setShowSearch(false)} className="close" />
       <Autosuggest
         suggestions={suggestions}
