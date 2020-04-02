@@ -4,13 +4,35 @@ import axios from 'axios';
 import styled from 'styled-components';
 import Autosuggest from 'react-autosuggest';
 import { IoMdClose } from 'react-icons/io';
+import BarLoader from 'react-spinners/BarLoader';
 import '../styles/autosuggest.css';
 
-function SearchBar({ setSymbol, showSearch, setShowSearch }) {
+function SearchBar({
+  setSymbol,
+  symbol,
+  showSearch,
+  setShowSearch,
+  setChartLoading,
+  chartLoading,
+}) {
   const [value, setValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [matches, setMatches] = useState([]);
+  const [selection, setSelection] = useState(null);
   const history = useHistory();
+
+  useEffect(() => {
+    // Wait until a new selection has been made and ...
+    // ... the chart for that selection has loaded ...
+    // ... before pushing <Home/>. This keeps us on ...
+    // ... the search page until chart is loaded
+    if (selection && !chartLoading) {
+      setShowSearch(false);
+      setSelection(null);
+      setValue('');
+      history.push(`/stocks/${symbol.toLowerCase()}`);
+    }
+  }, [symbol, history, selection, chartLoading, setShowSearch]);
 
   useEffect(() => {
     if (matches.length > 0) {
@@ -32,10 +54,12 @@ function SearchBar({ setSymbol, showSearch, setShowSearch }) {
 
   const onSuggestionSelected = (_, { suggestion }) => {
     const { '1. symbol': symbol } = suggestion;
+    setChartLoading(true);
     setSymbol(symbol);
-    setValue('');
-    setShowSearch(false);
-    history.push(`/stocks/${symbol.toLowerCase()}`);
+    setSelection(symbol);
+    // setValue('');
+    // setShowSearch(false);
+    // history.push(`/stocks/${symbol.toLowerCase()}`);
   };
 
   const onChange = (_, { newValue }) => {
@@ -101,6 +125,9 @@ function SearchBar({ setSymbol, showSearch, setShowSearch }) {
         renderSuggestion={renderSuggestion}
         inputProps={inputProps}
       />
+      <div className="loader-wrapper">
+        {chartLoading && <BarLoader color="#ffffff" width="240px" />}
+      </div>
     </SearchContainer>
   ) : null;
 }
@@ -122,6 +149,12 @@ const SearchContainer = styled.div`
     top: 1.5rem;
     right: 2rem;
     cursor: pointer;
+  }
+
+  .loader-wrapper {
+    margin-top: 20%;
+    display: flex;
+    justify-content: center;
   }
 `;
 export default SearchBar;

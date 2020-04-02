@@ -14,6 +14,7 @@ function Home() {
   const [symbol, setSymbol] = useState(null);
   const [quote, setQuote] = useState(null);
   const [chart, setChart] = useState({ data: [], loading: false });
+  const [chartLoading, setChartLoading] = useState(false);
   const [watchlist, setWatchlist] = useState(null);
   const [showSearch, setShowSearch] = useState(false);
 
@@ -59,6 +60,7 @@ function Home() {
       const chartURL = `${BASE_API_URL}/api/stocks/av/${symbol}/chart/1d`;
 
       setChart((prev) => ({ ...prev, loading: true }));
+      setChartLoading(true);
 
       const quoteRequest = axios.get(quoteURL);
       const chartRequest = axios.get(chartURL);
@@ -76,10 +78,12 @@ function Home() {
               type: '1d',
               loading: false,
             });
+            setChartLoading(false);
           }),
         )
         .catch((error) => {
           setChart((prev) => ({ ...prev, loading: false }));
+          setChartLoading(false);
           // TODO: handle errors
           console.log(error);
         });
@@ -99,13 +103,21 @@ function Home() {
         symbol={symbol}
         showSearch={showSearch}
         setShowSearch={setShowSearch}
+        setChartLoading={setChartLoading}
+        chartLoading={chartLoading}
       />
       <StockQuote
         quote={quote}
         setWatchlist={setWatchlist}
         watchlist={watchlist}
       />
-      <StockChart chart={chart} setChart={setChart} symbol={symbol} />
+      <StockChart
+        chart={chart}
+        setChart={setChart}
+        symbol={symbol}
+        chartLoading={chartLoading}
+        setChartLoading={setChartLoading}
+      />
 
       {/* <div style={{ padding: '1rem' }}>
         {watchlist &&

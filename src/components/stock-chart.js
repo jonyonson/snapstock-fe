@@ -9,7 +9,13 @@ import 'react-vis/dist/style.css';
 
 import { BASE_API_URL } from '../constants';
 
-function StockChart({ chart, setChart, symbol }) {
+function StockChart({
+  chart,
+  setChart,
+  symbol,
+  chartLoading,
+  setChartLoading,
+}) {
   const [activeRangeButton, setActiveRangeButton] = useState('1d');
 
   useEffect(() => {
@@ -23,6 +29,7 @@ function StockChart({ chart, setChart, symbol }) {
     const url = `${BASE_API_URL}/api/stocks/${symbol}/chart/${range}`;
 
     setChart((prev) => ({ ...prev, loading: true }));
+    setChartLoading(true);
     if (chart[range]) {
       setChart((prev) => ({
         ...prev,
@@ -30,6 +37,7 @@ function StockChart({ chart, setChart, symbol }) {
         type: range,
         loading: false,
       }));
+      setChartLoading(false);
     } else {
       axios.get(url).then((res) => {
         const data = res.data;
@@ -40,6 +48,7 @@ function StockChart({ chart, setChart, symbol }) {
           data,
           loading: false,
         }));
+        setChartLoading(false);
       });
     }
   };
@@ -99,7 +108,7 @@ function StockChart({ chart, setChart, symbol }) {
         margin={{ left: 50 }}
         stroke={strokeColor}
       >
-        {chart.loading && <LoadingMask />}
+        {chartLoading && <LoadingMask />}
         <XAxis tickTotal={6} tickFormat={handleTickFormat} />
         <YAxis />
         <LineSeries getNull={(d) => d.y !== null} data={data} />
@@ -142,7 +151,7 @@ const LoadingMask = styled.div`
   top: 0;
   width: 100%;
   height: 240px;
-  z-index: 100;
+  z-index: 99;
   background-color: rgba(255, 255, 255, 0.8);
 `;
 
