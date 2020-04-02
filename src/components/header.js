@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { useHistory, Link } from 'react-router-dom';
+import isAuthenticated from '../utils/isAuthenticated';
 
 function Header({ setSymbol, setQuote, setWatchlist }) {
   const history = useHistory();
@@ -29,7 +30,7 @@ function Header({ setSymbol, setQuote, setWatchlist }) {
             <Link className="nav-item" to="/watchlist">
               Watchlist
             </Link>
-            {!localStorage.getItem('token') ? (
+            {!isAuthenticated() ? (
               <Link className="nav-item login" to="/signin">
                 Log in
               </Link>

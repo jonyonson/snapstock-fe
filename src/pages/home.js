@@ -1,11 +1,12 @@
 import React, { useState, useEffect, Fragment } from 'react';
+import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import isAuthenticated from '../utils/isAuthenticated';
 import Header from '../components/header';
 import SearchBar from '../components/search-bar';
 import StockQuote from '../components/stock-quote';
 import StockChart from '../components/stock-chart';
 // import StockWidget from '../components/stock-widget';
-import axios from 'axios';
 
 import { BASE_API_URL } from '../constants';
 
@@ -18,7 +19,7 @@ function Home() {
 
   useEffect(() => {
     if (!watchlist) {
-      if (localStorage.getItem('token')) {
+      if (isAuthenticated()) {
         const USER_ID = localStorage.getItem('userId');
         const url = `${BASE_API_URL}/api/watchlist/${USER_ID}`;
         axios

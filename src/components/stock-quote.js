@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
+import isAuthenticated from '../utils/isAuthenticated';
 import WatchlistButton from './watchlist-button';
 
 import { BASE_API_URL } from '../constants';
@@ -19,7 +20,7 @@ function StockQuote({ quote, setWatchlist, watchlist }) {
   }, [watchlist, quote]);
 
   const addToWatchlist = () => {
-    if (!localStorage.getItem('token')) {
+    if (isAuthenticated()) {
       history.push({
         pathname: '/signin',
         state: { referrer: 'watchlist' },

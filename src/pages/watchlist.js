@@ -2,16 +2,16 @@ import React, { useEffect, useState, Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
+import isAuthenticated from '../utils/isAuthenticated';
 import Header from '../components/header';
 
 import { BASE_API_URL } from '../constants';
 
 function Watchlist() {
   const [watchlist, setWatchlist] = useState([]);
-  const isAuthenticated = !!window.localStorage.getItem('token');
 
   useEffect(() => {
-    if (localStorage.getItem('token')) {
+    if (isAuthenticated()) {
       const USER_ID = localStorage.getItem('userId');
       const url = `${BASE_API_URL}/api/watchlist/${USER_ID}`;
       axios
@@ -26,7 +26,7 @@ function Watchlist() {
     }
   }, []);
 
-  return isAuthenticated ? (
+  return isAuthenticated() ? (
     <Fragment>
       <Header />
       <StyledSection>
