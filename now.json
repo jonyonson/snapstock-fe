@@ -1,0 +1,7 @@
+{
+  "build": {
+    "env": {
+      "REACT_APP_ALPHA_VANTAGE_API_KEY": "@alpha-vantage-api-key"
+    }
+  }
+}
