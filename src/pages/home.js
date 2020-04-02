@@ -4,6 +4,7 @@ import Header from '../components/header';
 import SearchBar from '../components/search-bar';
 import StockQuote from '../components/stock-quote';
 import StockChart from '../components/stock-chart';
+// import StockWidget from '../components/stock-widget';
 import axios from 'axios';
 
 import { BASE_API_URL } from '../constants';
@@ -89,10 +90,13 @@ function Home() {
       />
       <StockChart chart={chart} setChart={setChart} symbol={symbol} />
 
-      {/* {watchlist &&
-        watchlist.map((stock) => {
-          return <div key={stock.id}>{stock.symbol}</div>;
-        })} */}
+      {/* <div style={{ padding: '1rem' }}>
+        {watchlist &&
+          watchlist.map((stock) => {
+            const color = ['#ce2b2b', '#008456'][Math.floor(Math.random() * 2)];
+            return <StockWidget key={stock.id} stock={stock} color={color} />;
+          })}
+      </div> */}
     </Fragment>
   );
 }

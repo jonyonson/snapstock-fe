@@ -4,10 +4,14 @@ export default {
     secondary: '#12939a', // chart stroke
     accent: '#EF476F', // range buttons
 
-    gain: 'green',
-    loss: 'red',
+    gain: '#008456',
+    loss: '#ce2b2b',
 
     headerText: '#fff',
+
+    // white: '#d7d7d7',
+    white: '#ffffff',
+    black: '#1d1d1d',
   },
 
   maxWidth: '100%',
