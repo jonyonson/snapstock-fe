@@ -104,7 +104,7 @@ function StockChart({
 }
 
 const ChartWrapper = styled.div`
-  margin: 2rem 1rem;
+  margin: 2rem 0;
   margin-bottom: 0;
   border: 1px solid #ccc;
 `;

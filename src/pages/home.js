@@ -6,6 +6,7 @@ import Header from '../components/header';
 import SearchBar from '../components/search-bar';
 import StockQuote from '../components/stock-quote';
 import StockChart from '../components/stock-chart';
+import Container from '../components/common/container';
 
 import { BASE_API_URL, ROUTES } from '../constants';
 
@@ -90,26 +91,28 @@ function Home() {
         setWatchlist={setWatchlist}
         setShowSearch={setShowSearch}
       />
-      <SearchBar
-        setSymbol={setSymbol}
-        symbol={symbol}
-        showSearch={showSearch}
-        setShowSearch={setShowSearch}
-        setChartLoading={setChartLoading}
-        chartLoading={chartLoading}
-      />
-      <StockQuote
-        quote={quote}
-        setWatchlist={setWatchlist}
-        watchlist={watchlist}
-      />
-      <StockChart
-        chart={chart}
-        setChart={setChart}
-        symbol={symbol}
-        chartLoading={chartLoading}
-        setChartLoading={setChartLoading}
-      />
+      <Container>
+        <SearchBar
+          setSymbol={setSymbol}
+          symbol={symbol}
+          showSearch={showSearch}
+          setShowSearch={setShowSearch}
+          setChartLoading={setChartLoading}
+          chartLoading={chartLoading}
+        />
+        <StockQuote
+          quote={quote}
+          setWatchlist={setWatchlist}
+          watchlist={watchlist}
+        />
+        <StockChart
+          chart={chart}
+          setChart={setChart}
+          symbol={symbol}
+          chartLoading={chartLoading}
+          setChartLoading={setChartLoading}
+        />
+      </Container>
     </Fragment>
   );
 }

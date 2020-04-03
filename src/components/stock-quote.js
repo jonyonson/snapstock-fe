@@ -107,7 +107,7 @@ function StockQuote({ quote, setWatchlist, watchlist }) {
 
 const QuoteWrapper = styled.div`
   margin-top: 1rem;
-  padding: 0 1rem;
+  /* padding: 0  */
   position: relative;
 
   .data-header {
