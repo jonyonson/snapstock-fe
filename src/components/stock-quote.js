@@ -8,24 +8,22 @@ import WatchlistButton from './watchlist-button';
 import { BASE_API_URL } from '../constants';
 
 function StockQuote({ quote, setWatchlist, watchlist }) {
-  const [isWatchlisted, setIsWatchlisted] = useState();
+  const [isFollowing, setIsFollowing] = useState();
   const history = useHistory();
 
   useEffect(() => {
     if (watchlist && quote) {
-      setIsWatchlisted(
-        watchlist.some((stock) => stock.symbol === quote.symbol),
-      );
+      setIsFollowing(watchlist.some((stock) => stock.symbol === quote.symbol));
     }
   }, [watchlist, quote]);
 
-  const addToWatchlist = () => {
+  const followStock = () => {
     if (!isAuthenticated()) {
       history.push({
         pathname: '/signin',
         state: { referrer: 'watchlist' },
       });
-    } else if (!isWatchlisted) {
+    } else if (!isFollowing) {
       const { symbol, companyName: company_name } = quote;
       const URL = `${BASE_API_URL}/api/watchlist`;
       const USER_ID = localStorage.getItem('userId');
@@ -75,8 +73,8 @@ function StockQuote({ quote, setWatchlist, watchlist }) {
             alt={`${quote.name} Logo`}
           />
           <WatchlistButton
-            addToWatchlist={addToWatchlist}
-            isWatchlisted={isWatchlisted}
+            followStock={followStock}
+            isFollowing={isFollowing}
           />
         </div>
       </div>
@@ -122,6 +120,7 @@ const QuoteWrapper = styled.div`
     flex-direction: column;
     align-items: flex-end;
     justify-content: space-between;
+    min-width: 120px;
   }
 
   .logo {
