@@ -1,7 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 
-function StockWidget({ stock, color, price, change, changePercent }) {
+function StockWidget({ stock }) {
+  const green = useTheme().colors.gain;
+  const red = useTheme().colors.loss;
+  const color = stock.change >= 0 ? green : red;
+
   return (
     <Widget color={color}>
       <span>{stock.symbol}</span>

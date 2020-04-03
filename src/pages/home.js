@@ -6,7 +6,6 @@ import Header from '../components/header';
 import SearchBar from '../components/search-bar';
 import StockQuote from '../components/stock-quote';
 import StockChart from '../components/stock-chart';
-// import StockWidget from '../components/stock-widget';
 
 import { BASE_API_URL, ROUTES } from '../constants';
 
@@ -111,14 +110,6 @@ function Home() {
         chartLoading={chartLoading}
         setChartLoading={setChartLoading}
       />
-
-      {/* <div style={{ padding: '1rem' }}>
-        {watchlist &&
-          watchlist.map((stock) => {
-            const color = ['#ce2b2b', '#008456'][Math.floor(Math.random() * 2)];
-            return <StockWidget key={stock.id} stock={stock} color={color} />;
-          })}
-      </div> */}
     </Fragment>
   );
 }
