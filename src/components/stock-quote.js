@@ -79,7 +79,7 @@ function StockQuote({ quote, setWatchlist, watchlist }) {
         </div>
       </div>
 
-      <div className="data-table">
+      {/* <div className="data-table">
         <div>
           <span>Open</span>
           <span>{Number(quote.open).toFixed(2)}</span>
@@ -100,7 +100,7 @@ function StockQuote({ quote, setWatchlist, watchlist }) {
           <span>Volume</span>
           <span>{Number(quote.volume).toLocaleString()}</span>
         </div>
-      </div>
+      </div> */}
     </QuoteWrapper>
   );
 }
@@ -194,7 +194,7 @@ const QuoteWrapper = styled.div`
     font-weight: 900;
   }
 
-  .data-table {
+  /* .data-table {
     margin-top: 2rem;
     font-size: 0.875rem;
 
@@ -209,7 +209,7 @@ const QuoteWrapper = styled.div`
       padding-bottom: 0.15rem;
       margin-bottom: 0.5rem;
     }
-  }
+  } */
 `;
 
 const ArrowUp = styled.div`

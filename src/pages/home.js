@@ -2,11 +2,12 @@ import React, { useState, useEffect, Fragment } from 'react';
 import axios from 'axios';
 import { useParams, useLocation, useHistory } from 'react-router-dom';
 import isAuthenticated from '../utils/isAuthenticated';
+import Container from '../components/common/container';
 import Header from '../components/header';
 import SearchBar from '../components/search-bar';
 import StockQuote from '../components/stock-quote';
 import StockChart from '../components/stock-chart';
-import Container from '../components/common/container';
+import KeyData from '../components/key-data';
 
 import { BASE_API_URL, ROUTES } from '../constants';
 
@@ -114,6 +115,7 @@ function Home() {
           chartLoading={chartLoading}
           setChartLoading={setChartLoading}
         />
+        <KeyData quote={quote} />
       </Container>
     </Fragment>
   );

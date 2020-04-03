@@ -48,6 +48,17 @@ const GlobalStyle = createGlobalStyle`
     color: ${(props) => props.theme.colors.secondary};
     text-decoration: none;
   }
+
+  .section-title {
+    margin: 0;
+    text-transform: uppercase;
+    font-size: 0.9375rem;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.6);
+    border-bottom: 2px solid ${(props) => props.theme.colors.primary};
+    padding-bottom: 0.1rem;
+    margin-bottom: 0.875rem;
+  }
 `;
 
 export default GlobalStyle;
