@@ -129,15 +129,23 @@ const QuoteWrapper = styled.div`
   }
 
   .symbol {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     font-weight: 300;
     margin: 0;
+
+    @media (min-width: 500px) {
+      font-size: 2.5rem;
+    }
   }
 
   .company-name {
-    font-size: 1.1rem;
+    font-size: 0.9375rem;
     font-weight: 900;
-    margin: 0 0 2rem;
+    margin: 0 0 1rem;
+
+    @media (min-width: 500px) {
+      font-size: 1.1rem;
+    }
   }
 
   .price-wrapper {
@@ -146,9 +154,13 @@ const QuoteWrapper = styled.div`
   }
 
   .price {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     font-weight: bold;
     margin-right: 0.75rem;
+
+    @media (min-width: 500px) {
+      font-size: 1.6rem;
+    }
   }
 
   .green .change,
@@ -167,8 +179,12 @@ const QuoteWrapper = styled.div`
 
   .change,
   .change-percent {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: bold;
+
+    @media (min-width: 500px) {
+      font-size: 1.4rem;
+    }
   }
 
   .latest-trading-day {
@@ -180,6 +196,11 @@ const QuoteWrapper = styled.div`
 
   .data-table {
     margin-top: 2rem;
+    font-size: 0.875rem;
+
+    @media (min-width: 500px) {
+      font-size: 0.9375rem;
+    }
 
     div {
       display: flex;

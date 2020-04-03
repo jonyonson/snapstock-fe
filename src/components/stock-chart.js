@@ -123,7 +123,6 @@ const ChartRanges = styled.div`
     border: 1px solid #1d1d1d;
     outline: none;
     padding: 0.2rem;
-    /* margin-left: 0.1rem; */
     border-radius: 3px;
     background: transparent;
     font-size: 0.65rem;
