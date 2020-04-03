@@ -62,8 +62,8 @@ function StockChart({
     '1m': 'MMM d',
     '3m': 'MMMM',
     '6m': 'MMM',
-    '1y': 'MMM',
     ytd: 'M/d',
+    '1y': 'MMM',
     '2y': 'MM-yy',
     max: 'yyyy',
   };
