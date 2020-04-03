@@ -17,6 +17,7 @@ function Home() {
   const [chartLoading, setChartLoading] = useState(false);
   const [watchlist, setWatchlist] = useState(null);
   const [showSearch, setShowSearch] = useState(false);
+  const [companyProfile, setCompanyProfile] = useState(null);
 
   const params = useParams();
   const location = useLocation();
@@ -68,6 +69,7 @@ function Home() {
           axios.spread((...responses) => {
             const quoteResponse = responses[0];
             setQuote(quoteResponse.data.quote);
+            setCompanyProfile(quoteResponse.data.company);
 
             const chartResponse = responses[1];
             const chartData = chartResponse.data;
