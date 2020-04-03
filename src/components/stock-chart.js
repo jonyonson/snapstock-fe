@@ -111,23 +111,36 @@ const ChartWrapper = styled.div`
 
 const ChartRanges = styled.div`
   display: flex;
-  justify-content: flex-end;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  margin-right: 1rem;
+  justify-content: space-between;
+  padding: 0.75rem;
+
+  @media (min-width: 500px) {
+    padding: 1rem 0.75rem;
+    justify-content: flex-end;
+  }
 
   button {
-    border: none;
-    font-size: 0.75rem;
+    border: 1px solid #1d1d1d;
     outline: none;
-    padding: 0.2rem 0.4rem;
-    margin-left: 0.1rem;
+    padding: 0.2rem;
+    /* margin-left: 0.1rem; */
+    border-radius: 3px;
+    background: transparent;
+    font-size: 0.65rem;
+
+    @media (min-width: 321px) {
+      font-size: 0.75rem;
+      padding: 0.2rem 0.4rem;
+    }
+
+    @media (min-width: 500px) {
+      margin-left: 0.7rem;
+    }
 
     &.active {
       font-weight: bold;
       background: ${(props) => props.theme.colors.accent};
       color: #fff;
-      border-radius: 3px;
     }
   }
 `;
