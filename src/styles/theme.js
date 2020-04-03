@@ -9,7 +9,6 @@ export default {
 
     headerText: '#fff',
 
-    // white: '#d7d7d7',
     white: '#ffffff',
     black: '#1d1d1d',
 

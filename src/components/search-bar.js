@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import Autosuggest from 'react-autosuggest';
 import { IoMdClose } from 'react-icons/io';
 import BarLoader from 'react-spinners/BarLoader';
-import '../styles/autosuggest.css';
+import '../styles/autosuggest.scss';
 
 function SearchBar({
   setSymbol,
@@ -76,10 +76,10 @@ function SearchBar({
 
   const renderSuggestion = (suggestion) => {
     return (
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <Fragment>
         <div>{suggestion['2. name']}</div>
         <div>{suggestion['1. symbol']}</div>
-      </div>
+      </Fragment>
     );
   };
 
@@ -133,20 +133,20 @@ function SearchBar({
 }
 
 const SearchContainer = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   background-color: ${(props) => props.theme.colors.primary};
   bottom: 0;
   right: 0;
   z-index: 100;
-  padding: 5rem 2rem 1rem;
+  padding: 4rem 2rem 1rem;
 
   .close {
     color: white;
     font-size: 32px;
     position: absolute;
-    top: 1.5rem;
+    top: 1.3rem;
     right: 2rem;
     cursor: pointer;
   }
