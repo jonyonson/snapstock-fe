@@ -148,7 +148,7 @@ const QuoteWrapper = styled.div`
 
   .price {
     font-size: 1.6rem;
-    line-height: 1.6rem;
+    font-weight: bold;
     margin-right: 0.75rem;
   }
 
@@ -164,14 +164,17 @@ const QuoteWrapper = styled.div`
 
   .change {
     margin-right: 5px;
-    font-size: 1.1rem;
   }
+
+  .change,
   .change-percent {
-    font-size: 1.1rem;
+    font-size: 1.4rem;
+    font-weight: bold;
   }
 
   .latest-trading-day {
-    font-size: 0.5rem;
+    margin-top: 0.1rem;
+    font-size: 0.7rem;
     text-transform: uppercase;
     font-weight: 900;
   }
