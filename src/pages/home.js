@@ -5,7 +5,7 @@ import isAuthenticated from '../utils/isAuthenticated';
 import Container from '../components/common/container';
 import Header from '../components/header';
 import SearchBar from '../components/search-bar';
-import StockQuote from '../components/stock-quote';
+import StockHeader from '../components/stock-header';
 import StockChart from '../components/stock-chart';
 import KeyData from '../components/key-data';
 import CompanyProfile from '../components/company-profile';
@@ -105,7 +105,7 @@ function Home() {
           setChartLoading={setChartLoading}
           chartLoading={chartLoading}
         />
-        <StockQuote
+        <StockHeader
           quote={quote}
           setWatchlist={setWatchlist}
           watchlist={watchlist}
