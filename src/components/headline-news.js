@@ -37,7 +37,7 @@ function NewsHeadlines() {
     <Section>
       <div className="section-title">Latest News</div>
       {headlines
-        .filter((_, index) => index >= 4)
+        .filter((_, index) => index <= 4)
         .map((story) => {
           return (
             <div key={story.url} className="article">
