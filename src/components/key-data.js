@@ -35,7 +35,6 @@ const Styled = styled.div`
   margin-top: 2rem;
 
   .table {
-    /* margin-top: 2rem; */
     font-size: 0.875rem;
 
     @media (min-width: 500px) {

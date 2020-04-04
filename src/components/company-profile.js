@@ -39,7 +39,6 @@ const Styled = styled.div`
   }
 
   .description {
-    /* margin-bottom: 1rem; */
     padding-bottom: 1rem;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   }
@@ -53,7 +52,6 @@ const Styled = styled.div`
     justify-content: space-between;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     padding: 0.25rem 0;
-    /* margin-bottom: 1rem; */
   }
 `;
 
