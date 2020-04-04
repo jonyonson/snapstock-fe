@@ -9,6 +9,7 @@ import StockHeader from '../components/stock-header';
 import StockChart from '../components/stock-chart';
 import KeyData from '../components/key-data';
 import CompanyProfile from '../components/company-profile';
+import HeadlineNews from '../components/headline-news';
 
 import { BASE_API_URL, ROUTES } from '../constants';
 
@@ -105,6 +106,9 @@ function Home() {
           setChartLoading={setChartLoading}
           chartLoading={chartLoading}
         />
+
+        <HeadlineNews />
+
         <StockHeader
           quote={quote}
           setWatchlist={setWatchlist}

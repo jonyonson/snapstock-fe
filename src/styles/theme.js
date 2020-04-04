@@ -2,10 +2,10 @@ export default {
   colors: {
     primary: '#044B7F', // header
     secondary: '#12939a', // chart stroke
-    accent: '#EF476F', // range buttons
+    accent: '#EA8C55', // range buttons
 
-    gain: '#008456',
-    loss: '#ce2b2b',
+    gain: '#44AF69',
+    loss: '#F8333C',
 
     headerText: '#fff',
 
