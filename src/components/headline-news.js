@@ -54,6 +54,7 @@ function NewsHeadlines() {
 
 const Section = styled.section`
   margin-top: 2rem;
+  margin-bottom: 2rem;
   font-size: 0.875rem;
 
   @media (min-width: 500px) {
