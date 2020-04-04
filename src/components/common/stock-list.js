@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { MdArrowDropUp, MdArrowDropDown } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
 function StockList({ stockList, displayLength }) {
   return (
@@ -20,7 +21,8 @@ function StockList({ stockList, displayLength }) {
           .filter((stock, index) => index <= displayLength - 1)
           .map((stock) => {
             return (
-              <div
+              <Link
+                to={`/stocks/${stock.symbol.toLowerCase()}`}
                 key={stock.symbol}
                 className={stock.changePercent > 0 ? 'tr gain' : 'tr loss'}
               >
@@ -42,7 +44,7 @@ function StockList({ stockList, displayLength }) {
                 <div className="td volume">
                   {Number(stock.volume).toLocaleString()}
                 </div>
-              </div>
+              </Link>
             );
           })}
       </div>
@@ -113,6 +115,15 @@ const Table = styled.section`
 
     @media (min-width: 360px) {
       min-width: 100px;
+    }
+  }
+
+  .tr.gain,
+  .tr.loss {
+    color: ${(props) => props.theme.colors.black};
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
     }
   }
 
