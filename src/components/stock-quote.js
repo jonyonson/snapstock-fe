@@ -2,8 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
+import theme from '../styles/theme';
 import isAuthenticated from '../utils/isAuthenticated';
 import WatchlistButton from './watchlist-button';
+import {
+  FaLongArrowAltUp as ArrowUp,
+  FaLongArrowAltDown as ArrowDown,
+} from 'react-icons/fa';
 
 import { BASE_API_URL } from '../constants';
 
@@ -41,56 +46,47 @@ function StockQuote({ quote, setWatchlist, watchlist, logoURL }) {
   };
 
   return !quote ? null : (
-    <QuoteWrapper>
-      <div className="data-header">
-        <div
-          className={
-            quote.changePercent > 0
-              ? 'green data-header__left'
-              : 'red data-header__left'
-          }
-        >
-          <h1 className="symbol">{quote.symbol}</h1>
-          <h2 className="company-name">{quote.companyName}</h2>
-          <div className="price-wrapper">
-            <span className="price">
-              ${Number(quote.latestPrice).toFixed(2)}
-            </span>
-            {quote.changePercent > 0 ? <ArrowUp /> : <ArrowDown />}
-          </div>
-          <span className="change">{Number(quote.change).toFixed(2)}</span>
-          <span className="change-percent">
-            ({Number(quote.changePercent * 100).toFixed(2) + '%'})
-          </span>
-          <div className="latest-trading-day">
-            Data as of {quote.latestTime}
-          </div>
+    <StockHeader>
+      <div
+        className={
+          quote.changePercent > 0
+            ? 'green data-header__left'
+            : 'red data-header__left'
+        }
+      >
+        <h1 className="symbol">{quote.symbol}</h1>
+        <h2 className="company-name">{quote.companyName}</h2>
+        <div className="price-wrapper">
+          <span className="price">${Number(quote.latestPrice).toFixed(2)}</span>
+          {quote.changePercent > 0 ? (
+            <ArrowUp size={24} color={theme.colors.gain} />
+          ) : (
+            <ArrowDown size={24} color={theme.colors.loss} />
+          )}
         </div>
-        <div className="data-header__right">
-          <img
-            className="logo"
-            // src={`https://storage.googleapis.com/iex/api/logos/${quote.symbol}.png`}
-            src={logoURL}
-            alt={`${quote.companyName} Logo`}
-          />
-          <WatchlistButton
-            followStock={followStock}
-            isFollowing={isFollowing}
-          />
-        </div>
+        <span className="change">{Number(quote.change).toFixed(2)}</span>
+        <span className="change-percent">
+          ({Number(quote.changePercent * 100).toFixed(2) + '%'})
+        </span>
+        <div className="latest-trading-day">Data as of {quote.latestTime}</div>
       </div>
-    </QuoteWrapper>
+      <div className="data-header__right">
+        <img
+          className="logo"
+          // src={`https://storage.googleapis.com/iex/api/logos/${quote.symbol}.png`}
+          src={logoURL}
+          alt={`${quote.companyName} Logo`}
+        />
+        <WatchlistButton followStock={followStock} isFollowing={isFollowing} />
+      </div>
+    </StockHeader>
   );
 }
 
-const QuoteWrapper = styled.div`
+const StockHeader = styled.div`
   margin: 1rem 0 2rem;
-  position: relative;
-
-  .data-header {
-    display: flex;
-    justify-content: space-between;
-  }
+  display: flex;
+  justify-content: space-between;
 
   .data-header__right {
     display: flex;
@@ -170,39 +166,22 @@ const QuoteWrapper = styled.div`
     text-transform: uppercase;
     font-weight: 900;
   }
-
-  /* .data-table {
-    margin-top: 2rem;
-    font-size: 0.875rem;
-
-    @media (min-width: 500px) {
-      font-size: 0.9375rem;
-    }
-
-    div {
-      display: flex;
-      justify-content: space-between;
-      border-bottom: 1px solid black;
-      padding-bottom: 0.15rem;
-      margin-bottom: 0.5rem;
-    }
-  } */
 `;
 
-const ArrowUp = styled.div`
-  width: 0;
-  height: 0;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  border-bottom: 16px solid ${(props) => props.theme.colors.gain};
-`;
+// const ArrowUp = styled.div`
+//   width: 0;
+//   height: 0;
+//   border-left: 6px solid transparent;
+//   border-right: 6px solid transparent;
+//   border-bottom: 16px solid ${(props) => props.theme.colors.gain};
+// `;
 
-const ArrowDown = styled.div`
-  width: 0;
-  height: 0;
-  border-top: 16px solid ${(props) => props.theme.colors.loss};
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-`;
+// const ArrowDown = styled.div`
+//   width: 0;
+//   height: 0;
+//   border-top: 16px solid ${(props) => props.theme.colors.loss};
+//   border-left: 6px solid transparent;
+//   border-right: 6px solid transparent;
+// `;
 
 export default StockQuote;
