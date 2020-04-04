@@ -11,6 +11,7 @@ import KeyData from '../components/key-data';
 import CompanyProfile from '../components/company-profile';
 import HeadlineNews from '../components/headline-news';
 import MostActive from '../components/most-active';
+import BiggestLosers from '../components/biggest-losers';
 
 import { BASE_API_URL, ROUTES } from '../constants';
 
@@ -110,6 +111,8 @@ function Home() {
 
         {location.pathname === '/' && <HeadlineNews />}
         {location.pathname === '/' && <MostActive />}
+        {location.pathname === '/' && <BiggestLosers />}
+
         <StockHeader
           quote={quote}
           setWatchlist={setWatchlist}
