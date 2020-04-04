@@ -168,20 +168,4 @@ const StockHeader = styled.div`
   }
 `;
 
-// const ArrowUp = styled.div`
-//   width: 0;
-//   height: 0;
-//   border-left: 6px solid transparent;
-//   border-right: 6px solid transparent;
-//   border-bottom: 16px solid ${(props) => props.theme.colors.gain};
-// `;
-
-// const ArrowDown = styled.div`
-//   width: 0;
-//   height: 0;
-//   border-top: 16px solid ${(props) => props.theme.colors.loss};
-//   border-left: 6px solid transparent;
-//   border-right: 6px solid transparent;
-// `;
-
 export default StockQuote;
