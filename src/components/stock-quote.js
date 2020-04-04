@@ -78,36 +78,12 @@ function StockQuote({ quote, setWatchlist, watchlist }) {
           />
         </div>
       </div>
-
-      {/* <div className="data-table">
-        <div>
-          <span>Open</span>
-          <span>{Number(quote.open).toFixed(2)}</span>
-        </div>
-        <div>
-          <span>Previous Close</span>
-          <span>{Number(quote.previousClose).toFixed(2)}</span>
-        </div>
-        <div>
-          <span>Day High</span>
-          <span>{Number(quote.high).toFixed(2)}</span>
-        </div>
-        <div>
-          <span>Day Low</span>
-          <span>{Number(quote.low).toFixed(2)}</span>
-        </div>
-        <div>
-          <span>Volume</span>
-          <span>{Number(quote.volume).toLocaleString()}</span>
-        </div>
-      </div> */}
     </QuoteWrapper>
   );
 }
 
 const QuoteWrapper = styled.div`
-  margin-top: 1rem;
-  /* padding: 0  */
+  margin: 1rem 0 2rem;
   position: relative;
 
   .data-header {

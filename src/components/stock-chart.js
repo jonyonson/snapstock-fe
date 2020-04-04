@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import styled from 'styled-components';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
@@ -76,38 +76,44 @@ function StockChart({
   const strokeColor = useTheme().colors.secondary;
 
   return chart.data.length ? (
-    <ChartWrapper>
-      <ChartRanges>
-        {Object.keys(ranges).map((range) => (
-          <button
-            key={range}
-            className={range === activeRangeButton ? 'active' : undefined}
-            onClick={() => displayChart(range)}
-          >
-            {range.toUpperCase()}
-          </button>
-        ))}
-      </ChartRanges>
-      <FlexibleXYPlot
-        xType="time"
-        height={240}
-        margin={{ left: 50 }}
-        stroke={strokeColor}
-      >
-        {chartLoading && <LoadingMask />}
-        <XAxis tickTotal={6} tickFormat={handleTickFormat} />
-        <YAxis />
-        <LineSeries getNull={(d) => d.y !== null} data={data} />
-      </FlexibleXYPlot>
-    </ChartWrapper>
+    <Section>
+      <div className="section-title">Charts</div>
+      <div className="chart-wrapper">
+        <ChartRanges>
+          {Object.keys(ranges).map((range) => (
+            <button
+              key={range}
+              className={range === activeRangeButton ? 'active' : undefined}
+              onClick={() => displayChart(range)}
+            >
+              {range.toUpperCase()}
+            </button>
+          ))}
+        </ChartRanges>
+        <FlexibleXYPlot
+          xType="time"
+          height={240}
+          margin={{ left: 50 }}
+          stroke={strokeColor}
+        >
+          {chartLoading && <LoadingMask />}
+          <XAxis tickTotal={6} tickFormat={handleTickFormat} />
+          <YAxis />
+          <LineSeries getNull={(d) => d.y !== null} data={data} />
+        </FlexibleXYPlot>
+      </div>
+    </Section>
   ) : null;
 }
 
-const ChartWrapper = styled.div`
-  margin: 2rem 0;
-  margin-bottom: 0;
-  border: 1px solid #ccc;
+const Section = styled.section`
+  .chart-wrapper {
+    border: 1px solid #ccc;
+  }
 `;
+// const ChartWrapper = styled.div`
+//   border: 1px solid #ccc;
+// `;
 
 const ChartRanges = styled.div`
   display: flex;
