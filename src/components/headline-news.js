@@ -38,7 +38,7 @@ function NewsHeadlines() {
       <div className="section-title">Latest News</div>
       {headlines.map((story) => {
         return (
-          <div key={story.url} className="articles">
+          <div key={story.url} className="article">
             <div className="time">
               {formatDistanceFromNow(story.publishedAt)}
             </div>
@@ -60,7 +60,7 @@ const Section = styled.section`
     font-size: 0.9375rem;
   }
 
-  .articles {
+  .article {
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     padding-bottom: 0.5rem;
     margin-bottom: 0.5rem;
