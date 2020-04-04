@@ -32,7 +32,9 @@ function MostActive() {
           <div className="td name">Name</div>
           <div className="td">Price</div>
           <div className="td change">Chg</div>
-          <div className="td percent">% Chg</div>
+          <div className="td percent">
+            % Chg&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </div>
           <div className="td volume">Volume</div>
         </div>
 
@@ -93,11 +95,8 @@ const Section = styled.section`
     font-weight: 900;
   }
 
-  .tr.th {
-    background-color: #ffffff !important;
-    & > .td.percent {
-      padding-right: 20px;
-    }
+  .table > .tr.th {
+    background-color: #ffffff;
   }
 
   .tr {
