@@ -1,8 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import StockWidget from './stock-widget';
 
 import { BASE_API_URL } from '../constants';
 
@@ -11,7 +9,6 @@ function MostActive() {
 
   useEffect(() => {
     const mostActiveURL = `${BASE_API_URL}/api/stocks/market/list/mostactive`;
-    console.log('fetching');
     axios
       .get(mostActiveURL)
       .then((res) => {
@@ -26,17 +23,25 @@ function MostActive() {
 
   return (
     <Fragment>
-      <h1>Most Active</h1>
+      <div className="section-title">Most Active</div>
       <StyledList>
+        <div className="row">
+          <div>Name</div>
+          <div>Price</div>
+          <div>Change</div>
+          <div>% Change</div>
+          <div>Volume</div>
+        </div>
         {mostActive.length > 0 &&
           mostActive.map((stock) => {
             return (
-              <Link
-                key={stock.symbol}
-                to={`/stocks/${stock.symbol.toLowerCase()}`}
-              >
-                <StockWidget stock={stock} />
-              </Link>
+              <div key={stock.symbol} className="row">
+                <div>{stock.symbol}</div>
+                <div>{stock.latestPrice}</div>
+                <div>{stock.change}</div>
+                <div>{stock.changePercent}</div>
+                <div>{stock.volume}</div>
+              </div>
             );
           })}
       </StyledList>
@@ -44,16 +49,15 @@ function MostActive() {
   );
 }
 
-const StyledList = styled.div``;
+const StyledList = styled.div`
+  .row {
+    display: flex;
+
+    div {
+      border: 1px solid black;
+      min-width: 100px;
+    }
+  }
+`;
 
 export default MostActive;
-
-// return (
-//   <div key={stock.symbol}>
-//     <p>{stock.companyName}</p>
-//     <p>{stock.symbol}</p>
-//     <p>{stock.latestPrice}</p>
-//     <p>{stock.change}</p>
-//     <p>{stock.changePercent}</p>
-//     <p>{stock.volume}</p>
-//   </div>
