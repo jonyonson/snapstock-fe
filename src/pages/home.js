@@ -8,6 +8,7 @@ import SearchBar from '../components/search-bar';
 import StockQuote from '../components/stock-quote';
 import StockChart from '../components/stock-chart';
 import KeyData from '../components/key-data';
+import CompanyProfile from '../components/company-profile';
 
 import { BASE_API_URL, ROUTES } from '../constants';
 
@@ -116,6 +117,7 @@ function Home() {
           setChartLoading={setChartLoading}
         />
         <KeyData quote={quote} />
+        <CompanyProfile profile={companyProfile} />
       </Container>
     </Fragment>
   );
