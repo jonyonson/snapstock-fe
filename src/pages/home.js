@@ -107,7 +107,7 @@ function Home() {
           chartLoading={chartLoading}
         />
 
-        <HeadlineNews />
+        {location.pathname === '/' && <HeadlineNews />}
 
         <StockHeader
           quote={quote}
