@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useHistory, useLocation, Link } from 'react-router-dom';
 import isAuthenticated from '../utils/isAuthenticated';
@@ -38,36 +38,33 @@ function Header({ setSymbol, setQuote, setWatchlist, setShowSearch }) {
   };
 
   return (
-    <Fragment>
-      <StyledHeader>
-        <Container>
-          <div className="header__inner">
-            <Link className="logo" to="/" onClick={() => handleReset()}>
-              Snapstock
+    <StyledHeader>
+      <Container>
+        <div className="header__inner">
+          <Link className="logo" to="/" onClick={() => handleReset()}>
+            Snapstock
+          </Link>
+          <div>
+            <button className="search-button" onClick={findSymbol}>
+              <FaSearch size="18" />
+              {/* <span>Symbol</span> */}
+            </button>
+            <Link className="nav-item" to="/watchlist">
+              Watchlist
             </Link>
-
-            <div>
-              <button className="search-button" onClick={findSymbol}>
-                <FaSearch size="18" />
-                {/* <span>Symbol</span> */}
-              </button>
-              <Link className="nav-item" to="/watchlist">
-                Watchlist
+            {!isAuthenticated() ? (
+              <Link className="nav-item login" to="/signin">
+                Sign in
               </Link>
-              {!isAuthenticated() ? (
-                <Link className="nav-item login" to="/signin">
-                  Log in
-                </Link>
-              ) : (
-                <button className="nav-item logout" onClick={logout}>
-                  Log out
-                </button>
-              )}
-            </div>
+            ) : (
+              <button className="nav-item logout" onClick={logout}>
+                Sign out
+              </button>
+            )}
           </div>
-        </Container>
-      </StyledHeader>
-    </Fragment>
+        </div>
+      </Container>
+    </StyledHeader>
   );
 }
 
@@ -91,8 +88,8 @@ const StyledHeader = styled.div`
     font-weight: 500;
   }
 
-  .login,
   .logout {
+    outline: none;
   }
 
   button {
@@ -101,7 +98,6 @@ const StyledHeader = styled.div`
   }
 
   .search-button {
-    /* border: 1px solid ${(props) => props.theme.colors.headerText}; */
     padding: 0.5rem;
     border-radius: 3px;
     outline: none;
