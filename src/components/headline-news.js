@@ -36,18 +36,20 @@ function NewsHeadlines() {
   return (
     <Section>
       <div className="section-title">Latest News</div>
-      {headlines.map((story) => {
-        return (
-          <div key={story.url} className="article">
-            <div className="time">
-              {formatDistanceFromNow(story.publishedAt)}
+      {headlines
+        .filter((_, index) => index >= 4)
+        .map((story) => {
+          return (
+            <div key={story.url} className="article">
+              <div className="time">
+                {formatDistanceFromNow(story.publishedAt)}
+              </div>
+              <a href={story.url} target="_blank" rel="noopener noreferrer">
+                {story.title}
+              </a>
             </div>
-            <a href={story.url} target="_blank" rel="noopener noreferrer">
-              {story.title}
-            </a>
-          </div>
-        );
-      })}
+          );
+        })}
     </Section>
   );
 }
