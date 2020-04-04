@@ -48,7 +48,7 @@ function KeyData({ quote }) {
 }
 
 const Section = styled.section`
-  margin-top: 2rem;
+  margin-bottom: 2rem;
 
   .table {
     font-size: 0.875rem;

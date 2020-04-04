@@ -84,7 +84,7 @@ function StockQuote({ quote, setWatchlist, watchlist, logoURL }) {
 }
 
 const StockHeader = styled.div`
-  margin: 1rem 0 2rem;
+  margin: 2rem 0;
   display: flex;
   justify-content: space-between;
 

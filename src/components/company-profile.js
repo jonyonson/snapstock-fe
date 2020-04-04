@@ -10,7 +10,7 @@ function CompanyProfile({ profile }) {
   };
 
   return !profile ? null : (
-    <Styled>
+    <Section>
       <div className="section-title">
         <span>Company Profile</span>
         {isVisible ? (
@@ -40,12 +40,12 @@ function CompanyProfile({ profile }) {
           </div>
         </Fragment>
       )}
-    </Styled>
+    </Section>
   );
 }
 
-const Styled = styled.div`
-  margin-top: 2rem;
+const Section = styled.section`
+  margin-bottom: 2rem;
   font-size: 0.875rem;
 
   @media (min-width: 500px) {
