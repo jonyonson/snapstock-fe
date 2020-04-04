@@ -1,31 +1,45 @@
-import React from 'react';
+import React, { useState, Fragment } from 'react';
 import styled from 'styled-components';
+import { FaMinusSquare, FaPlusSquare } from 'react-icons/fa';
 
 function CompanyProfile({ profile }) {
+  const [isVisible, setIsVisible] = useState(true);
+
+  const toggleVisibility = () => {
+    setIsVisible((prevState) => !prevState);
+  };
+
   return !profile ? null : (
     <Styled>
-      <div className="section-title">Company Profile</div>
-      <p className="description">{profile.description}</p>
-      {/* <div className="flex">
-        <span>Exchange</span>
-        <span>{profile.exchange}</span>
-      </div> */}
-      <div className="flex">
-        <span>Industry</span>
-        <span>{profile.industry}</span>
+      <div className="section-title">
+        <span>Company Profile</span>
+        {isVisible ? (
+          <FaMinusSquare className="toggle-btn" onClick={toggleVisibility} />
+        ) : (
+          <FaPlusSquare className="toggle-btn" onClick={toggleVisibility} />
+        )}
       </div>
-      <div className="flex">
-        <span>Chief Operating Officer</span>
-        <span>{profile.CEO}</span>
-      </div>
-      <div className="flex">
-        <span>Website</span>
-        <a target="_blank" rel="noopener noreferrer" href={profile.website}>
-          {profile.website.includes('//')
-            ? profile.website.split('//')[1]
-            : profile.website}
-        </a>
-      </div>
+      {isVisible && (
+        <Fragment>
+          <p className="description">{profile.description}</p>
+          <div className="flex">
+            <span>Industry</span>
+            <span>{profile.industry}</span>
+          </div>
+          <div className="flex">
+            <span>Chief Operating Officer</span>
+            <span>{profile.CEO}</span>
+          </div>
+          <div className="flex">
+            <span>Website</span>
+            <a target="_blank" rel="noopener noreferrer" href={profile.website}>
+              {profile.website.includes('//')
+                ? profile.website.split('//')[1]
+                : profile.website}
+            </a>
+          </div>
+        </Fragment>
+      )}
     </Styled>
   );
 }

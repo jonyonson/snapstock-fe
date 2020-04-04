@@ -1,37 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { FaMinusSquare, FaPlusSquare } from 'react-icons/fa';
 
 function KeyData({ quote }) {
+  const [isVisible, setIsVisible] = useState(true);
+
+  const toggleVisibility = () => {
+    setIsVisible((prevState) => !prevState);
+  };
+
   return !quote ? null : (
-    <Styled>
-      <div className="section-title">Key Data</div>
-      <div className="table">
-        <div>
-          <span>Open</span>
-          <span>{Number(quote.open).toFixed(2)}</span>
-        </div>
-        <div>
-          <span>Previous Close</span>
-          <span>{Number(quote.previousClose).toFixed(2)}</span>
-        </div>
-        <div>
-          <span>Day High</span>
-          <span>{Number(quote.high).toFixed(2)}</span>
-        </div>
-        <div>
-          <span>Day Low</span>
-          <span>{Number(quote.low).toFixed(2)}</span>
-        </div>
-        <div>
-          <span>Volume</span>
-          <span>{Number(quote.volume).toLocaleString()}</span>
-        </div>
+    <Section>
+      <div className="section-title">
+        <span>Key Data</span>
+        {isVisible ? (
+          <FaMinusSquare className="toggle-btn" onClick={toggleVisibility} />
+        ) : (
+          <FaPlusSquare className="toggle-btn" onClick={toggleVisibility} />
+        )}
       </div>
-    </Styled>
+      {isVisible && (
+        <div className="table">
+          <div>
+            <span>Open</span>
+            <span>{Number(quote.open).toFixed(2)}</span>
+          </div>
+          <div>
+            <span>Previous Close</span>
+            <span>{Number(quote.previousClose).toFixed(2)}</span>
+          </div>
+          <div>
+            <span>Day High</span>
+            <span>{Number(quote.high).toFixed(2)}</span>
+          </div>
+          <div>
+            <span>Day Low</span>
+            <span>{Number(quote.low).toFixed(2)}</span>
+          </div>
+          <div>
+            <span>Volume</span>
+            <span>{Number(quote.volume).toLocaleString()}</span>
+          </div>
+        </div>
+      )}
+    </Section>
   );
 }
 
-const Styled = styled.div`
+const Section = styled.section`
   margin-top: 2rem;
 
   .table {

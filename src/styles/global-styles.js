@@ -58,6 +58,13 @@ const GlobalStyle = createGlobalStyle`
     border-bottom: 2px solid ${(props) => props.theme.colors.primary};
     padding-bottom: 0.1rem;
     margin-bottom: 0.875rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .toggle-btn {
+      cursor: pointer;
+    }
   }
 `;
 

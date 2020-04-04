@@ -5,6 +5,7 @@ import parse from 'date-fns/parse';
 import axios from 'axios';
 import { useTheme } from 'styled-components';
 import { XYPlot, XAxis, YAxis, LineSeries, makeWidthFlexible } from 'react-vis';
+import { FaPlusSquare, FaMinusSquare } from 'react-icons/fa';
 import 'react-vis/dist/style.css';
 
 import { BASE_API_URL } from '../constants';
@@ -17,10 +18,15 @@ function StockChart({
   setChartLoading,
 }) {
   const [activeRangeButton, setActiveRangeButton] = useState('1d');
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     setActiveRangeButton('1d');
   }, [symbol]);
+
+  const toggleVisibility = () => {
+    setIsVisible((prevState) => !prevState);
+  };
 
   const displayChart = (range) => {
     // sets the button to active before the potential api call
@@ -77,31 +83,40 @@ function StockChart({
 
   return chart.data.length ? (
     <Section>
-      <div className="section-title">Charts</div>
-      <div className="chart-wrapper">
-        <ChartRanges>
-          {Object.keys(ranges).map((range) => (
-            <button
-              key={range}
-              className={range === activeRangeButton ? 'active' : undefined}
-              onClick={() => displayChart(range)}
-            >
-              {range.toUpperCase()}
-            </button>
-          ))}
-        </ChartRanges>
-        <FlexibleXYPlot
-          xType="time"
-          height={240}
-          margin={{ left: 50 }}
-          stroke={strokeColor}
-        >
-          {chartLoading && <LoadingMask />}
-          <XAxis tickTotal={6} tickFormat={handleTickFormat} />
-          <YAxis />
-          <LineSeries getNull={(d) => d.y !== null} data={data} />
-        </FlexibleXYPlot>
+      <div className="section-title">
+        <span>Charts</span>
+        {isVisible ? (
+          <FaMinusSquare className="toggle-btn" onClick={toggleVisibility} />
+        ) : (
+          <FaPlusSquare className="toggle-btn" onClick={toggleVisibility} />
+        )}
       </div>
+      {isVisible && (
+        <div className="chart-wrapper">
+          <ChartRanges>
+            {Object.keys(ranges).map((range) => (
+              <button
+                key={range}
+                className={range === activeRangeButton ? 'active' : undefined}
+                onClick={() => displayChart(range)}
+              >
+                {range.toUpperCase()}
+              </button>
+            ))}
+          </ChartRanges>
+          <FlexibleXYPlot
+            xType="time"
+            height={240}
+            margin={{ left: 50 }}
+            stroke={strokeColor}
+          >
+            {chartLoading && <LoadingMask />}
+            <XAxis tickTotal={6} tickFormat={handleTickFormat} />
+            <YAxis />
+            <LineSeries getNull={(d) => d.y !== null} data={data} />
+          </FlexibleXYPlot>
+        </div>
+      )}
     </Section>
   ) : null;
 }
