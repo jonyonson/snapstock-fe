@@ -20,6 +20,7 @@ function Home() {
   const [watchlist, setWatchlist] = useState(null);
   const [showSearch, setShowSearch] = useState(false);
   const [companyProfile, setCompanyProfile] = useState(null);
+  const [logoURL, setLogoURL] = useState(null);
 
   const params = useParams();
   const location = useLocation();
@@ -72,7 +73,7 @@ function Home() {
             const quoteResponse = responses[0];
             setQuote(quoteResponse.data.quote);
             setCompanyProfile(quoteResponse.data.company);
-
+            setLogoURL(quoteResponse.data.logo.url);
             const chartResponse = responses[1];
             const chartData = chartResponse.data;
             setChart({ '1d': chartData, data: chartData, type: '1d' });
@@ -108,6 +109,7 @@ function Home() {
           quote={quote}
           setWatchlist={setWatchlist}
           watchlist={watchlist}
+          logoURL={logoURL}
         />
         <StockChart
           chart={chart}

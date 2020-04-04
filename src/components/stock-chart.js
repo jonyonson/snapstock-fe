@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
@@ -111,9 +111,6 @@ const Section = styled.section`
     border: 1px solid #ccc;
   }
 `;
-// const ChartWrapper = styled.div`
-//   border: 1px solid #ccc;
-// `;
 
 const ChartRanges = styled.div`
   display: flex;

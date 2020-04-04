@@ -7,7 +7,7 @@ import WatchlistButton from './watchlist-button';
 
 import { BASE_API_URL } from '../constants';
 
-function StockQuote({ quote, setWatchlist, watchlist }) {
+function StockQuote({ quote, setWatchlist, watchlist, logoURL }) {
   const [isFollowing, setIsFollowing] = useState();
   const history = useHistory();
 
@@ -69,8 +69,9 @@ function StockQuote({ quote, setWatchlist, watchlist }) {
         <div className="data-header__right">
           <img
             className="logo"
-            src={`https://storage.googleapis.com/iex/api/logos/${quote.symbol}.png`}
-            alt={`${quote.name} Logo`}
+            // src={`https://storage.googleapis.com/iex/api/logos/${quote.symbol}.png`}
+            src={logoURL}
+            alt={`${quote.companyName} Logo`}
           />
           <WatchlistButton
             followStock={followStock}
