@@ -12,6 +12,7 @@ import CompanyProfile from '../components/company-profile';
 import HeadlineNews from '../components/headline-news';
 import MostActive from '../components/most-active';
 import BiggestLosers from '../components/biggest-losers';
+import BiggestGainers from '../components/biggest-gainers';
 
 import { BASE_API_URL, ROUTES } from '../constants';
 
@@ -112,6 +113,7 @@ function Home() {
         {location.pathname === '/' && <HeadlineNews />}
         {location.pathname === '/' && <MostActive />}
         {location.pathname === '/' && <BiggestLosers />}
+        {location.pathname === '/' && <BiggestGainers />}
 
         <StockHeader
           quote={quote}
