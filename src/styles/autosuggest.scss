@@ -1,6 +1,8 @@
 .react-autosuggest__container {
   position: relative;
   text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .react-autosuggest__input {
