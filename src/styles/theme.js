@@ -16,5 +16,5 @@ export default {
     infoBorder: '#91d5ff',
   },
 
-  maxWidth: '1000px',
+  maxWidth: '1200px',
 };

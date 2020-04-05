@@ -35,38 +35,40 @@ function NewsHeadlines() {
 
   const mostRecentHeadline =
     headlines.length > 0
-      ? headlines[0].title.slice(0, headlines[0].title.lastIndexOf('-') - 1)
+      ? headlines[1].title.slice(0, headlines[1].title.lastIndexOf('-') - 1)
       : '';
 
   return (
     <Section>
       {headlines.length > 0 && (
-        <a href={headlines[0].url} className="most-recent-story">
+        <a href={headlines[1].url} className="most-recent-story">
           <div className="most-recent-story__headline">
             {mostRecentHeadline}
           </div>
           <img
             className="most-recent-story__image"
-            src={headlines[0].urlToImage}
+            src={headlines[1].urlToImage}
             alt=""
           />
         </a>
       )}
-      <div className="section-title">Latest News</div>
-      {headlines
-        .filter((_, index) => index > 0 && index <= 4)
-        .map((story) => {
-          return (
-            <div key={story.url} className="article">
-              <div className="time">
-                {formatDistanceFromNow(story.publishedAt)}
+      <div className="latest-news">
+        <div className="section-title">Latest News</div>
+        {headlines
+          .filter((_, index) => index > 0 && index <= 5)
+          .map((story) => {
+            return (
+              <div key={story.url} className="article">
+                <div className="time">
+                  {formatDistanceFromNow(story.publishedAt)}
+                </div>
+                <a href={story.url} target="_blank" rel="noopener noreferrer">
+                  {story.title}
+                </a>
               </div>
-              <a href={story.url} target="_blank" rel="noopener noreferrer">
-                {story.title}
-              </a>
-            </div>
-          );
-        })}
+            );
+          })}
+      </div>
     </Section>
   );
 }
@@ -76,35 +78,60 @@ const Section = styled.section`
   margin-bottom: 2rem;
   font-size: 0.875rem;
 
+  @media (min-width: 600px) {
+    display: flex;
+  }
+
   .most-recent-story {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+
+    @media (min-width: 600px) {
+      margin-right: 2rem;
+      margin-bottom: 0;
+      max-width: 60%;
+    }
+
+    @media (min-width: 900px) {
+      line-height: 1.2;
+      font-size: 26px;
+    }
+
     &__headline {
-      font-size: 20px;
-      line-height: 1.1;
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
     }
 
     &__image {
       max-width: calc(100% + 2rem);
       margin-bottom: 2rem;
       margin-left: -1rem;
-      /* margin-right: -1rem; */
 
       @media (min-width: 415px) {
         max-width: 100%;
-
         margin-left: 0;
+      }
+
+      @media (min-width: 600px) {
+        margin-bottom: 0;
       }
     }
   }
 
-  @media (min-width: 500px) {
-    font-size: 0.9375rem;
+  .latest-news {
+    /* margin-left: 1rem; */
+    align-self: flex-end;
   }
 
   .article {
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     padding-bottom: 0.5rem;
     margin-bottom: 0.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   a {
@@ -115,6 +142,7 @@ const Section = styled.section`
     color: ${(props) => props.theme.colors.accent};
     font-size: 0.75rem;
     font-weight: bold;
+    margin-bottom: 0.2em;
   }
 `;
 
