@@ -8,8 +8,8 @@ function StockList({ stockList, displayLength }) {
     <Table>
       <div className="table">
         <div className="tr th">
-          <div className="td name">Name</div>
-          <div className="td">Price</div>
+          <div className="td name">SYM</div>
+          <div className="td price">Price</div>
           <div className="td change">Chg</div>
           <div className="td percent">
             % Chg&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -27,8 +27,8 @@ function StockList({ stockList, displayLength }) {
                 className={stock.changePercent > 0 ? 'tr gain' : 'tr loss'}
               >
                 <div className="td name">{stock.symbol}</div>
-                <div className="td">
-                  $ {Number(stock.latestPrice).toFixed(2)}
+                <div className="td price">
+                  {Number(stock.latestPrice).toFixed(2)}
                 </div>
                 <div className="td change">
                   {Number(stock.change).toFixed(2)}
@@ -60,9 +60,9 @@ const Table = styled.section`
   line-height: 1.5;
   flex: 1 1 auto;
 
-  @media (min-width: 360px) {
+  /* @media (min-width: 360px) {
     font-size: 0.875rem;
-  }
+  } */
 
   .th {
     border-bottom: 1px dashed rgba(0, 0, 0, 1);
@@ -109,13 +109,13 @@ const Table = styled.section`
   }
 
   .td.volume {
-    min-width: 80px;
+    min-width: 75px;
     justify-content: flex-end;
     padding-right: 0.5em;
 
-    @media (min-width: 360px) {
+    /* @media (min-width: 360px) {
       min-width: 100px;
-    }
+    } */
   }
 
   .tr.gain,
@@ -140,11 +140,15 @@ const Table = styled.section`
   }
 
   .td.percent {
-    min-width: 70px;
+    min-width: 75px;
+  }
 
-    @media (min-width: 360px) {
-      min-width: 80px;
-    }
+  .td.change {
+    min-width: 40px;
+  }
+
+  .td.price {
+    min-width: 50px;
   }
 `;
 

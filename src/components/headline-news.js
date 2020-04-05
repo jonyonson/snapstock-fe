@@ -56,7 +56,7 @@ function NewsHeadlines({ setShowSearch }) {
         </a>
       )}
       <div className="latest-news">
-        {width >= 600 && <SearchButton setShowSearch={setShowSearch} />}
+        {width >= 770 && <SearchButton setShowSearch={setShowSearch} />}
         <div>
           <div className="section-title">Latest News</div>
           {headlines
@@ -84,7 +84,7 @@ const Section = styled.section`
   margin-bottom: 2rem;
   font-size: 0.875rem;
 
-  @media (min-width: 600px) {
+  @media (min-width: 770px) {
     display: flex;
   }
 
@@ -94,10 +94,10 @@ const Section = styled.section`
     line-height: 1.1;
     margin-bottom: 2rem;
 
-    @media (min-width: 600px) {
+    @media (min-width: 770px) {
       margin-right: 2rem;
       margin-bottom: 0;
-      max-width: 60%;
+      min-width: 60%;
     }
 
     @media (min-width: 900px) {
@@ -110,11 +110,11 @@ const Section = styled.section`
     }
 
     &__image {
-      max-width: calc(100% + 2rem);
+      width: calc(100% + 2rem);
       margin-bottom: 2rem;
       margin-left: -1rem;
 
-      @media (min-width: 600px) {
+      @media (min-width: 770px) {
         max-width: 100%;
         margin-left: 0;
         margin-bottom: 0;
@@ -123,7 +123,7 @@ const Section = styled.section`
   }
 
   .latest-news {
-    @media (min-width: 600px) {
+    @media (min-width: 770px) {
       display: flex;
       flex-direction: column;
       justify-content: space-between;

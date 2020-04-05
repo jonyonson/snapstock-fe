@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import axios from 'axios';
 import { useParams, useLocation, useHistory } from 'react-router-dom';
+import styled from 'styled-components';
 import useWindowSize from '../hooks/use-window-size';
 import isAuthenticated from '../utils/isAuthenticated';
 import Container from '../components/common/container';
@@ -115,11 +116,16 @@ function Home() {
 
         {location.pathname === '/' && (
           <Fragment>
-            {width < 600 && <SearchButton setShowSearch={setShowSearch} />}
+            {width < 770 && <SearchButton setShowSearch={setShowSearch} />}
             <HeadlineNews setShowSearch={setShowSearch} />
-            <MostActive />
-            <BiggestLosers />
-            <BiggestGainers />
+            <Section>
+              <StockLists>
+                <MostActive />
+                <BiggestLosers />
+                <BiggestGainers />
+              </StockLists>
+              <div className="placeholder" />
+            </Section>
           </Fragment>
         )}
 
@@ -142,5 +148,33 @@ function Home() {
     </Fragment>
   );
 }
+
+const Section = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: 770px) {
+    flex-direction: row;
+  }
+
+  .placeholder {
+    border: 1px solid black;
+    background-color: #ccc;
+
+    @media (min-width: 770px) {
+      flex-grow: 1;
+    }
+  }
+`;
+
+const StockLists = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: 770px) {
+    width: 60%;
+    margin-right: 2rem;
+  }
+`;
 
 export default Home;
