@@ -66,6 +66,7 @@ const GlobalStyle = createGlobalStyle`
       cursor: pointer;
     }
   }
+
 `;
 
 export default GlobalStyle;

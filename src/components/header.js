@@ -45,10 +45,11 @@ function Header({ setSymbol, setQuote, setWatchlist, setShowSearch }) {
             Snapstock
           </Link>
           <div>
-            <button className="search-button" onClick={findSymbol}>
-              <FaSearch size="18" />
-              {/* <span>Symbol</span> */}
-            </button>
+            {location.pathname !== '/' && (
+              <button className="search-button" onClick={findSymbol}>
+                <FaSearch size="18" />
+              </button>
+            )}
             <Link className="nav-item" to="/watchlist">
               Watchlist
             </Link>

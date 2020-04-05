@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import axios from 'axios';
 import { useParams, useLocation, useHistory } from 'react-router-dom';
+import useWindowSize from '../hooks/use-window-size';
 import isAuthenticated from '../utils/isAuthenticated';
 import Container from '../components/common/container';
 import Header from '../components/header';
@@ -13,6 +14,7 @@ import HeadlineNews from '../components/headline-news';
 import MostActive from '../components/most-active';
 import BiggestLosers from '../components/biggest-losers';
 import BiggestGainers from '../components/biggest-gainers';
+import SearchButton from '../components/search-button';
 
 import { BASE_API_URL, ROUTES } from '../constants';
 
@@ -26,6 +28,7 @@ function Home() {
   const [companyProfile, setCompanyProfile] = useState(null);
   const [logoURL, setLogoURL] = useState(null);
 
+  const { width } = useWindowSize();
   const params = useParams();
   const location = useLocation();
   const history = useHistory();
@@ -110,10 +113,15 @@ function Home() {
           chartLoading={chartLoading}
         />
 
-        {location.pathname === '/' && <HeadlineNews />}
-        {location.pathname === '/' && <MostActive />}
-        {location.pathname === '/' && <BiggestLosers />}
-        {location.pathname === '/' && <BiggestGainers />}
+        {location.pathname === '/' && (
+          <Fragment>
+            {width < 600 && <SearchButton setShowSearch={setShowSearch} />}
+            <HeadlineNews setShowSearch={setShowSearch} />
+            <MostActive />
+            <BiggestLosers />
+            <BiggestGainers />
+          </Fragment>
+        )}
 
         <StockHeader
           quote={quote}

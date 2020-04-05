@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import useWindowSize from '../hooks/use-window-size';
+import SearchButton from './search-button';
 
 import { BASE_API_URL } from '../constants';
 
@@ -16,8 +18,9 @@ function formatDistanceFromNow(publishedAt) {
     : distanceInWords;
 }
 
-function NewsHeadlines() {
+function NewsHeadlines({ setShowSearch }) {
   const [headlines, setHeadlines] = useState([]);
+  const { width } = useWindowSize();
 
   useEffect(() => {
     const url = `${BASE_API_URL}/api/news/top-headlines`;
@@ -53,28 +56,31 @@ function NewsHeadlines() {
         </a>
       )}
       <div className="latest-news">
-        <div className="section-title">Latest News</div>
-        {headlines
-          .filter((_, index) => index > 0 && index <= 5)
-          .map((story) => {
-            return (
-              <div key={story.url} className="article">
-                <div className="time">
-                  {formatDistanceFromNow(story.publishedAt)}
+        {width >= 600 && <SearchButton setShowSearch={setShowSearch} />}
+        <div>
+          <div className="section-title">Latest News</div>
+          {headlines
+            .filter((_, index) => index > 0 && index <= 5)
+            .map((story) => {
+              return (
+                <div key={story.url} className="article">
+                  <div className="time">
+                    {formatDistanceFromNow(story.publishedAt)}
+                  </div>
+                  <a href={story.url} target="_blank" rel="noopener noreferrer">
+                    {story.title}
+                  </a>
                 </div>
-                <a href={story.url} target="_blank" rel="noopener noreferrer">
-                  {story.title}
-                </a>
-              </div>
-            );
-          })}
+              );
+            })}
+        </div>
       </div>
     </Section>
   );
 }
 
 const Section = styled.section`
-  margin-top: 2rem;
+  margin-top: 1rem;
   margin-bottom: 2rem;
   font-size: 0.875rem;
 
@@ -100,7 +106,7 @@ const Section = styled.section`
     }
 
     &__headline {
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
 
     &__image {
@@ -120,7 +126,17 @@ const Section = styled.section`
   }
 
   .latest-news {
-    align-self: flex-end;
+    @media (min-width: 600px) {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .search-button {
+      margin-bottom: 2rem;
+      margin-top: 0;
+      text-align: left;
+    }
   }
 
   .article {
