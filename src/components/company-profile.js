@@ -17,11 +17,13 @@ function CompanyProfile({ profile }) {
           <AiOutlineMinusSquare
             className="toggle-btn"
             onClick={toggleVisibility}
+            size={20}
           />
         ) : (
           <AiOutlinePlusSquare
             className="toggle-btn"
             onClick={toggleVisibility}
+            size={20}
           />
         )}
       </div>
