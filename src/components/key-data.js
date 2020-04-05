@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { FaMinusSquare, FaPlusSquare } from 'react-icons/fa';
+import { AiOutlineMinusSquare, AiOutlinePlusSquare } from 'react-icons/ai';
 
 function KeyData({ quote }) {
   const [isVisible, setIsVisible] = useState(true);
@@ -14,9 +14,15 @@ function KeyData({ quote }) {
       <div className="section-title">
         <span>Key Data</span>
         {isVisible ? (
-          <FaMinusSquare className="toggle-btn" onClick={toggleVisibility} />
+          <AiOutlineMinusSquare
+            className="toggle-btn"
+            onClick={toggleVisibility}
+          />
         ) : (
-          <FaPlusSquare className="toggle-btn" onClick={toggleVisibility} />
+          <AiOutlinePlusSquare
+            className="toggle-btn"
+            onClick={toggleVisibility}
+          />
         )}
       </div>
       {isVisible && (

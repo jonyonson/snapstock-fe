@@ -5,7 +5,7 @@ import parse from 'date-fns/parse';
 import axios from 'axios';
 import { useTheme } from 'styled-components';
 import { XYPlot, XAxis, YAxis, LineSeries, makeWidthFlexible } from 'react-vis';
-import { FaPlusSquare, FaMinusSquare } from 'react-icons/fa';
+import { AiOutlinePlusSquare, AiOutlineMinusSquare } from 'react-icons/ai';
 import 'react-vis/dist/style.css';
 
 import { BASE_API_URL } from '../constants';
@@ -86,9 +86,15 @@ function StockChart({
       <div className="section-title">
         <span>Charts</span>
         {isVisible ? (
-          <FaMinusSquare className="toggle-btn" onClick={toggleVisibility} />
+          <AiOutlineMinusSquare
+            className="toggle-btn"
+            onClick={toggleVisibility}
+          />
         ) : (
-          <FaPlusSquare className="toggle-btn" onClick={toggleVisibility} />
+          <AiOutlinePlusSquare
+            className="toggle-btn"
+            onClick={toggleVisibility}
+          />
         )}
       </div>
       {isVisible && (

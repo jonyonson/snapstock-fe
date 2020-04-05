@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from 'react';
 import styled from 'styled-components';
-import { FaMinusSquare, FaPlusSquare } from 'react-icons/fa';
+import { AiOutlinePlusSquare, AiOutlineMinusSquare } from 'react-icons/ai';
 
 function CompanyProfile({ profile }) {
   const [isVisible, setIsVisible] = useState(true);
@@ -14,9 +14,15 @@ function CompanyProfile({ profile }) {
       <div className="section-title">
         <span>Company Profile</span>
         {isVisible ? (
-          <FaMinusSquare className="toggle-btn" onClick={toggleVisibility} />
+          <AiOutlineMinusSquare
+            className="toggle-btn"
+            onClick={toggleVisibility}
+          />
         ) : (
-          <FaPlusSquare className="toggle-btn" onClick={toggleVisibility} />
+          <AiOutlinePlusSquare
+            className="toggle-btn"
+            onClick={toggleVisibility}
+          />
         )}
       </div>
       {isVisible && (
