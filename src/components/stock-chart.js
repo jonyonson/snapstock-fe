@@ -71,7 +71,8 @@ function StockChart({
     ytd: 'M/d',
     '1y': 'MMM',
     '2y': 'MM-yy',
-    max: 'yyyy',
+    '5y': 'yyyy',
+    // max: 'yyyy',
   };
 
   const handleTickFormat = (tick) => {
