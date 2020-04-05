@@ -2,13 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { GoSearch } from 'react-icons/go';
 
-function SearchButton({ setShowSearch }) {
-  const handleClick = () => {
-    setShowSearch(true);
-  };
-
+function SearchButton() {
   return (
-    <StyledButton className="search-button" onClick={handleClick}>
+    <StyledButton className="search-button">
       <GoSearch />
       <span>Search Quotes</span>
     </StyledButton>

@@ -1,15 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useHistory, useLocation, Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import isAuthenticated from '../utils/isAuthenticated';
-import { FaSearch } from 'react-icons/fa';
 import Container from './common/container';
 
-import { ROUTES } from '../constants';
-
-function Header({ setSymbol, setQuote, setWatchlist, setShowSearch }) {
+function Header({ setSymbol, setQuote, setWatchlist }) {
   const history = useHistory();
-  const location = useLocation();
 
   const logout = () => {
     handleReset();
@@ -23,20 +19,6 @@ function Header({ setSymbol, setQuote, setWatchlist, setShowSearch }) {
     setWatchlist && setWatchlist(null);
   };
 
-  const findSymbol = () => {
-    // If we are not in the <Home/> component, we need to push to '/'...
-    // ... and pass some state letting the <Home/> component know...
-    // ...to set showSearchBar to true. If we are Home, set showSearch to true
-    if (ROUTES.includes(location.pathname)) {
-      history.push({
-        pathname: '/',
-        state: { previousPath: location.pathname },
-      });
-    } else {
-      setShowSearch(true);
-    }
-  };
-
   return (
     <StyledHeader>
       <Container>
@@ -45,11 +27,6 @@ function Header({ setSymbol, setQuote, setWatchlist, setShowSearch }) {
             Snapstock
           </Link>
           <div>
-            {location.pathname !== '/' && (
-              <button className="search-button" onClick={findSymbol}>
-                <FaSearch size="18" />
-              </button>
-            )}
             <Link className="nav-item" to="/watchlist">
               Watchlist
             </Link>

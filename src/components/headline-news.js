@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import useWindowSize from '../hooks/use-window-size';
-import SearchButton from './search-button';
+import SearchBar from './search-bar';
 
 import { BASE_API_URL } from '../constants';
 
@@ -18,7 +18,7 @@ function formatDistanceFromNow(publishedAt) {
     : distanceInWords;
 }
 
-function NewsHeadlines({ setShowSearch }) {
+function NewsHeadlines(props) {
   const [headlines, setHeadlines] = useState([]);
   const { width } = useWindowSize();
 
@@ -56,7 +56,8 @@ function NewsHeadlines({ setShowSearch }) {
         </a>
       )}
       <div className="latest-news">
-        {width >= 770 && <SearchButton setShowSearch={setShowSearch} />}
+        {/* {width >= 770 && <SearchButton />} */}
+        {width >= 770 && <SearchBar {...props} />}
         <div>
           <div className="section-title">Latest News</div>
           {headlines

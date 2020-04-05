@@ -15,9 +15,8 @@ import HeadlineNews from '../components/headline-news';
 import MostActive from '../components/most-active';
 import BiggestLosers from '../components/biggest-losers';
 import BiggestGainers from '../components/biggest-gainers';
-import SearchButton from '../components/search-button';
 
-import { BASE_API_URL, ROUTES } from '../constants';
+import { BASE_API_URL } from '../constants';
 
 function Home() {
   const [symbol, setSymbol] = useState(null);
@@ -25,7 +24,6 @@ function Home() {
   const [chart, setChart] = useState({ data: [] });
   const [chartLoading, setChartLoading] = useState(false);
   const [watchlist, setWatchlist] = useState(null);
-  const [showSearch, setShowSearch] = useState(false);
   const [companyProfile, setCompanyProfile] = useState(null);
   const [logoURL, setLogoURL] = useState(null);
 
@@ -50,14 +48,7 @@ function Home() {
           });
       }
     }
-
-    if (location.state) {
-      if (ROUTES.includes(location.state.previousPath)) {
-        setShowSearch(true);
-        history.replace();
-      }
-    }
-  }, [history, watchlist, location.state]);
+  }, [history, watchlist]);
 
   useEffect(() => {
     if (params.symbol) {
@@ -102,22 +93,25 @@ function Home() {
         setSymbol={setSymbol}
         setQuote={setQuote}
         setWatchlist={setWatchlist}
-        setShowSearch={setShowSearch}
       />
       <Container>
-        <SearchBar
-          setSymbol={setSymbol}
-          symbol={symbol}
-          showSearch={showSearch}
-          setShowSearch={setShowSearch}
-          setChartLoading={setChartLoading}
-          chartLoading={chartLoading}
-        />
+        {width < 770 && (
+          <SearchBar
+            setSymbol={setSymbol}
+            symbol={symbol}
+            setChartLoading={setChartLoading}
+            chartLoading={chartLoading}
+          />
+        )}
 
         {location.pathname === '/' && (
           <Fragment>
-            {width < 770 && <SearchButton setShowSearch={setShowSearch} />}
-            <HeadlineNews setShowSearch={setShowSearch} />
+            <HeadlineNews
+              setSymbol={setSymbol}
+              symbol={symbol}
+              setChartLoading={setChartLoading}
+              chartLoading={chartLoading}
+            />
             <Section>
               <StockLists>
                 <MostActive />
