@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import styled from 'styled-components';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
@@ -98,7 +98,7 @@ function StockChart({
         )}
       </div>
       {isVisible && (
-        <div className="chart-wrapper">
+        <Fragment>
           <ChartRanges>
             {Object.keys(ranges).map((range) => (
               <button
@@ -110,18 +110,20 @@ function StockChart({
               </button>
             ))}
           </ChartRanges>
-          <FlexibleXYPlot
-            xType="time"
-            height={240}
-            margin={{ left: 50 }}
-            stroke={strokeColor}
-          >
-            {chartLoading && <LoadingMask />}
-            <XAxis tickTotal={6} tickFormat={handleTickFormat} />
-            <YAxis />
-            <LineSeries getNull={(d) => d.y !== null} data={data} />
-          </FlexibleXYPlot>
-        </div>
+          <div className="chart-wrapper">
+            <FlexibleXYPlot
+              xType="time"
+              height={240}
+              margin={{ left: 50 }}
+              stroke={strokeColor}
+            >
+              {chartLoading && <LoadingMask />}
+              <XAxis tickTotal={6} tickFormat={handleTickFormat} />
+              <YAxis />
+              <LineSeries getNull={(d) => d.y !== null} data={data} />
+            </FlexibleXYPlot>
+          </div>
+        </Fragment>
       )}
     </Section>
   ) : null;
@@ -132,40 +134,33 @@ const Section = styled.section`
 
   .chart-wrapper {
     border: 1px solid #ccc;
+    padding-top: 1.5rem;
   }
 `;
 
 const ChartRanges = styled.div`
   display: flex;
-  justify-content: space-between;
-  padding: 0.75rem;
-
-  @media (min-width: 500px) {
-    padding: 1rem 0.75rem;
-    justify-content: flex-end;
-  }
 
   button {
-    border: 1px solid #1d1d1d;
-    outline: none;
-    padding: 0.2rem;
-    border-radius: 3px;
+    flex-grow: 1;
+    border-radius: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 0.5rem;
     background: transparent;
-    font-size: 0.65rem;
+    outline: none;
 
     @media (min-width: 321px) {
       font-size: 0.75rem;
-      padding: 0.2rem 0.4rem;
     }
 
-    @media (min-width: 500px) {
-      margin-left: 0.7rem;
+    @media (min-width: 770px) {
+      font-size: 0.875rem;
     }
 
     &.active {
       font-weight: bold;
-      background: ${(props) => props.theme.colors.accent};
-      color: #fff;
+      border-bottom: 3px solid ${(props) => props.theme.colors.accent};
     }
   }
 `;
