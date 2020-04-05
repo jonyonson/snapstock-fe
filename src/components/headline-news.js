@@ -120,7 +120,6 @@ const Section = styled.section`
   }
 
   .latest-news {
-    /* margin-left: 1rem; */
     align-self: flex-end;
   }
 
