@@ -130,11 +130,13 @@ const Table = styled.section`
   .gain .td.change,
   .gain .td.percent {
     color: ${(props) => props.theme.colors.gain};
+    font-weight: 700;
   }
 
   .loss .td.change,
   .loss .td.percent {
     color: ${(props) => props.theme.colors.loss};
+    font-weight: 700;
   }
 
   .td.percent {

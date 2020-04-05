@@ -80,7 +80,7 @@ function NewsHeadlines({ setShowSearch }) {
 }
 
 const Section = styled.section`
-  margin-top: 1rem;
+  margin-top: 2rem;
   margin-bottom: 2rem;
   font-size: 0.875rem;
 
@@ -114,12 +114,9 @@ const Section = styled.section`
       margin-bottom: 2rem;
       margin-left: -1rem;
 
-      @media (min-width: 415px) {
+      @media (min-width: 600px) {
         max-width: 100%;
         margin-left: 0;
-      }
-
-      @media (min-width: 600px) {
         margin-bottom: 0;
       }
     }
