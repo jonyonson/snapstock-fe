@@ -38,19 +38,19 @@ function NewsHeadlines({ setShowSearch }) {
 
   const mostRecentHeadline =
     headlines.length > 0
-      ? headlines[1].title.slice(0, headlines[1].title.lastIndexOf('-') - 1)
+      ? headlines[0].title.slice(0, headlines[0].title.lastIndexOf('-') - 1)
       : '';
 
   return (
     <Section>
       {headlines.length > 0 && (
-        <a href={headlines[1].url} className="most-recent-story">
+        <a href={headlines[0].url} className="most-recent-story">
           <div className="most-recent-story__headline">
             {mostRecentHeadline}
           </div>
           <img
             className="most-recent-story__image"
-            src={headlines[1].urlToImage}
+            src={headlines[0].urlToImage}
             alt=""
           />
         </a>
