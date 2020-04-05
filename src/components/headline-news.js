@@ -97,7 +97,9 @@ const Section = styled.section`
     @media (min-width: 770px) {
       margin-right: 2rem;
       margin-bottom: 0;
+      /* width: 60%; */
       min-width: 60%;
+      max-width: 60%;
     }
 
     @media (min-width: 900px) {
