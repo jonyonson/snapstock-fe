@@ -44,10 +44,15 @@ function NewsHeadlines(props) {
 
   return (
     <Section>
-      <div className="test">
+      <div className="flex-section">
         {width >= 770 && <Indices />}
         {headlines.length > 0 && (
-          <a href={headlines[0].url} className="most-recent-story">
+          <a
+            href={headlines[0].url}
+            className="most-recent-story"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <div className="most-recent-story__headline">
               {mostRecentHeadline}
             </div>
@@ -61,7 +66,6 @@ function NewsHeadlines(props) {
       </div>
 
       <div className="latest-news">
-        {/* {width >= 770 && <SearchButton />} */}
         {width >= 770 && <SearchBar {...props} />}
         <div>
           <div className="section-title">Latest News</div>
@@ -92,9 +96,10 @@ const Section = styled.section`
 
   @media (min-width: 770px) {
     display: flex;
+    margin-top: 0;
   }
 
-  .test {
+  .flex-section {
     @media (min-width: 770px) {
       margin-right: 2rem;
       margin-bottom: 0;

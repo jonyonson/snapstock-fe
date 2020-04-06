@@ -51,6 +51,13 @@ const StyledWidget = styled.div`
 
   @media (min-width: 375px) {
     width: 33%;
+    font-size: 0.625rem;
+    padding: 0.2rem;
+  }
+
+  @media (min-width: 400px) {
+    font-size: .6875rem;
+    padding: 0.4rem;
   }
 
   &:nth-of-type(1) {
@@ -137,7 +144,7 @@ function Indices() {
 
   return (
     <StyledContainer>
-      <Widget name="DOW 30" index={dow} />
+      <Widget name="DOW" index={dow} />
       <Widget name="NASDAQ" index={nasdaq} />
       <Widget name="S&P 500" index={sp500} />
     </StyledContainer>
@@ -149,7 +156,7 @@ const StyledContainer = styled.div`
   margin-top: 1rem;
 
   @media (min-width: 770px) {
-    margin: 0 0 1rem;
+    margin: 0 0 3rem;
   }
 `;
 
