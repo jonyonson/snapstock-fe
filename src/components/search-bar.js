@@ -77,7 +77,7 @@ function SearchBar({ setSymbol, symbol, setChartLoading, chartLoading }) {
     type: 'search',
     onChange,
     value,
-    autoFocus: true,
+    // autoFocus: true,
   };
 
   return (
