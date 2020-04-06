@@ -53,10 +53,14 @@ const StyledHeader = styled.div`
   /* border-bottom: 1px solid rgba(0,0,0,0.2); */
 
   .header__inner {
-    padding: 1rem 0;
+    padding: 1.2rem 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @media (min-width: 500px) {
+        padding: 1.4rem 0;
+      }
   }
 
   a {
