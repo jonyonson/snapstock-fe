@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import formatNumber from '../utils/formatNumber';
 // import theme from '../styles/theme';
 // import { MdArrowDropUp, MdArrowDropDown } from 'react-icons/md';
 
@@ -12,7 +13,7 @@ function Widget({ name, index }) {
       <div className="top">
         <div>{name}</div>
         <div className="change">
-          {index ? Number(index.change).toFixed(2) : '--'}
+          {index ? formatNumber(index.change, null, true) : '--'}
         </div>
       </div>
 
@@ -26,13 +27,11 @@ function Widget({ name, index }) {
             )
           ) : null} */}
           <span>
-            {index ? Number(index.percentChange).toFixed(2) + '%' : '--'}
+            {index ? formatNumber(index.percentChange, '%', true) : '--'}
           </span>
         </div>
 
-        <div className="price">
-          {index ? Number(index.price).toFixed(2).toLocaleString() : '--'}
-        </div>
+        <div className="price">{index ? formatNumber(index.price) : '--'}</div>
       </div>
     </StyledWidget>
   );
