@@ -42,6 +42,19 @@ function NewsHeadlines(props) {
       ? headlines[0].title.slice(0, headlines[0].title.lastIndexOf('-') - 1)
       : '';
 
+  const source =
+    headlines.length > 0
+      ? headlines[0].title.slice(
+          -(
+            headlines[0].title.length -
+            headlines[0].title.lastIndexOf('-') -
+            2
+          ),
+        )
+      : null;
+
+  console.log('SOURCE', source);
+
   return (
     <Section>
       <div className="flex-section">
@@ -56,11 +69,14 @@ function NewsHeadlines(props) {
             <div className="most-recent-story__headline">
               {mostRecentHeadline}
             </div>
-            <img
-              className="most-recent-story__image"
-              src={headlines[0].urlToImage}
-              alt=""
-            />
+            <figure>
+              <img
+                className="most-recent-story__image"
+                src={headlines[0].urlToImage}
+                alt=""
+              />
+              <figcaption>{source}</figcaption>
+            </figure>
           </a>
         )}
       </div>
@@ -132,13 +148,28 @@ const Section = styled.section`
 
     &__image {
       width: calc(100% + 2rem);
-      margin-bottom: 2rem;
       margin-left: -1rem;
 
       @media (min-width: 770px) {
         max-width: 100%;
         margin-left: 0;
         margin-bottom: 0;
+      }
+    }
+
+    figure {
+      margin-bottom: 2rem;
+
+      @media (min-width: 770px) {
+        margin-bottom: 0;
+      }
+
+      figcaption {
+        font-weight: normal;
+        font-style: italic;
+        margin-top: 0.4rem;
+        font-size: 0.75rem;
+        text-align: right;
       }
     }
   }
