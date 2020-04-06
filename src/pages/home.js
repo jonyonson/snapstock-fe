@@ -104,7 +104,7 @@ function Home() {
               setChartLoading={setChartLoading}
               chartLoading={chartLoading}
             />
-            <Indices />
+            {location.pathname === '/' && <Indices />}
           </Fragment>
         )}
 
