@@ -49,8 +49,8 @@ function Header({ setSymbol, setQuote, setWatchlist }) {
 
 const StyledHeader = styled.div`
   /* background-color: ${(props) => props.theme.colors.primary}; */
-  background-color: white;
   /* border-bottom: 1px solid rgba(0,0,0,0.2); */
+  background-color: white;
 
   .header__inner {
     padding: 1.2rem 0;
@@ -104,12 +104,15 @@ const StyledHeader = styled.div`
   .nav-item {
     color: ${(props) => props.theme.colors.headerText};
     text-transform: uppercase;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     text-transform: uppercase;
     margin-left: 0.5rem;
-
     font-weight: 700;
     letter-spacing: 1px;
+
+    @media (max-width: 375px) {
+      font-size: .6875rem;
+    }
 
     &:hover {
       color: ${(props) => props.theme.colors.secondary};
