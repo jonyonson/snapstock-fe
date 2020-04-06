@@ -15,6 +15,7 @@ import HeadlineNews from '../components/headline-news';
 import MostActive from '../components/most-active';
 import BiggestLosers from '../components/biggest-losers';
 import BiggestGainers from '../components/biggest-gainers';
+import Indices from '../components/major-indices';
 
 import { BASE_API_URL } from '../constants';
 
@@ -96,12 +97,15 @@ function Home() {
       />
       <Container>
         {width < 770 && (
-          <SearchBar
-            setSymbol={setSymbol}
-            symbol={symbol}
-            setChartLoading={setChartLoading}
-            chartLoading={chartLoading}
-          />
+          <Fragment>
+            <SearchBar
+              setSymbol={setSymbol}
+              symbol={symbol}
+              setChartLoading={setChartLoading}
+              chartLoading={chartLoading}
+            />
+            <Indices />
+          </Fragment>
         )}
 
         {location.pathname === '/' && (

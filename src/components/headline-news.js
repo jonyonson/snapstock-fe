@@ -4,6 +4,7 @@ import axios from 'axios';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import useWindowSize from '../hooks/use-window-size';
 import SearchBar from './search-bar';
+import Indices from './major-indices';
 
 import { BASE_API_URL } from '../constants';
 
@@ -43,18 +44,22 @@ function NewsHeadlines(props) {
 
   return (
     <Section>
-      {headlines.length > 0 && (
-        <a href={headlines[0].url} className="most-recent-story">
-          <div className="most-recent-story__headline">
-            {mostRecentHeadline}
-          </div>
-          <img
-            className="most-recent-story__image"
-            src={headlines[0].urlToImage}
-            alt=""
-          />
-        </a>
-      )}
+      <div className="test">
+        {width >= 770 && <Indices />}
+        {headlines.length > 0 && (
+          <a href={headlines[0].url} className="most-recent-story">
+            <div className="most-recent-story__headline">
+              {mostRecentHeadline}
+            </div>
+            <img
+              className="most-recent-story__image"
+              src={headlines[0].urlToImage}
+              alt=""
+            />
+          </a>
+        )}
+      </div>
+
       <div className="latest-news">
         {/* {width >= 770 && <SearchButton />} */}
         {width >= 770 && <SearchBar {...props} />}
@@ -89,19 +94,27 @@ const Section = styled.section`
     display: flex;
   }
 
+  .test {
+    @media (min-width: 770px) {
+      margin-right: 2rem;
+      margin-bottom: 0;
+      min-width: 60%;
+      max-width: 60%;
+    }
+  }
+
   .most-recent-story {
     font-size: 22px;
     font-weight: 700;
     line-height: 1.1;
     margin-bottom: 2rem;
 
-    @media (min-width: 770px) {
+    /* @media (min-width: 770px) {
       margin-right: 2rem;
       margin-bottom: 0;
-      /* width: 60%; */
       min-width: 60%;
       max-width: 60%;
-    }
+    } */
 
     @media (min-width: 900px) {
       line-height: 1.2;
