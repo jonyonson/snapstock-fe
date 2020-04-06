@@ -7,7 +7,8 @@ export default {
     gain: '#44AF69',
     loss: '#F8333C',
 
-    headerText: '#fff',
+    // headerText: '#fff',
+    headerText: '#1d1d1d',
 
     white: '#ffffff',
     black: '#1d1d1d',

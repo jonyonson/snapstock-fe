@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useHistory, Link } from 'react-router-dom';
 import isAuthenticated from '../utils/isAuthenticated';
 import Container from './common/container';
+import logo from '../images/snapstock_logo.svg';
 
 function Header({ setSymbol, setQuote, setWatchlist }) {
   const history = useHistory();
@@ -24,7 +25,7 @@ function Header({ setSymbol, setQuote, setWatchlist }) {
       <Container>
         <div className="header__inner">
           <Link className="logo" to="/" onClick={() => handleReset()}>
-            Snapstock
+            <img src={logo} alt="" />
           </Link>
           <div>
             <Link className="nav-item" to="/watchlist">
@@ -47,7 +48,9 @@ function Header({ setSymbol, setQuote, setWatchlist }) {
 }
 
 const StyledHeader = styled.div`
-  background-color: ${(props) => props.theme.colors.primary};
+  /* background-color: ${(props) => props.theme.colors.primary}; */
+  background-color: white;
+  /* border-bottom: 1px solid rgba(0,0,0,0.2); */
 
   .header__inner {
     padding: 1rem 0;
@@ -64,6 +67,14 @@ const StyledHeader = styled.div`
     color: ${(props) => props.theme.colors.headerText};
     font-size: 1.5rem;
     font-weight: 500;
+
+    img {
+      height: 30px;
+
+      @media (min-width: 500px) {
+        height: 40px;
+      }
+    }
   }
 
   .logout {
@@ -92,6 +103,13 @@ const StyledHeader = styled.div`
     font-size: 0.8rem;
     text-transform: uppercase;
     margin-left: 0.5rem;
+
+    font-weight: 700;
+    letter-spacing: 1px;
+
+    &:hover {
+      color: ${(props) => props.theme.colors.secondary};
+    }
   }
 `;
 
