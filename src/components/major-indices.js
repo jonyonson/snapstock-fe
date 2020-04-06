@@ -47,6 +47,8 @@ const StyledWidget = styled.div`
   font-size: 0.6875rem;
   font-weight: 700;
   color: white;
+  border: 2px solid transparent;
+  transition: background-color 0.3s ease-in;
 
   @media (min-width: 375px) {
     width: 33%;
@@ -71,6 +73,9 @@ const StyledWidget = styled.div`
     }
   }
 
+  color: ${(props) =>
+    props.index !== null ? props.theme.colors.white : props.theme.colors.black};
+
   background-color: ${(props) =>
     props.index !== null
       ? props.index.percentChange >= 0
@@ -78,13 +83,13 @@ const StyledWidget = styled.div`
         : props.theme.colors.loss
       : 'rgba(0,0,0,0.2)'};
 
-  border: 2px solid
+  /* border: 2px solid
     ${(props) =>
       props.index !== null
         ? props.index.percentChange >= 0
           ? props.theme.colors.gain
           : props.theme.colors.loss
-        : props.theme.colors.black};
+        : props.theme.colors.black}; */
 
   .top,
   .bottom {
