@@ -107,8 +107,9 @@ function Indices() {
   const [sp500, setSp500] = useState(null);
   const [nasdaq, setNasdaq] = useState(null);
 
-  useEffect(() => {
+  const fetchData = () => {
     const url = `${BASE_API_URL}/api/stocks/market/indices`;
+
     axios
       .get(url)
       .then((res) => {
@@ -122,6 +123,16 @@ function Indices() {
         // TODO: handle errors
         console.error(err);
       });
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log('Fetching index data every 15 seconds...');
+      fetchData();
+    }, 15000);
+
+    fetchData();
+    return () => clearInterval(interval);
   }, []);
 
   return (
