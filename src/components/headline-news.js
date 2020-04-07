@@ -57,7 +57,7 @@ function NewsHeadlines(props) {
 
   return (
     <Section>
-      <div className="flex-section">
+      <div className="flex-section-a">
         {width >= 770 && <Indices />}
         {headlines.length > 0 && (
           <a
@@ -81,9 +81,9 @@ function NewsHeadlines(props) {
         )}
       </div>
 
-      <div className="latest-news">
+      <div className="flex-section-b">
         {width >= 770 && <SearchBar {...props} />}
-        <div>
+        <div className="latest-news">
           <div className="section-title">Latest News</div>
           {headlines
             .filter((_, index) => index > 0 && index <= 5)
@@ -115,7 +115,7 @@ const Section = styled.section`
     margin-top: 0;
   }
 
-  .flex-section {
+  .flex-section-a {
     @media (min-width: 770px) {
       margin-right: 2rem;
       margin-bottom: 0;
@@ -174,18 +174,23 @@ const Section = styled.section`
     }
   }
 
-  .latest-news {
+  .flex-section-b {
     @media (min-width: 770px) {
+      flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
 
-    .search-button {
+    /* .search-button {
       margin-bottom: 2rem;
       margin-top: 0;
       text-align: left;
-    }
+    } */
+  }
+
+  .latest-news {
+    margin-top: 3rem;
   }
 
   .article {

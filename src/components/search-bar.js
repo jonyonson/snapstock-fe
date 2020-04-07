@@ -1,13 +1,16 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
 import axios from 'axios';
 import Autosuggest from 'react-autosuggest';
+import { FaSearch } from 'react-icons/fa';
 import '../styles/autosuggest.scss';
 
 function SearchBar({ setSymbol, symbol, setChartLoading, chartLoading }) {
   const [value, setValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [matches, setMatches] = useState([]);
+  const [showPlaceholder, setShowPlaceholder] = useState(true);
   const history = useHistory();
 
   useEffect(() => {
@@ -19,6 +22,14 @@ function SearchBar({ setSymbol, symbol, setChartLoading, chartLoading }) {
       setSuggestions(matchesToDisplay);
     }
   }, [matches]);
+
+  useEffect(() => {
+    if (value.length > 0) {
+      setShowPlaceholder(false);
+    } else {
+      setShowPlaceholder(true);
+    }
+  }, [value]);
 
   // determine the input value for each suggestion
   const getSuggestionValue = (suggestion) => {
@@ -73,7 +84,7 @@ function SearchBar({ setSymbol, symbol, setChartLoading, chartLoading }) {
   // Pass through arbitrary props to the input
   // Must contain at least `value` and `onChange`
   const inputProps = {
-    placeholder: 'Search Quotes',
+    // placeholder: 'Search Quotes',
     type: 'search',
     onChange,
     value,
@@ -81,16 +92,57 @@ function SearchBar({ setSymbol, symbol, setChartLoading, chartLoading }) {
   };
 
   return (
-    <Autosuggest
-      suggestions={suggestions}
-      onSuggestionsFetchRequested={onSuggestionsFetchRequested}
-      onSuggestionsClearRequested={onSuggestionsClearRequested}
-      onSuggestionSelected={onSuggestionSelected}
-      getSuggestionValue={getSuggestionValue}
-      renderSuggestion={renderSuggestion}
-      inputProps={inputProps}
-    />
+    <Styled>
+      <Autosuggest
+        suggestions={suggestions}
+        onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+        onSuggestionsClearRequested={onSuggestionsClearRequested}
+        onSuggestionSelected={onSuggestionSelected}
+        getSuggestionValue={getSuggestionValue}
+        renderSuggestion={renderSuggestion}
+        inputProps={inputProps}
+      />
+      {showPlaceholder && (
+        <Placeholder>
+          <FaSearch size={18} color={'rgba(0, 0, 0, 0.7)'} />
+          <span>Search Quotes</span>
+        </Placeholder>
+      )}
+    </Styled>
   );
 }
+
+const Styled = styled.div`
+  position: relative;
+`;
+
+const Placeholder = styled.div`
+  height: 100%;
+  width: 200px;
+  position: absolute;
+  top: 0;
+  z-index: -1;
+  left: 50%;
+  margin-left: -100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    font-size: 0.9375rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 900;
+    color: rgba(0, 0, 0, 0.7);
+    margin-left: 1rem;
+  }
+
+  @media (min-width: 770px) {
+    left: 0;
+    margin-left: 0;
+    padding-left: 1rem;
+    justify-content: flex-start;
+  }
+`;
 
 export default SearchBar;
