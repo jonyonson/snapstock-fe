@@ -144,21 +144,28 @@ const Section = styled.section`
         padding: 1rem;
         line-height: 1.3;
 
-        font-size: 16px;
+        font-size: 18px;
         font-weight: 900;
         line-height: 1.3;
         margin-left: -1rem;
         width: calc(100% + 2rem);
 
-        @media (min-width: 375px) {
-          font-size: 18px;
-        }
-
-        @media (min-width: 375px) {
+        @media (min-width: 415px) {
           font-size: 20px;
         }
 
+        @media (min-width: 500px) {
+          line-height: 1.4;
+          padding: 1.5rem;
+          font-size: 22px;
+        }
+
+        @media (min-width: 600px) {
+          font-size: 24px;
+        }
+
         @media (min-width: 770px) {
+          font-size: 20px;
           margin-left: 0;
           width: 100%;
         }
