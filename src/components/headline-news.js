@@ -181,16 +181,12 @@ const Section = styled.section`
       flex-direction: column;
       justify-content: space-between;
     }
-
-    /* .search-button {
-      margin-bottom: 2rem;
-      margin-top: 0;
-      text-align: left;
-    } */
   }
 
   .latest-news {
-    margin-top: 3rem;
+    @media (min-wdith: 770px) {
+      margin-top: 3rem;
+    }
   }
 
   .article {
