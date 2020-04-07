@@ -5,7 +5,7 @@ import isAuthenticated from '../utils/isAuthenticated';
 import Container from './common/container';
 import logo from '../images/snapstock_logo.svg';
 
-function Header({ setSymbol, setQuote, setWatchlist }) {
+function Header({ setWatchlist }) {
   const history = useHistory();
 
   const logout = () => {
@@ -15,8 +15,6 @@ function Header({ setSymbol, setQuote, setWatchlist }) {
   };
 
   const handleReset = () => {
-    setSymbol && setSymbol(null);
-    setQuote && setQuote(null);
     setWatchlist && setWatchlist(null);
   };
 

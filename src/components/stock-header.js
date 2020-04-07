@@ -71,12 +71,12 @@ function StockQuote({ quote, setWatchlist, watchlist, logoURL }) {
         <div className="latest-trading-day">Data as of {quote.latestTime}</div>
       </div>
       <div className="data-header__right">
-        <img
+        {/* <img
           className="logo"
           // src={`https://storage.googleapis.com/iex/api/logos/${quote.symbol}.png`}
           src={logoURL}
           alt={`${quote.companyName} Logo`}
-        />
+        /> */}
         <WatchlistButton followStock={followStock} isFollowing={isFollowing} />
       </div>
     </StockHeader>
@@ -92,7 +92,8 @@ const StockHeader = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    justify-content: flex-end;
     min-width: 120px;
   }
 

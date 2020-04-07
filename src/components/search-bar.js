@@ -6,7 +6,7 @@ import Autosuggest from 'react-autosuggest';
 import { FaSearch } from 'react-icons/fa';
 import '../styles/autosuggest.scss';
 
-function SearchBar({ setSymbol, symbol, setChartLoading, chartLoading }) {
+function SearchBar() {
   const [value, setValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [matches, setMatches] = useState([]);
@@ -41,8 +41,6 @@ function SearchBar({ setSymbol, symbol, setChartLoading, chartLoading }) {
 
   const onSuggestionSelected = (_, { suggestion }) => {
     const { '1. symbol': symbol } = suggestion;
-    setChartLoading(true);
-    setSymbol(symbol);
     setValue('');
     history.push(`/stocks/${symbol.toLowerCase()}`);
   };
