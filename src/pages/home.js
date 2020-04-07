@@ -117,12 +117,13 @@ function Home() {
               chartLoading={chartLoading}
             />
             <Section>
+              <div className="placeholder" />
+
               <StockLists>
                 <MostActive />
                 <BiggestLosers />
                 <BiggestGainers />
               </StockLists>
-              <div className="placeholder" />
             </Section>
           </Fragment>
         )}
@@ -161,6 +162,8 @@ const Section = styled.div`
 
     @media (min-width: 770px) {
       flex-grow: 1;
+      min-width: 60%;
+      max-width: 60%;
     }
   }
 `;
@@ -170,8 +173,10 @@ const StockLists = styled.div`
   flex-direction: column;
 
   @media (min-width: 770px) {
-    width: 60%;
-    margin-right: 2rem;
+    flex-grow: 1;
+    /* width: 40%; */
+    /* margin-right: 2rem; */
+    margin-left: 2rem;
   }
 `;
 
