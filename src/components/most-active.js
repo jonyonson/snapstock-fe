@@ -13,7 +13,6 @@ function MostActive() {
     axios
       .get(url)
       .then((res) => {
-        console.log(res.data);
         setMostActive(res.data);
       })
       .catch((err) => {

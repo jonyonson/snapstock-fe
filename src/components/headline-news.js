@@ -28,7 +28,6 @@ function NewsHeadlines(props) {
     axios
       .get(url)
       .then((res) => {
-        console.log(res);
         setHeadlines(res.data);
       })
       .catch((err) => {
@@ -52,8 +51,6 @@ function NewsHeadlines(props) {
           ),
         )
       : null;
-
-  console.log('SOURCE', source);
 
   return (
     <Section>

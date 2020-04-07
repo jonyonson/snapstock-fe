@@ -56,7 +56,7 @@ const StyledWidget = styled.div`
   }
 
   @media (min-width: 400px) {
-    font-size: .6875rem;
+    font-size: 0.6875rem;
     padding: 0.4rem;
   }
 
@@ -89,14 +89,6 @@ const StyledWidget = styled.div`
         : props.theme.colors.loss
       : 'rgba(0,0,0,0.2)'};
 
-  /* border: 2px solid
-    ${(props) =>
-      props.index !== null
-        ? props.index.percentChange >= 0
-          ? props.theme.colors.gain
-          : props.theme.colors.loss
-        : props.theme.colors.black}; */
-
   .top,
   .bottom {
     display: flex;
@@ -120,7 +112,6 @@ function Indices() {
     axios
       .get(url)
       .then((res) => {
-        console.log(res.data);
         const { nasdaq, sp500, dow } = res.data;
         setDow(dow);
         setNasdaq(nasdaq);
@@ -134,7 +125,6 @@ function Indices() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      console.log('Fetching index data every 15 seconds...');
       fetchData();
     }, 15000);
 
