@@ -92,7 +92,7 @@ function SearchBar({ setSymbol, symbol, setChartLoading, chartLoading }) {
   };
 
   return (
-    <Styled>
+    <Styled className="autosuggest">
       <Autosuggest
         suggestions={suggestions}
         onSuggestionsFetchRequested={onSuggestionsFetchRequested}

@@ -63,15 +63,15 @@ function NewsHeadlines(props) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <div className="most-recent-story__headline">
-              {mostRecentHeadline}
-            </div>
             <figure>
-              <img
-                className="most-recent-story__image"
-                src={headlines[0].urlToImage}
-                alt=""
-              />
+              <div className="image">
+                <img
+                  className="most-recent-story__image"
+                  src={headlines[0].urlToImage}
+                  alt=""
+                />
+                <div className="headline">{mostRecentHeadline}</div>
+              </div>
               <figcaption>{source}</figcaption>
             </figure>
           </a>
@@ -122,27 +122,6 @@ const Section = styled.section`
   }
 
   .most-recent-story {
-    font-size: 22px;
-    font-weight: 700;
-    line-height: 1.1;
-    margin-bottom: 2rem;
-
-    /* @media (min-width: 770px) {
-      margin-right: 2rem;
-      margin-bottom: 0;
-      min-width: 60%;
-      max-width: 60%;
-    } */
-
-    @media (min-width: 900px) {
-      line-height: 1.2;
-      font-size: 26px;
-    }
-
-    &__headline {
-      margin-bottom: 1.5rem;
-    }
-
     &__image {
       width: calc(100% + 2rem);
       margin-left: -1rem;
@@ -154,8 +133,46 @@ const Section = styled.section`
       }
     }
 
+    .image {
+      position: relative;
+
+      .headline {
+        position: absolute;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 1rem;
+        line-height: 1.3;
+
+        font-size: 16px;
+        font-weight: 900;
+        line-height: 1.3;
+        margin-left: -1rem;
+        width: calc(100% + 2rem);
+
+        @media (min-width: 375px) {
+          font-size: 18px;
+        }
+
+        @media (min-width: 375px) {
+          font-size: 20px;
+        }
+
+        @media (min-width: 770px) {
+          margin-left: 0;
+          width: 100%;
+        }
+
+        @media (min-width: 900px) {
+          line-height: 1.4;
+          padding: 1.5rem;
+          font-size: 22px;
+        }
+      }
+    }
+
     figure {
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
 
       @media (min-width: 770px) {
         margin-bottom: 0;
@@ -176,13 +193,6 @@ const Section = styled.section`
       flex: 1;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-    }
-  }
-
-  .latest-news {
-    @media (min-wdith: 770px) {
-      margin-top: 3rem;
     }
   }
 

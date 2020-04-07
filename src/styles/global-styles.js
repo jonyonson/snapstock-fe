@@ -67,6 +67,12 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
+  .autosuggest {
+    @media (min-width: 770px) {
+      margin-bottom: 3rem
+    }
+  }
+
 `;
 
 export default GlobalStyle;
