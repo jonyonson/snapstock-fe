@@ -13,7 +13,6 @@ function BiggestLosers() {
     axios
       .get(url)
       .then((res) => {
-        console.log(res.data);
         setBiggestGainers(res.data);
       })
       .catch((err) => {
