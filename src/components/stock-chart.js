@@ -10,15 +10,10 @@ import 'react-vis/dist/style.css';
 
 import { BASE_API_URL } from '../constants';
 
-function StockChart({
-  chart,
-  setChart,
-  symbol,
-  chartLoading,
-  setChartLoading,
-}) {
+function StockChart({ chart, setChart, symbol }) {
   const [activeRangeButton, setActiveRangeButton] = useState('1d');
   const [isVisible, setIsVisible] = useState(true);
+  const [chartLoading, setChartLoading] = useState(false);
 
   useEffect(() => {
     setActiveRangeButton('1d');
