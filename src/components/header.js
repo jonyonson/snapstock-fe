@@ -71,7 +71,11 @@ const StyledHeader = styled.div`
     font-weight: 500;
 
     img {
-      height: 30px;
+      height: 25px;
+
+      @media (min-width: 375px) {
+        height: 30px;
+      }
 
       @media (min-width: 500px) {
         height: 40px;
@@ -81,6 +85,7 @@ const StyledHeader = styled.div`
 
   .logout {
     outline: none;
+    padding-right: 0;
   }
 
   button {
