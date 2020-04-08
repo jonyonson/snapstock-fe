@@ -47,67 +47,64 @@ function StockQuote({ quote, setWatchlist, watchlist, logoURL }) {
 
   return !quote ? null : (
     <StockHeader>
-      <div
-        className={
-          quote.changePercent > 0
-            ? 'green data-header__left'
-            : 'red data-header__left'
-        }
-      >
-        <h1 className="symbol">{quote.symbol}</h1>
-        <h2 className="company-name">{quote.companyName}</h2>
+      <div className="data-header__left">
+        <div>
+          <h1 className="symbol">{quote.symbol}</h1>
+          <h2 className="company-name">{quote.companyName}</h2>
+        </div>
 
         <WatchlistButton followStock={followStock} isFollowing={isFollowing} />
       </div>
-      <div className="data-header__right">
-        <div
-          className={
-            quote.changePercent > 0
-              ? 'green data-header__left'
-              : 'red data-header__left'
-          }
-        >
-          <div className="price-wrapper">
-            <span className="price">
-              ${Number(quote.latestPrice).toFixed(2)}
-            </span>
-            {quote.changePercent > 0 ? (
-              <ArrowUp size={24} color={theme.colors.gain} />
-            ) : (
-              <ArrowDown size={24} color={theme.colors.loss} />
-            )}
-          </div>
+      <div
+        className={
+          quote.changePercent > 0
+            ? 'data-header__right green'
+            : 'data-header__right red'
+        }
+      >
+        <div className="price-wrapper">
+          <span className="price">${Number(quote.latestPrice).toFixed(2)}</span>
+          {quote.changePercent > 0 ? (
+            <ArrowUp size={24} color={theme.colors.gain} />
+          ) : (
+            <ArrowDown size={24} color={theme.colors.loss} />
+          )}
+        </div>
+
+        <div className="change-wrapper">
           <span className="change">{Number(quote.change).toFixed(2)}</span>
           <span className="change-percent">
-            ({Number(quote.changePercent * 100).toFixed(2) + '%'})
+            {Number(quote.changePercent * 100).toFixed(2) + '%'}
           </span>
-          <div className="latest-trading-day">
-            Data as of {quote.latestTime}
-          </div>
         </div>
-        {/* <img
-          className="logo"
-          // src={`https://storage.googleapis.com/iex/api/logos/${quote.symbol}.png`}
-          src={logoURL}
-          alt={`${quote.companyName} Logo`}
-        /> */}
+        <div className="latest-trading-day">Data as of {quote.latestTime}</div>
       </div>
     </StockHeader>
   );
 }
 
 const StockHeader = styled.div`
-  margin: 0 0 2rem;
+  margin: 2rem 0;
   display: flex;
   justify-content: space-between;
+
+  @media (min-width: 770px) {
+    margin-top: 0;
+  }
+
+  .data-header__left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 
   .data-header__right {
     display: flex;
     flex-direction: column;
-    /* align-items: flex-end; */
+    align-items: flex-end;
     /* justify-content: space-between; */
     justify-content: flex-start;
-    min-width: 120px;
+    /* min-width: 120px; */
   }
 
   .logo {
@@ -140,10 +137,14 @@ const StockHeader = styled.div`
     align-items: center;
   }
 
+  .change-wrapper {
+    display: flex;
+  }
+
   .price {
     font-size: 1.4rem;
     font-weight: bold;
-    margin-right: 0.75rem;
+    /* margin-right: 0.75rem; */
 
     @media (min-width: 500px) {
       font-size: 1.6rem;

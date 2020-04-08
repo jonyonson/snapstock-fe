@@ -125,6 +125,7 @@ const Flex = styled.div`
 
   @media (min-width: 770px) {
     flex-direction: row;
+    margin-top: 2rem;
   }
 
   .flex-left {
