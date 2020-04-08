@@ -1,7 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
 import useWindowSize from '../hooks/use-window-size';
 import isAuthenticated from '../utils/isAuthenticated';
 import Container from '../components/common/container';
@@ -108,12 +107,5 @@ function Lookup() {
     </Fragment>
   );
 }
-
-const LoadingWrapper = styled.div`
-  position: absolute;
-  top: 25%;
-  left: 50%;
-  margin-left: -100px;
-`;
 
 export default Lookup;

@@ -16,7 +16,7 @@ function formatDistanceFromNow(publishedAt) {
     : distanceInWords;
 }
 
-function NewsHeadlines(props) {
+function LatestNews(props) {
   const [headlines, setHeadlines] = useState([]);
 
   useEffect(() => {
@@ -197,4 +197,4 @@ const Section = styled.section`
   }
 `;
 
-export default NewsHeadlines;
+export default LatestNews;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Container from '../components/common/container';
 import Header from '../components/header';
 import SearchBar from '../components/search-bar';
-import HeadlineNews from '../components/headline-news';
+import LatestNews from '../components/latest-news';
 import MostActive from '../components/most-active';
 import BiggestLosers from '../components/biggest-losers';
 import BiggestGainers from '../components/biggest-gainers';
@@ -18,7 +18,7 @@ function Home() {
           <SearchBar />
           <Indices />
         </ContentHeader>
-        <HeadlineNews />
+        <LatestNews />
         <Section>
           <StockLists>
             <MostActive />
