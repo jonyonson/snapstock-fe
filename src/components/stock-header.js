@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 import theme from '../styles/theme';
+import formatNumber from '../utils/formatNumber';
 import isAuthenticated from '../utils/isAuthenticated';
 import WatchlistButton from './watchlist-button';
 import {
@@ -63,18 +64,19 @@ function StockQuote({ quote, setWatchlist, watchlist, logoURL }) {
         }
       >
         <div className="price-wrapper">
-          <span className="price">${Number(quote.latestPrice).toFixed(2)}</span>
+          <span className="price">{formatNumber(quote.latestPrice, '$')}</span>
           {quote.changePercent > 0 ? (
             <ArrowUp size={24} color={theme.colors.gain} />
           ) : (
             <ArrowDown size={24} color={theme.colors.loss} />
           )}
         </div>
-
         <div className="change-wrapper">
-          <span className="change">{Number(quote.change).toFixed(2)}</span>
+          <span className="change">
+            {formatNumber(quote.change, null, true)}
+          </span>
           <span className="change-percent">
-            {Number(quote.changePercent * 100).toFixed(2) + '%'}
+            {formatNumber(quote.changePercent * 100, '%', true)}
           </span>
         </div>
         <div className="latest-trading-day">Data as of {quote.latestTime}</div>
@@ -84,12 +86,14 @@ function StockQuote({ quote, setWatchlist, watchlist, logoURL }) {
 }
 
 const StockHeader = styled.div`
-  margin: 2rem 0;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
   display: flex;
   justify-content: space-between;
 
   @media (min-width: 770px) {
     margin-top: 0;
+    margin-bottom: 0;
   }
 
   .data-header__left {
@@ -102,9 +106,7 @@ const StockHeader = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    /* justify-content: space-between; */
     justify-content: flex-start;
-    /* min-width: 120px; */
   }
 
   .logo {
@@ -144,7 +146,6 @@ const StockHeader = styled.div`
   .price {
     font-size: 1.4rem;
     font-weight: bold;
-    /* margin-right: 0.75rem; */
 
     @media (min-width: 500px) {
       font-size: 1.6rem;
@@ -162,7 +163,7 @@ const StockHeader = styled.div`
   }
 
   .change {
-    margin-right: 5px;
+    margin-right: 10px;
   }
 
   .change,
@@ -176,10 +177,11 @@ const StockHeader = styled.div`
   }
 
   .latest-trading-day {
-    margin-top: 0.1rem;
-    font-size: 0.7rem;
+    font-size: 0.8125rem;
+    color: rgba(0, 0, 0, 0.7);
     text-transform: uppercase;
-    font-weight: 900;
+    font-weight: 700;
+    margin-top: 2rem;
   }
 `;
 
