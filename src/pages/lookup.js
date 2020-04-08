@@ -1,8 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { BarLoader } from 'react-spinners';
-import styled, { useTheme } from 'styled-components';
+import styled from 'styled-components';
 import useWindowSize from '../hooks/use-window-size';
 import isAuthenticated from '../utils/isAuthenticated';
 import Container from '../components/common/container';
@@ -12,6 +11,7 @@ import StockHeader from '../components/stock-header';
 import StockChart from '../components/stock-chart';
 import KeyData from '../components/key-data';
 import CompanyProfile from '../components/company-profile';
+import BarLoader from '../components/common/bar-loader';
 
 import { BASE_API_URL } from '../constants';
 
@@ -75,18 +75,13 @@ function Lookup() {
     }
   }, [symbol]);
 
-  const loaderColor = useTheme().colors.primary;
-
   return (
     <Fragment>
       <Header />
       <Container>
         {width < 770 && <SearchBar />}
-
         {chartLoading ? (
-          <LoadingWrapper>
-            <BarLoader width={200} color={loaderColor} />
-          </LoadingWrapper>
+          <BarLoader />
         ) : (
           <Fragment>
             <StockHeader
