@@ -45,10 +45,6 @@ const Section = styled.div`
   display: flex;
   flex-direction: column;
 
-  .test {
-    display: flex;
-  }
-
   @media (min-width: 770px) {
     flex-direction: row;
   }
