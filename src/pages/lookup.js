@@ -18,6 +18,7 @@ import { BASE_API_URL } from '../constants';
 function Lookup() {
   const [symbol, setSymbol] = useState(null);
   const [quote, setQuote] = useState(null);
+  const [stats, setStats] = useState(null);
   const [chart, setChart] = useState({ data: [] });
   const [chartLoading, setChartLoading] = useState(false);
   const [watchlist, setWatchlist] = useState(null);
@@ -59,6 +60,7 @@ function Lookup() {
           axios.spread((...responses) => {
             const quoteResponse = responses[0];
             setQuote(quoteResponse.data.quote);
+            setStats(quoteResponse.data.stats);
             setCompanyProfile(quoteResponse.data.company);
             setLogoURL(quoteResponse.data.logo.url);
             const chartResponse = responses[1];
@@ -106,7 +108,7 @@ function Lookup() {
                   chartLoading={chartLoading}
                   setChartLoading={setChartLoading}
                 />
-                <KeyData quote={quote} />
+                <KeyData quote={quote} stats={stats} />
               </div>
               <div className="flex-right">
                 <CompanyProfile profile={companyProfile} />
