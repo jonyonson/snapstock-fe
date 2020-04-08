@@ -108,6 +108,10 @@ const Section = styled.section`
       border-bottom: 1px solid rgba(0, 0, 0, 0.2);
       padding-bottom: 0.15rem;
       margin-bottom: 0.5rem;
+
+      & span:nth-of-type(2) {
+        font-weight: bold;
+      }
     }
 
     &:nth-of-type(1) {
