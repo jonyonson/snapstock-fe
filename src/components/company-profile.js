@@ -35,7 +35,7 @@ function CompanyProfile({ profile }) {
             <span>{profile.industry}</span>
           </div>
           <div className="flex">
-            <span>Chief Operating Officer</span>
+            <span>CEO</span>
             <span>{profile.CEO}</span>
           </div>
           <div className="flex">
@@ -56,7 +56,7 @@ const Section = styled.section`
   margin-bottom: 2rem;
   font-size: 0.875rem;
 
-  @media (min-width: 500px) {
+  @media (min-width: 900px) {
     font-size: 0.9375rem;
   }
 
@@ -74,6 +74,18 @@ const Section = styled.section`
     justify-content: space-between;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     padding: 0.25rem 0;
+
+    span {
+      font-size: 0.75rem;
+
+      @media (min-width: 900px) {
+        font-size: 0.875rem;
+      }
+    }
+
+    span:nth-child(2) {
+      text-align: right;
+    }
   }
 `;
 
