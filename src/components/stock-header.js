@@ -107,6 +107,7 @@ const StockHeader = styled.div`
     flex-direction: column;
     align-items: flex-end;
     justify-content: flex-start;
+    white-space: nowrap;
   }
 
   .logo {
@@ -177,11 +178,15 @@ const StockHeader = styled.div`
   }
 
   .latest-trading-day {
-    font-size: 0.8125rem;
+    font-size: 0.6875rem;
     color: rgba(0, 0, 0, 0.7);
     text-transform: uppercase;
     font-weight: 700;
     margin-top: 2rem;
+
+    @media (min-width: 375px) {
+      font-size: 0.8125rem;
+    }
   }
 `;
 

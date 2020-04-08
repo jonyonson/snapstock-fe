@@ -25,6 +25,7 @@ const StyledButton = styled.button`
   /* padding: 10px; */
   font-size: 0.875rem;
   padding-left: 0;
+  padding-bottom: 0;
 
   .button-text {
     font-weight: bold;
