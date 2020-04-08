@@ -114,7 +114,7 @@ const Styled = styled.div`
   position: relative;
   @media (min-width: 770px) {
     flex-grow: 1;
-    margin-left: 2rem;
+    /* margin-left: 2rem; */
   }
 `;
 

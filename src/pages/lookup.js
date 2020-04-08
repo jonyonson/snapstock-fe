@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
 import useWindowSize from '../hooks/use-window-size';
 import isAuthenticated from '../utils/isAuthenticated';
 import Container from '../components/common/container';
@@ -78,34 +79,68 @@ function Lookup() {
     <Fragment>
       <Header />
       <Container>
-        {width < 770 && <SearchBar />}
+        {/* {width < 770 && <SearchBar />} */}
         {chartLoading ? (
           <BarLoader />
         ) : (
           <Fragment>
-            <StockHeader
-              quote={quote}
-              setWatchlist={setWatchlist}
-              watchlist={watchlist}
-              logoURL={logoURL}
-            />
-
-            <StockChart
-              chart={chart}
-              setChart={setChart}
-              symbol={symbol}
-              chartLoading={chartLoading}
-              setChartLoading={setChartLoading}
-            />
-
-            <KeyData quote={quote} />
-
-            <CompanyProfile profile={companyProfile} />
+            <Flex>
+              <div className="flex-right">
+                <SearchBar />
+              </div>
+              <div className="flex-left">
+                <StockHeader
+                  quote={quote}
+                  setWatchlist={setWatchlist}
+                  watchlist={watchlist}
+                  logoURL={logoURL}
+                />
+              </div>
+            </Flex>
+            <Flex>
+              <div className="flex-left">
+                <StockChart
+                  chart={chart}
+                  setChart={setChart}
+                  symbol={symbol}
+                  chartLoading={chartLoading}
+                  setChartLoading={setChartLoading}
+                />
+                <KeyData quote={quote} />
+              </div>
+              <div className="flex-right">
+                <CompanyProfile profile={companyProfile} />
+              </div>
+            </Flex>
           </Fragment>
         )}
       </Container>
     </Fragment>
   );
 }
+
+const Flex = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: 770px) {
+    flex-direction: row;
+  }
+
+  .flex-left {
+    @media (min-width: 770px) {
+      max-width: 65%;
+      min-width: 65%;
+    }
+  }
+
+  .flex-right {
+    @media (min-width: 770px) {
+      flex-grow: 1;
+      margin-left: 2rem;
+      order: 2;
+    }
+  }
+`;
 
 export default Lookup;

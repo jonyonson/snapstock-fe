@@ -56,44 +56,57 @@ function StockQuote({ quote, setWatchlist, watchlist, logoURL }) {
       >
         <h1 className="symbol">{quote.symbol}</h1>
         <h2 className="company-name">{quote.companyName}</h2>
-        <div className="price-wrapper">
-          <span className="price">${Number(quote.latestPrice).toFixed(2)}</span>
-          {quote.changePercent > 0 ? (
-            <ArrowUp size={24} color={theme.colors.gain} />
-          ) : (
-            <ArrowDown size={24} color={theme.colors.loss} />
-          )}
-        </div>
-        <span className="change">{Number(quote.change).toFixed(2)}</span>
-        <span className="change-percent">
-          ({Number(quote.changePercent * 100).toFixed(2) + '%'})
-        </span>
-        <div className="latest-trading-day">Data as of {quote.latestTime}</div>
+
+        <WatchlistButton followStock={followStock} isFollowing={isFollowing} />
       </div>
       <div className="data-header__right">
+        <div
+          className={
+            quote.changePercent > 0
+              ? 'green data-header__left'
+              : 'red data-header__left'
+          }
+        >
+          <div className="price-wrapper">
+            <span className="price">
+              ${Number(quote.latestPrice).toFixed(2)}
+            </span>
+            {quote.changePercent > 0 ? (
+              <ArrowUp size={24} color={theme.colors.gain} />
+            ) : (
+              <ArrowDown size={24} color={theme.colors.loss} />
+            )}
+          </div>
+          <span className="change">{Number(quote.change).toFixed(2)}</span>
+          <span className="change-percent">
+            ({Number(quote.changePercent * 100).toFixed(2) + '%'})
+          </span>
+          <div className="latest-trading-day">
+            Data as of {quote.latestTime}
+          </div>
+        </div>
         {/* <img
           className="logo"
           // src={`https://storage.googleapis.com/iex/api/logos/${quote.symbol}.png`}
           src={logoURL}
           alt={`${quote.companyName} Logo`}
         /> */}
-        <WatchlistButton followStock={followStock} isFollowing={isFollowing} />
       </div>
     </StockHeader>
   );
 }
 
 const StockHeader = styled.div`
-  margin: 2rem 0;
+  margin: 0 0 2rem;
   display: flex;
   justify-content: space-between;
 
   .data-header__right {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    /* align-items: flex-end; */
     /* justify-content: space-between; */
-    justify-content: flex-end;
+    justify-content: flex-start;
     min-width: 120px;
   }
 

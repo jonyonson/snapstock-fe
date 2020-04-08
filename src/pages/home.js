@@ -15,24 +15,46 @@ function Home() {
       <Header />
       <Container>
         <ContentHeader>
-          <SearchBar />
-          <Indices />
+          <div className="flex-right">
+            <SearchBar />
+          </div>
+          <div className="flex-left">
+            <Indices />
+          </div>
         </ContentHeader>
         <LatestNews />
-        <Section>
+        <Flex>
           <StockLists>
             <MostActive />
             <BiggestLosers />
             <BiggestGainers />
           </StockLists>
           <div className="placeholder" />
-        </Section>
+        </Flex>
       </Container>
     </Fragment>
   );
 }
 
 const ContentHeader = styled.div`
+  .flex-left {
+    margin-top: 1rem;
+    @media (min-width: 770px) {
+      margin-top: 0;
+      max-width: 60%;
+      min-width: 60%;
+    }
+  }
+
+  .flex-right {
+    order: 2;
+    flex-grow: 1;
+
+    @media (min-width: 770px) {
+      margin-left: 2rem;
+    }
+  }
+
   @media (min-width: 770px) {
     display: flex;
     justify-content: space-between;
@@ -41,7 +63,7 @@ const ContentHeader = styled.div`
   }
 `;
 
-const Section = styled.div`
+const Flex = styled.div`
   display: flex;
   flex-direction: column;
 

@@ -143,16 +143,16 @@ function Indices() {
 const StyledContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
 
-  @media (min-width: 770px) {
+  /* @media (min-width: 770px) {
     order: -1;
     flex-grow: 1;
     margin: 0;
 
     max-width: 60%;
     min-width: 60%;
-  }
+  } */
 `;
 
 export default Indices;
