@@ -53,8 +53,9 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     text-transform: uppercase;
     font-size: 0.9375rem;
-    font-weight: bold;
-    color: rgba(0, 0, 0, 0.6);
+    font-size: 1rem;
+    font-weight: 900;
+    color: rgba(0, 0, 0, 0.4);
     border-bottom: 2px solid ${(props) => props.theme.colors.primary};
     padding-bottom: 0.1rem;
     margin-bottom: 0.875rem;
