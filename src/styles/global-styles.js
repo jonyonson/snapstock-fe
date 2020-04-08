@@ -66,13 +66,6 @@ const GlobalStyle = createGlobalStyle`
       cursor: pointer;
     }
   }
-
-  .autosuggest {
-    @media (min-width: 770px) {
-      margin-bottom: 3rem
-    }
-  }
-
 `;
 
 export default GlobalStyle;

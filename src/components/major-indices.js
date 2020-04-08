@@ -146,7 +146,12 @@ const StyledContainer = styled.div`
   margin-top: 1rem;
 
   @media (min-width: 770px) {
-    margin: 0 0 3rem;
+    order: -1;
+    flex-grow: 1;
+    margin: 0;
+
+    max-width: 60%;
+    min-width: 60%;
   }
 `;
 

@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import useWindowSize from '../hooks/use-window-size';
 import Container from '../components/common/container';
 import Header from '../components/header';
 import SearchBar from '../components/search-bar';
@@ -11,21 +10,15 @@ import BiggestGainers from '../components/biggest-gainers';
 import Indices from '../components/major-indices';
 
 function Home() {
-  const { width } = useWindowSize();
-
   return (
     <Fragment>
       <Header />
       <Container>
-        {width < 770 && (
-          <Fragment>
-            <SearchBar />
-            <Indices />
-          </Fragment>
-        )}
-
+        <ContentHeader>
+          <SearchBar />
+          <Indices />
+        </ContentHeader>
         <HeadlineNews />
-
         <Section>
           <StockLists>
             <MostActive />
@@ -39,9 +32,22 @@ function Home() {
   );
 }
 
+const ContentHeader = styled.div`
+  @media (min-width: 770px) {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+  }
+`;
+
 const Section = styled.div`
   display: flex;
   flex-direction: column;
+
+  .test {
+    display: flex;
+  }
 
   @media (min-width: 770px) {
     flex-direction: row;

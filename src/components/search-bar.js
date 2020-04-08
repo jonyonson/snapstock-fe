@@ -90,7 +90,7 @@ function SearchBar() {
   };
 
   return (
-    <Styled className="autosuggest">
+    <Styled>
       <Autosuggest
         suggestions={suggestions}
         onSuggestionsFetchRequested={onSuggestionsFetchRequested}
@@ -112,6 +112,10 @@ function SearchBar() {
 
 const Styled = styled.div`
   position: relative;
+  @media (min-width: 770px) {
+    flex-grow: 1;
+    margin-left: 2rem;
+  }
 `;
 
 const Placeholder = styled.div`
