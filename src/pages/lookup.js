@@ -1,6 +1,8 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { BarLoader } from 'react-spinners';
+import styled, { useTheme } from 'styled-components';
 import useWindowSize from '../hooks/use-window-size';
 import isAuthenticated from '../utils/isAuthenticated';
 import Container from '../components/common/container';
@@ -13,7 +15,7 @@ import CompanyProfile from '../components/company-profile';
 
 import { BASE_API_URL } from '../constants';
 
-function Home() {
+function Lookup() {
   const [symbol, setSymbol] = useState(null);
   const [quote, setQuote] = useState(null);
   const [chart, setChart] = useState({ data: [] });
@@ -73,33 +75,50 @@ function Home() {
     }
   }, [symbol]);
 
+  const loaderColor = useTheme().colors.primary;
+
   return (
     <Fragment>
       <Header />
       <Container>
         {width < 770 && <SearchBar />}
 
-        <StockHeader
-          quote={quote}
-          setWatchlist={setWatchlist}
-          watchlist={watchlist}
-          logoURL={logoURL}
-        />
+        {chartLoading ? (
+          <LoadingWrapper>
+            <BarLoader width={200} color={loaderColor} />
+          </LoadingWrapper>
+        ) : (
+          <Fragment>
+            <StockHeader
+              quote={quote}
+              setWatchlist={setWatchlist}
+              watchlist={watchlist}
+              logoURL={logoURL}
+            />
 
-        <StockChart
-          chart={chart}
-          setChart={setChart}
-          symbol={symbol}
-          chartLoading={chartLoading}
-          setChartLoading={setChartLoading}
-        />
+            <StockChart
+              chart={chart}
+              setChart={setChart}
+              symbol={symbol}
+              chartLoading={chartLoading}
+              setChartLoading={setChartLoading}
+            />
 
-        <KeyData quote={quote} />
+            <KeyData quote={quote} />
 
-        <CompanyProfile profile={companyProfile} />
+            <CompanyProfile profile={companyProfile} />
+          </Fragment>
+        )}
       </Container>
     </Fragment>
   );
 }
 
-export default Home;
+const LoadingWrapper = styled.div`
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  margin-left: -100px;
+`;
+
+export default Lookup;
