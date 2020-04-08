@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import formatNumber from '../utils/formatNumber';
 import { AiOutlineMinusSquare, AiOutlinePlusSquare } from 'react-icons/ai';
 
 function KeyData({ quote }) {
@@ -31,23 +32,23 @@ function KeyData({ quote }) {
         <div className="table">
           <div>
             <span>Open</span>
-            <span>{Number(quote.open).toFixed(2)}</span>
+            <span>{formatNumber(quote.open)}</span>
           </div>
           <div>
             <span>Previous Close</span>
-            <span>{Number(quote.previousClose).toFixed(2)}</span>
+            <span>{formatNumber(quote.previousClose)}</span>
           </div>
           <div>
             <span>Day High</span>
-            <span>{Number(quote.high).toFixed(2)}</span>
+            <span>{formatNumber(quote.high)}</span>
           </div>
           <div>
             <span>Day Low</span>
-            <span>{Number(quote.low).toFixed(2)}</span>
+            <span>{formatNumber(quote.low)}</span>
           </div>
           <div>
             <span>Volume</span>
-            <span>{Number(quote.volume).toLocaleString()}</span>
+            <span>{formatNumber(quote.volume)}</span>
           </div>
         </div>
       )}
