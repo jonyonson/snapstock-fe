@@ -10,7 +10,9 @@ function KeyData({ quote, stats }) {
   const toggleVisibility = () => {
     setIsVisible((prevState) => !prevState);
   };
-  console.log(stats);
+
+  console.log('STATS', stats);
+  console.log('QUOTE', quote);
   return !quote || !stats ? null : (
     <Section>
       <div className="section-title">
@@ -34,7 +36,7 @@ function KeyData({ quote, stats }) {
           <div className="table-section">
             <div>
               <span>Open</span>
-              <span>{formatNumber(quote.open)}</span>
+              <span>{quote.open ? formatNumber(quote.open) : 'N/A'}</span>
             </div>
             <div>
               <span>Day High</span>
