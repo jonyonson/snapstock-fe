@@ -18,7 +18,9 @@ function StockList({ stockList, displayLength }) {
         </div>
 
         {stockList
-          .filter((stock, index) => index <= displayLength - 1)
+          .filter((stock, index) =>
+            displayLength ? index <= displayLength - 1 : true,
+          )
           .map((stock) => {
             return (
               <Link

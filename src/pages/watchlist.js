@@ -4,6 +4,8 @@ import axios from 'axios';
 import styled from 'styled-components';
 import isAuthenticated from '../utils/isAuthenticated';
 import Header from '../components/header';
+import StockList from '../components/common/stock-list';
+import Container from '../components/common/container';
 
 import { BASE_API_URL } from '../constants';
 
@@ -17,6 +19,7 @@ function Watchlist() {
       axios
         .get(url)
         .then((res) => {
+          console.log(res.data);
           setWatchlist(res.data);
         })
         .catch((err) => {
@@ -26,24 +29,25 @@ function Watchlist() {
     }
   }, []);
 
-  return isAuthenticated() ? (
+  return !isAuthenticated() ? (
+    <Redirect to={{ pathname: '/signin', state: { referrer: 'watchlist' } }} />
+  ) : (
     <Fragment>
       <Header />
-      <StyledSection>
-        <h1>Watchlist</h1>
-
-        {watchlist.map((stock) => (
-          <div key={stock.id}>{stock.symbol}</div>
-        ))}
-      </StyledSection>
+      <Container>
+        <Section>
+          <div className="section-title">
+            <span>Watchliist</span>
+          </div>
+          <StockList stockList={watchlist} />
+        </Section>
+      </Container>
     </Fragment>
-  ) : (
-    <Redirect to={{ pathname: '/signin', state: { referrer: 'watchlist' } }} />
   );
 }
 
-const StyledSection = styled.div`
-  padding: 1rem;
+const Section = styled.div`
+  margin-bottom: 2rem;
 `;
 
 export default Watchlist;
