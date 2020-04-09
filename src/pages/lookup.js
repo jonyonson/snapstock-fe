@@ -73,6 +73,7 @@ function Lookup() {
           setChartLoading(false);
           setChart({ data: [] });
           setQuote(null);
+          setCompanyProfile(null);
           setError(error.response.data);
           console.log(error.response);
         });
