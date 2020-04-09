@@ -16,7 +16,8 @@ function SearchBar() {
   useEffect(() => {
     if (matches.length > 0) {
       const matchesToDisplay = matches.filter(
-        (match) => !match['1. symbol'].includes('.'),
+        // (match) => !match['1. symbol'].includes('.'),
+        (match) => !match.symbol.includes('.'),
       );
 
       setSuggestions(matchesToDisplay);
@@ -33,14 +34,16 @@ function SearchBar() {
 
   // determine the input value for each suggestion
   const getSuggestionValue = (suggestion) => {
-    const symbol = suggestion['1. symbol'];
-    const name = suggestion['2. name'];
+    // const symbol = suggestion['1. symbol'];
+    // const name = suggestion['2. name'];
+    const { symbol, securityName } = suggestion;
 
-    return `${symbol}, ${name}`;
+    return `${symbol}, ${securityName}`;
   };
 
   const onSuggestionSelected = (_, { suggestion }) => {
-    const { '1. symbol': symbol } = suggestion;
+    // const { '1. symbol': symbol } = suggestion;
+    const { symbol } = suggestion;
     setValue('');
     history.push(`/stocks/${symbol.toLowerCase()}`);
   };
@@ -60,21 +63,23 @@ function SearchBar() {
   const renderSuggestion = (suggestion) => {
     return (
       <Fragment>
-        <div>{suggestion['2. name']}</div>
-        <div>{suggestion['1. symbol']}</div>
+        <div>{suggestion.securityName}</div>
+        <div>{suggestion.symbol}</div>
       </Fragment>
     );
   };
 
   const fetchBestMatches = (input) => {
-    const API_KEY = process.env.REACT_APP_ALPHA_VANTAGE_API_KEY;
-    const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${input}&apikey=${API_KEY}`;
-
+    // const API_KEY = process.env.REACT_APP_ALPHA_VANTAGE_API_KEY;
+    // const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${input}&apikey=${API_KEY}`;
+    const API_KEY = process.env.REACT_APP_IEX_CLOUD_API_KEY;
+    const url = `https://cloud.iexapis.com/stable/search/${input}?token=${API_KEY}`;
     axios
       .get(url)
       .then((res) => {
         console.log(res);
-        setMatches(res.data.bestMatches || []);
+        // setMatches(res.data.bestMatches || []);
+        setMatches(res.data || []);
       })
       .catch((err) => console.error(err));
   };
@@ -114,7 +119,6 @@ const Styled = styled.div`
   position: relative;
   @media (min-width: 770px) {
     flex-grow: 1;
-    /* margin-left: 2rem; */
   }
 `;
 

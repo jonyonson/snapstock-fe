@@ -1,7 +1,8 @@
 {
   "build": {
     "env": {
-      "REACT_APP_ALPHA_VANTAGE_API_KEY": "@alpha-vantage-api-key"
+      "REACT_APP_ALPHA_VANTAGE_API_KEY": "@alpha-vantage-api-key",
+      "REACT_APP_IEX_CLOUD_API_KEY": "@iex-cloud-api-key"
     }
   }
 }
