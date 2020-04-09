@@ -2,7 +2,6 @@ import React, { useState, useEffect, Fragment } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import useWindowSize from '../hooks/use-window-size';
 import isAuthenticated from '../utils/isAuthenticated';
 import Container from '../components/common/container';
 import Header from '../components/header';
@@ -24,8 +23,8 @@ function Lookup() {
   const [watchlist, setWatchlist] = useState(null);
   const [companyProfile, setCompanyProfile] = useState(null);
   const [logoURL, setLogoURL] = useState(null);
+  const [error, setError] = useState(null);
 
-  const { width } = useWindowSize();
   const params = useParams();
 
   useEffect(() => {
@@ -67,12 +66,15 @@ function Lookup() {
             const chartData = chartResponse.data;
             setChart({ '1d': chartData, data: chartData, type: '1d' });
             setChartLoading(false);
+            setError(null);
           }),
         )
         .catch((error) => {
           setChartLoading(false);
-          // TODO: handle errors
-          console.log(error);
+          setChart({ data: [] });
+          setQuote(null);
+          setError(error.response.data);
+          console.log(error.response);
         });
     }
   }, [symbol]);
@@ -81,12 +83,11 @@ function Lookup() {
     <Fragment>
       <Header />
       <Container>
-        {/* {width < 770 && <SearchBar />} */}
         {chartLoading ? (
           <BarLoader />
         ) : (
           <Fragment>
-            <Flex>
+            <Flex className={error ? 'error' : undefined}>
               <div className="flex-right">
                 <SearchBar />
               </div>
@@ -114,6 +115,7 @@ function Lookup() {
                 <CompanyProfile profile={companyProfile} />
               </div>
             </Flex>
+            {error && <Error>Something went wrong. Please try again.</Error>}
           </Fragment>
         )}
       </Container>
@@ -128,6 +130,13 @@ const Flex = styled.div`
   @media (min-width: 770px) {
     flex-direction: row;
     margin-top: 2rem;
+  }
+
+  &.error {
+    flex-direction: column;
+    .flex-right {
+      margin-left: 0;
+    }
   }
 
   .flex-left {
@@ -146,4 +155,8 @@ const Flex = styled.div`
   }
 `;
 
+const Error = styled.div`
+  margin-top: 2rem;
+  font-size: 22px;
+`;
 export default Lookup;
