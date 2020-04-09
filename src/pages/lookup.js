@@ -56,17 +56,16 @@ function Lookup() {
       axios
         .all([quoteRequest, chartRequest])
         .then(
-          axios.spread((...responses) => {
-            const quoteResponse = responses[0];
+          axios.spread((quoteResponse, chartResponse) => {
+            setError(null);
             setQuote(quoteResponse.data.quote);
             setStats(quoteResponse.data.stats);
             setCompanyProfile(quoteResponse.data.company);
             setLogoURL(quoteResponse.data.logo.url);
-            const chartResponse = responses[1];
+
             const chartData = chartResponse.data;
             setChart({ '1d': chartData, data: chartData, type: '1d' });
             setChartLoading(false);
-            setError(null);
           }),
         )
         .catch((error) => {
