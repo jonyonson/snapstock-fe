@@ -60,9 +60,11 @@ function LatestNews(props) {
                   src={headlines[0].urlToImage}
                   alt=""
                 />
-                <div className="most-recent-story__link__image__headline">
-                  {mostRecentHeadline}
-                </div>
+                {/* <div className="fade" /> */}
+              </div>
+
+              <div className="most-recent-story__link__image__headline">
+                {mostRecentHeadline}
               </div>
               {imageLoaded && <figcaption>{source}</figcaption>}
             </figure>
@@ -132,14 +134,33 @@ const Section = styled.section`
         }
       }
 
-      &__headline {
+      .fade {
         position: absolute;
         bottom: 0;
-        background: rgba(0, 0, 0, 0.7);
+        left: -1rem;
+        width: calc(100% + 2rem);
+        height: 100px;
+        background: linear-gradient(
+          transparent,
+          ${(props) => props.theme.colors.primary}
+        );
+
+        @media (min-width: 415px) {
+          left: -1.5rem;
+          width: calc(100% + 3rem);
+        }
+
+        @media (min-width: 770px) {
+          left: 0;
+          width: 100%;
+        }
+      }
+
+      &__headline {
+        background-color: ${(props) => props.theme.colors.primary};
         color: white;
         padding: 1rem;
         line-height: 1.3;
-
         font-size: 18px;
         font-weight: 900;
         line-height: 1.3;
@@ -148,7 +169,7 @@ const Section = styled.section`
 
         @media (min-width: 415px) {
           margin-left: -1.5rem;
-          width: calc(100% + 2rem);
+          width: calc(100% + 3rem);
           font-size: 20px;
         }
 
@@ -165,6 +186,7 @@ const Section = styled.section`
         @media (min-width: 770px) {
           font-size: 20px;
           margin-left: 0;
+          padding: 1rem;
           width: 100%;
         }
 
