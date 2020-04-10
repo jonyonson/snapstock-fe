@@ -8,10 +8,10 @@ function Container({ children }) {
 const StyledContainer = styled.div`
   max-width: ${(props) => props.theme.maxWidth};
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 1rem;
 
-  @media (max-width: 415px) {
-    padding: 0 1rem;
+  @media (min-width: 415px) {
+    padding: 0 1.5rem;
   }
 `;
 

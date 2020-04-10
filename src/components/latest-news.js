@@ -115,6 +115,11 @@ const Section = styled.section`
         width: calc(100% + 2rem);
         margin-left: -1rem;
 
+        @media (min-width: 415px) {
+          width: calc(100% + 3rem);
+          margin-left: -1.5rem;
+        }
+
         @media (min-width: 770px) {
           max-width: 100%;
           margin-left: 0;
@@ -137,6 +142,8 @@ const Section = styled.section`
         width: calc(100% + 2rem);
 
         @media (min-width: 415px) {
+          margin-left: -1.5rem;
+          width: calc(100% + 2rem);
           font-size: 20px;
         }
 
