@@ -18,6 +18,7 @@ function formatDistanceFromNow(publishedAt) {
 
 function LatestNews(props) {
   const [headlines, setHeadlines] = useState([]);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     const url = `${BASE_API_URL}/api/news/top-headlines`;
@@ -54,12 +55,16 @@ function LatestNews(props) {
           >
             <figure>
               <div className="most-recent-story__link__image">
-                <img src={headlines[0].urlToImage} alt="" />
+                <img
+                  onLoad={() => setImageLoaded(true)}
+                  src={headlines[0].urlToImage}
+                  alt=""
+                />
                 <div className="most-recent-story__link__image__headline">
                   {mostRecentHeadline}
                 </div>
               </div>
-              <figcaption>{source}</figcaption>
+              {imageLoaded && <figcaption>{source}</figcaption>}
             </figure>
           </a>
         )}
