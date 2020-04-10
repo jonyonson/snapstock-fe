@@ -4,13 +4,13 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import isAuthenticated from '../utils/isAuthenticated';
 import Container from '../components/common/container';
-import Header from '../components/header';
 import SearchBar from '../components/search-bar';
 import StockHeader from '../components/stock-header';
 import StockChart from '../components/stock-chart';
 import KeyData from '../components/key-data';
 import CompanyProfile from '../components/company-profile';
 import BarLoader from '../components/common/bar-loader';
+import AppWrapper from '../components/common/app-wrapper';
 
 import { BASE_API_URL } from '../constants';
 
@@ -80,8 +80,7 @@ function Lookup() {
   }, [symbol]);
 
   return (
-    <Fragment>
-      <Header />
+    <AppWrapper>
       <Container>
         {chartLoading ? (
           <BarLoader />
@@ -119,7 +118,7 @@ function Lookup() {
           </Fragment>
         )}
       </Container>
-    </Fragment>
+    </AppWrapper>
   );
 }
 

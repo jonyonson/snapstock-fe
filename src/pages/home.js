@@ -1,18 +1,17 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Container from '../components/common/container';
-import Header from '../components/header';
 import SearchBar from '../components/search-bar';
 import LatestNews from '../components/latest-news';
 import MostActive from '../components/most-active';
 import BiggestLosers from '../components/biggest-losers';
 import BiggestGainers from '../components/biggest-gainers';
 import Indices from '../components/major-indices';
+import AppWrapper from '../components/common/app-wrapper';
 
 function Home() {
   return (
-    <Fragment>
-      <Header />
+    <AppWrapper>
       <Container>
         <ContentHeader>
           <div className="flex-right">
@@ -32,7 +31,7 @@ function Home() {
           <div className="placeholder" />
         </Flex>
       </Container>
-    </Fragment>
+    </AppWrapper>
   );
 }
 
