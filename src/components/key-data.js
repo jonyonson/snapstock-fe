@@ -52,7 +52,7 @@ function KeyData({ quote, stats }) {
             </div>
             <div>
               <span>Volume</span>
-              <span>{formatNumber(quote.volume)}</span>
+              <span>{formatNumber(quote.latestVolume)}</span>
             </div>
           </div>
 

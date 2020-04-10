@@ -44,7 +44,7 @@ function StockList({ stockList, displayLength }) {
                   )}
                 </div>
                 <div className="td volume">
-                  {Number(stock.volume).toLocaleString()}
+                  {Number(stock.latestVolume).toLocaleString()}
                 </div>
               </Link>
             );
