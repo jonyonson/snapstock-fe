@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import axios from 'axios';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import theme from '../styles/theme';
 import formatNumber from '../utils/formatNumber';
@@ -37,7 +36,7 @@ function StockQuote({ quote, setWatchlist, watchlist, logoURL }) {
 
     if (!isFollowing) {
       const { symbol, companyName: company_name } = quote;
-      axios
+      axiosWithAuth()
         .post(URL, { symbol, company_name, user_id: USER_ID })
         .then((res) => {
           const { id, symbol, company_name } = res.data;
