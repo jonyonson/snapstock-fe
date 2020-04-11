@@ -33,6 +33,8 @@ function StockQuote({ quote, setWatchlist, watchlist, logoURL }) {
       const { symbol, companyName: company_name } = quote;
       const URL = `${BASE_API_URL}/api/watchlist`;
       const USER_ID = localStorage.getItem('userId');
+      console.log('URL', URL);
+      console.log({ symbol, company_name, USER_ID });
       axios
         .post(URL, { symbol, company_name, user_id: USER_ID })
         .then((res) => {
