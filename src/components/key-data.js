@@ -11,8 +11,6 @@ function KeyData({ quote, stats }) {
     setIsVisible((prevState) => !prevState);
   };
 
-  console.log('STATS', stats);
-  console.log('QUOTE', quote);
   return !quote || !stats ? null : (
     <Section>
       <div className="section-title">
