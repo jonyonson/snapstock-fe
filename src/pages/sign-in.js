@@ -24,7 +24,6 @@ function SignIn() {
       .post(`${BASE_API_URL}/auth/login`, credentials)
       .then((res) => {
         localStorage.setItem('token', res.data.token);
-        localStorage.setItem('userId', res.data.id);
         history.push('/');
       })
       .catch((err) => {
