@@ -16,7 +16,7 @@ function formatDistanceFromNow(publishedAt) {
     : distanceInWords;
 }
 
-function LatestNews(props) {
+function LatestNews() {
   const [headlines, setHeadlines] = useState([]);
   const [imageLoaded, setImageLoaded] = useState(false);
 
