@@ -31,8 +31,7 @@ function Lookup() {
   useEffect(() => {
     if (!watchlist) {
       if (isAuthenticated()) {
-        const USER_ID = localStorage.getItem('userId');
-        const url = `${BASE_API_URL}/api/watchlist/${USER_ID}`;
+        const url = `${BASE_API_URL}/api/watchlist`;
         axiosWithAuth()
           .get(url)
           .then((res) => setWatchlist(res.data))

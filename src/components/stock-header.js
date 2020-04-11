@@ -32,12 +32,11 @@ function StockQuote({ quote, setWatchlist, watchlist, logoURL }) {
     }
 
     const URL = `${BASE_API_URL}/api/watchlist`;
-    const USER_ID = localStorage.getItem('userId');
 
     if (!isFollowing) {
       const { symbol, companyName: company_name } = quote;
       axiosWithAuth()
-        .post(URL, { symbol, company_name, user_id: USER_ID })
+        .post(URL, { symbol, company_name })
         .then((res) => {
           const { id, symbol, company_name } = res.data;
           setWatchlist((prev) => prev.concat({ id, symbol, company_name }));
@@ -47,7 +46,7 @@ function StockQuote({ quote, setWatchlist, watchlist, logoURL }) {
       const remove = watchlist.find((stock) => stock.symbol === quote.symbol);
       setWatchlist(watchlist.filter((stock) => stock.id !== remove.id));
       axiosWithAuth()
-        .delete(URL + `/${USER_ID}/${remove.id}`)
+        .delete(URL + `/${remove.id}`)
         .then((res) => console.log(res))
         .catch((err) => console.error(err));
     }
