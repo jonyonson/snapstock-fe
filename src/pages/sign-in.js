@@ -18,7 +18,6 @@ function SignIn() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(credentials);
 
     axios
       .post(`${BASE_API_URL}/auth/login`, credentials)
