@@ -18,7 +18,6 @@ function Watchlist() {
       axiosWithAuth()
         .get(url)
         .then((res) => {
-          console.log(res.data);
           setWatchlist(res.data);
         })
         .catch((err) => {
