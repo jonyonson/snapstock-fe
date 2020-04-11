@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 import styled from 'styled-components';
 import isAuthenticated from '../utils/isAuthenticated';
 import Container from '../components/common/container';
@@ -30,9 +31,8 @@ function Lookup() {
   useEffect(() => {
     if (!watchlist) {
       if (isAuthenticated()) {
-        const USER_ID = localStorage.getItem('userId');
-        const url = `${BASE_API_URL}/api/watchlist/${USER_ID}`;
-        axios
+        const url = `${BASE_API_URL}/api/watchlist`;
+        axiosWithAuth()
           .get(url)
           .then((res) => setWatchlist(res.data))
           .catch((err) => console.error(err));

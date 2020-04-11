@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import axios from 'axios';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 import theme from '../styles/theme';
 import formatNumber from '../utils/formatNumber';
 import isAuthenticated from '../utils/isAuthenticated';
@@ -29,20 +29,26 @@ function StockQuote({ quote, setWatchlist, watchlist, logoURL }) {
         pathname: '/signin',
         state: { referrer: 'watchlist' },
       });
-    } else if (!isFollowing) {
+    }
+
+    const URL = `${BASE_API_URL}/api/watchlist`;
+
+    if (!isFollowing) {
       const { symbol, companyName: company_name } = quote;
-      const URL = `${BASE_API_URL}/api/watchlist`;
-      const USER_ID = localStorage.getItem('userId');
-      axios
-        .post(URL, { symbol, company_name, user_id: USER_ID })
+      axiosWithAuth()
+        .post(URL, { symbol, company_name })
         .then((res) => {
           const { id, symbol, company_name } = res.data;
           setWatchlist((prev) => prev.concat({ id, symbol, company_name }));
         })
-        .catch((err) => {
-          // TODO: handle errors
-          console.error(err);
-        });
+        .catch((err) => console.error(err));
+    } else {
+      const remove = watchlist.find((stock) => stock.symbol === quote.symbol);
+      setWatchlist(watchlist.filter((stock) => stock.id !== remove.id));
+      axiosWithAuth()
+        .delete(URL + `/${remove.id}`)
+        .then((res) => console.log(res))
+        .catch((err) => console.error(err));
     }
   };
 

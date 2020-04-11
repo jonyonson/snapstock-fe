@@ -17,15 +17,14 @@ function WatchlistButton({ followStock, isFollowing }) {
 const StyledButton = styled.button`
   text-transform: uppercase;
   background-color: #fff;
-  /* border: 2px solid ${(props) => props.theme.colors.secondary}; */
   border: none;
   background: transparent;
   display: flex;
   align-items: center;
-  /* padding: 10px; */
   font-size: 0.875rem;
   padding-left: 0;
   padding-bottom: 0;
+  outline: none;
 
   .button-text {
     font-weight: bold;

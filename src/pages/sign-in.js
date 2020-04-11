@@ -18,13 +18,11 @@ function SignIn() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(credentials);
 
     axios
       .post(`${BASE_API_URL}/auth/login`, credentials)
       .then((res) => {
         localStorage.setItem('token', res.data.token);
-        localStorage.setItem('userId', res.data.id);
         history.push('/');
       })
       .catch((err) => {
