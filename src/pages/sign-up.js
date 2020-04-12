@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
+import { BeatLoader } from 'react-spinners';
 import AuthWrapper from '../styles/auth.styled';
 import AppWrapper from '../components/common/app-wrapper';
 
@@ -8,6 +9,7 @@ import { BASE_API_URL } from '../constants';
 
 function SignUp() {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   const handleChange = (e) => {
@@ -16,6 +18,7 @@ function SignUp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     axios
       .post(`${BASE_API_URL}/auth/register`, credentials)
       .then((res) => {
@@ -23,9 +26,11 @@ function SignUp() {
         history.push('/');
       })
       .catch((err) => {
+        setLoading(false);
+        // setError(err.response.)
         // TODO: handle errors
         // TODO: handle already registered
-        console.log(err);
+        console.log(err.response);
       });
   };
 
@@ -50,7 +55,9 @@ function SignUp() {
             onChange={handleChange}
             value={credentials.password}
           />
-          <button type="submit">Sign In</button>
+          <button type="submit">
+            {loading ? <BeatLoader size={12} color="#fff" /> : 'Sign Up'}
+          </button>
         </form>
         <div className="link-text">
           <span>Already have an account?</span>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
+import { BeatLoader } from 'react-spinners';
 import AuthWrapper from '../styles/auth.styled';
 import Alert from '../components/common/alert';
 import AppWrapper from '../components/common/app-wrapper';
@@ -9,6 +10,7 @@ import { BASE_API_URL } from '../constants';
 
 function SignIn() {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
   const location = useLocation();
 
@@ -18,7 +20,7 @@ function SignIn() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    setLoading(true);
     axios
       .post(`${BASE_API_URL}/auth/login`, credentials)
       .then((res) => {
@@ -26,8 +28,9 @@ function SignIn() {
         history.push('/');
       })
       .catch((err) => {
+        setLoading(false);
         // TODO: handle errors
-        console.log(err);
+        console.log(err.response);
       });
   };
 
@@ -58,7 +61,9 @@ function SignIn() {
             onChange={handleChange}
             value={credentials.password}
           />
-          <button type="submit">Sign In</button>
+          <button type="submit">
+            {loading ? <BeatLoader size={12} color="#fff" /> : 'Sign In'}
+          </button>
         </form>
         <div className="link-text">
           <span>Don't have an account?</span>
