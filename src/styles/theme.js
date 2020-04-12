@@ -13,8 +13,13 @@ export default {
     white: '#ffffff',
     black: '#1d1d1d',
 
-    info: '#e6f7ff',
+    infoBackground: '#e6f7ff',
     infoBorder: '#91d5ff',
+    infoText: '#004095',
+
+    errorBackground: '#f8d7da',
+    errorBorder: '#f5c6cb',
+    errorText: '#721c24',
   },
 
   maxWidth: '1000px',

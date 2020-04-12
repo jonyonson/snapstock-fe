@@ -4,12 +4,13 @@ import axios from 'axios';
 import { BeatLoader } from 'react-spinners';
 import AuthWrapper from '../styles/auth.styled';
 import AppWrapper from '../components/common/app-wrapper';
-
+import Alert from '../components/common/alert';
 import { BASE_API_URL } from '../constants';
 
 function SignUp() {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const history = useHistory();
 
   const handleChange = (e) => {
@@ -22,12 +23,13 @@ function SignUp() {
     axios
       .post(`${BASE_API_URL}/auth/register`, credentials)
       .then((res) => {
+        setError(null);
         localStorage.setItem('token', res.data.token);
         history.push('/');
       })
       .catch((err) => {
         setLoading(false);
-        // setError(err.response.)
+        setError(err.response.data.message);
         // TODO: handle errors
         // TODO: handle already registered
         console.log(err.response);
@@ -38,6 +40,7 @@ function SignUp() {
     <AppWrapper>
       <AuthWrapper>
         <h1>Sign Up</h1>
+        {error && <Alert type="error">{error}</Alert>}
         <form onSubmit={handleSubmit}>
           <label>Email address</label>
           <input

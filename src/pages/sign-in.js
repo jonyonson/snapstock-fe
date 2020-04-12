@@ -11,6 +11,7 @@ import { BASE_API_URL } from '../constants';
 function SignIn() {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const history = useHistory();
   const location = useLocation();
 
@@ -24,11 +25,13 @@ function SignIn() {
     axios
       .post(`${BASE_API_URL}/auth/login`, credentials)
       .then((res) => {
+        setError(null);
         localStorage.setItem('token', res.data.token);
         history.push('/');
       })
       .catch((err) => {
         setLoading(false);
+        setError(err.response.data.message);
         // TODO: handle errors
         console.log(err.response);
       });
@@ -39,11 +42,13 @@ function SignIn() {
       <AuthWrapper>
         <h1>Sign In</h1>
         {location.state && location.state.referrer === 'watchlist' && (
-          <Alert>
+          <Alert type="info">
             You must be signed in in order to save securities to your watchlist.
             Log in below or <Link to="/signup">create an account.</Link>
           </Alert>
         )}
+
+        {error && <Alert type="error">{error}</Alert>}
         <form onSubmit={handleSubmit}>
           <label>Email address</label>
           <input
