@@ -21,14 +21,16 @@ function Home() {
             <Indices />
           </div>
         </ContentHeader>
-        <LatestNews />
+
         <Flex>
-          <StockLists>
+          <div className="flex-left">
+            <LatestNews />
+          </div>
+          <div className="flex-right">
             <MostActive />
             <BiggestLosers />
             <BiggestGainers />
-          </StockLists>
-          <div className="placeholder" />
+          </div>
         </Flex>
       </Container>
     </AppWrapper>
@@ -70,27 +72,28 @@ const Flex = styled.div`
     flex-direction: row;
   }
 
-  .placeholder {
-    border: 1px solid black;
-    background-color: #ccc;
-
+  .flex-left {
     @media (min-width: 770px) {
-      flex-grow: 1;
-      min-width: 60%;
+      margin-top: 0;
       max-width: 60%;
+      min-width: 60%;
     }
   }
-`;
 
-const StockLists = styled.div`
-  display: flex;
-  flex-direction: column;
-  @media (min-width: 770px) {
-    flex-grow: 1;
-    /* width: 40%; */
-    /* margin-right: 2rem; */
-    margin-left: 2rem;
+  .flex-right {
     order: 2;
+    flex-grow: 1;
+
+    @media (min-width: 770px) {
+      margin-left: 2rem;
+    }
+  }
+
+  @media (min-width: 770px) {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    /* margin-bottom: 3rem; */
   }
 `;
 

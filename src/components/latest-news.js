@@ -78,14 +78,21 @@ function LatestNews() {
           .filter((_, index) => index > 0 && index <= 5)
           .map((story) => {
             return (
-              <div key={story.url} className="article">
+              <a
+                href={story.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                key={story.url}
+                className="article"
+              >
                 <div className="time">
                   {formatDistanceFromNow(story.publishedAt)}
                 </div>
-                <a href={story.url} target="_blank" rel="noopener noreferrer">
-                  {story.title}
-                </a>
-              </div>
+                <div className="article__inner">
+                  <div className="title">{story.title}</div>
+                  <img src={story.urlToImage} alt="" />
+                </div>
+              </a>
             );
           })}
       </div>
@@ -93,13 +100,12 @@ function LatestNews() {
   );
 }
 
-const Section = styled.section`
+const Section = styled.div`
   margin-top: 2rem;
   margin-bottom: 2rem;
   font-size: 0.875rem;
 
   @media (min-width: 770px) {
-    display: flex;
     margin-top: 0;
   }
 
@@ -107,10 +113,7 @@ const Section = styled.section`
     margin-bottom: 1rem;
 
     @media (min-width: 770px) {
-      margin-right: 2rem;
       margin-bottom: 0;
-      min-width: 60%;
-      max-width: 60%;
     }
   }
 
@@ -208,10 +211,12 @@ const Section = styled.section`
   }
 
   .latest-news {
+    margin-top: 2rem;
     .article {
+      display: block;
       border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-      padding-bottom: 0.5rem;
-      margin-bottom: 0.5rem;
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
 
       &:last-child {
         margin-bottom: 0;
@@ -223,6 +228,16 @@ const Section = styled.section`
       font-size: 0.75rem;
       font-weight: bold;
       margin-bottom: 0.2em;
+    }
+
+    .article__inner {
+      display: flex;
+      justify-content: space-between;
+
+      img {
+        width: 140px;
+        margin-left: 1rem;
+      }
     }
   }
 

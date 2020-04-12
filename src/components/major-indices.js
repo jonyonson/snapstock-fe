@@ -51,6 +51,7 @@ const StyledWidget = styled.div`
 
   @media (min-width: 375px) {
     width: 33%;
+    /* max-width: 180px; */
     font-size: 0.625rem;
     padding: 0.2rem;
   }
