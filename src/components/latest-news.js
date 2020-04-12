@@ -233,6 +233,7 @@ const Section = styled.div`
     .article__inner {
       display: flex;
       justify-content: space-between;
+      align-items: flex-start;
 
       img {
         width: 140px;
