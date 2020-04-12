@@ -35,7 +35,7 @@ function Watchlist() {
       <Container>
         <Section>
           <div className="section-title">
-            <span>Watchliist</span>
+            <span>Watchlist</span>
           </div>
           <StockList stockList={watchlist} />
         </Section>
