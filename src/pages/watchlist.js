@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import isAuthenticated from '../utils/isAuthenticated';
 import StockList from '../components/common/stock-list';
 import AppWrapper from '../components/common/app-wrapper';
+import SearchBar from '../components/search-bar';
 
 import { BASE_API_URL } from '../constants';
 
@@ -31,16 +32,27 @@ function Watchlist() {
   ) : (
     <AppWrapper>
       <Section>
+        <div className="search-wrapper">
+          <SearchBar />
+        </div>
         <div className="section-title">
           <span>Watchlist</span>
         </div>
-        <StockList stockList={watchlist} />
+        {watchlist.length > 0 ? (
+          <StockList stockList={watchlist} />
+        ) : (
+          <div>There are no securities saved to your watchlist. </div>
+        )}
       </Section>
     </AppWrapper>
   );
 }
 
 const Section = styled.div`
+  .search-wrapper {
+    margin-bottom: 2rem;
+  }
+
   margin-bottom: 2rem;
 `;
 

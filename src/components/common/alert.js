@@ -43,6 +43,7 @@ const StyledAlert = styled.div`
 
   a {
     font-weight: bold;
+    color: inherit;
   }
 `;
 
