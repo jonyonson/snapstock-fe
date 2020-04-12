@@ -1,11 +1,10 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import styled from 'styled-components';
 import isAuthenticated from '../utils/isAuthenticated';
-import Header from '../components/header';
 import StockList from '../components/common/stock-list';
-import Container from '../components/common/container';
+import AppWrapper from '../components/common/app-wrapper';
 
 import { BASE_API_URL } from '../constants';
 
@@ -30,17 +29,14 @@ function Watchlist() {
   return !isAuthenticated() ? (
     <Redirect to={{ pathname: '/signin', state: { referrer: 'watchlist' } }} />
   ) : (
-    <Fragment>
-      <Header />
-      <Container>
-        <Section>
-          <div className="section-title">
-            <span>Watchlist</span>
-          </div>
-          <StockList stockList={watchlist} />
-        </Section>
-      </Container>
-    </Fragment>
+    <AppWrapper>
+      <Section>
+        <div className="section-title">
+          <span>Watchlist</span>
+        </div>
+        <StockList stockList={watchlist} />
+      </Section>
+    </AppWrapper>
   );
 }
 

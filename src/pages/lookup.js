@@ -1,10 +1,9 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import styled from 'styled-components';
 import isAuthenticated from '../utils/isAuthenticated';
-import Container from '../components/common/container';
 import SearchBar from '../components/search-bar';
 import StockHeader from '../components/stock-header';
 import StockChart from '../components/stock-chart';
@@ -79,45 +78,41 @@ function Lookup() {
     }
   }, [symbol]);
 
-  return (
+  return chartLoading ? (
     <AppWrapper>
-      <Container>
-        {chartLoading ? (
-          <BarLoader />
-        ) : (
-          <Fragment>
-            <Flex className={error ? 'error' : undefined}>
-              <div className="flex-right">
-                <SearchBar />
-              </div>
-              <div className="flex-left">
-                <StockHeader
-                  quote={quote}
-                  setWatchlist={setWatchlist}
-                  watchlist={watchlist}
-                  logoURL={logoURL}
-                />
-              </div>
-            </Flex>
-            <Flex>
-              <div className="flex-left">
-                <StockChart
-                  chart={chart}
-                  setChart={setChart}
-                  symbol={symbol}
-                  chartLoading={chartLoading}
-                  setChartLoading={setChartLoading}
-                />
-                <KeyData quote={quote} stats={stats} />
-              </div>
-              <div className="flex-right">
-                <CompanyProfile profile={companyProfile} />
-              </div>
-            </Flex>
-            {error && <Error>Something went wrong. Please try again.</Error>}
-          </Fragment>
-        )}
-      </Container>
+      <BarLoader />
+    </AppWrapper>
+  ) : (
+    <AppWrapper>
+      <Flex className={error ? 'error' : undefined}>
+        <div className="flex-right">
+          <SearchBar />
+        </div>
+        <div className="flex-left">
+          <StockHeader
+            quote={quote}
+            setWatchlist={setWatchlist}
+            watchlist={watchlist}
+            logoURL={logoURL}
+          />
+        </div>
+      </Flex>
+      <Flex>
+        <div className="flex-left">
+          <StockChart
+            chart={chart}
+            setChart={setChart}
+            symbol={symbol}
+            chartLoading={chartLoading}
+            setChartLoading={setChartLoading}
+          />
+          <KeyData quote={quote} stats={stats} />
+        </div>
+        <div className="flex-right">
+          <CompanyProfile profile={companyProfile} />
+        </div>
+      </Flex>
+      {error && <Error>Something went wrong. Please try again.</Error>}
     </AppWrapper>
   );
 }

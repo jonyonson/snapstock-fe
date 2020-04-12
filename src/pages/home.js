@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import Container from '../components/common/container';
 import SearchBar from '../components/search-bar';
 import LatestNews from '../components/latest-news';
 import MostActive from '../components/most-active';
@@ -12,27 +11,25 @@ import AppWrapper from '../components/common/app-wrapper';
 function Home() {
   return (
     <AppWrapper>
-      <Container>
-        <ContentHeader>
-          <div className="flex-right">
-            <SearchBar />
-          </div>
-          <div className="flex-left">
-            <Indices />
-          </div>
-        </ContentHeader>
+      <ContentHeader>
+        <div className="flex-right">
+          <SearchBar />
+        </div>
+        <div className="flex-left">
+          <Indices />
+        </div>
+      </ContentHeader>
 
-        <Flex>
-          <div className="flex-left">
-            <LatestNews />
-          </div>
-          <div className="flex-right">
-            <MostActive />
-            <BiggestLosers />
-            <BiggestGainers />
-          </div>
-        </Flex>
-      </Container>
+      <Flex>
+        <div className="flex-left">
+          <LatestNews />
+        </div>
+        <div className="flex-right">
+          <MostActive />
+          <BiggestLosers />
+          <BiggestGainers />
+        </div>
+      </Flex>
     </AppWrapper>
   );
 }

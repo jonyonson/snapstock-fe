@@ -1,9 +1,9 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState } from 'react';
 import { useLocation, useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
 import AuthWrapper from '../styles/auth.styled';
-import Header from '../components/header';
 import Alert from '../components/common/alert';
+import AppWrapper from '../components/common/app-wrapper';
 
 import { BASE_API_URL } from '../constants';
 
@@ -32,8 +32,7 @@ function SignIn() {
   };
 
   return (
-    <Fragment>
-      <Header />
+    <AppWrapper>
       <AuthWrapper>
         <h1>Sign In</h1>
         {location.state && location.state.referrer === 'watchlist' && (
@@ -66,7 +65,7 @@ function SignIn() {
           <Link to="/signup">Sign up</Link>
         </div>
       </AuthWrapper>
-    </Fragment>
+    </AppWrapper>
   );
 }
 

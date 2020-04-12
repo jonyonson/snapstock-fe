@@ -1,8 +1,8 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
 import AuthWrapper from '../styles/auth.styled';
-import Header from '../components/header';
+import AppWrapper from '../components/common/app-wrapper';
 
 import { BASE_API_URL } from '../constants';
 
@@ -30,8 +30,7 @@ function SignUp() {
   };
 
   return (
-    <Fragment>
-      <Header />
+    <AppWrapper>
       <AuthWrapper>
         <h1>Sign Up</h1>
         <form onSubmit={handleSubmit}>
@@ -58,7 +57,7 @@ function SignUp() {
           <Link to="/signin">Sign in</Link>
         </div>
       </AuthWrapper>
-    </Fragment>
+    </AppWrapper>
   );
 }
 

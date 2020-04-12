@@ -8,7 +8,7 @@ function AppWrapper({ children }) {
     <StyledWrapper>
       <div>
         <Header />
-        {children}
+        <Container>{children}</Container>
       </div>
 
       <StyledFooter>
