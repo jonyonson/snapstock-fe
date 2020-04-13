@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import styled from 'styled-components';
@@ -10,7 +10,7 @@ import SearchBar from '../components/search-bar';
 import { BASE_API_URL } from '../constants';
 
 function Watchlist() {
-  const [watchlist, setWatchlist] = useState([]);
+  const [watchlist, setWatchlist] = useState(null);
 
   useEffect(() => {
     if (isAuthenticated()) {
@@ -35,13 +35,17 @@ function Watchlist() {
         <div className="search-wrapper">
           <SearchBar />
         </div>
-        <div className="section-title">
-          <span>Watchlist</span>
-        </div>
-        {watchlist.length > 0 ? (
-          <StockList stockList={watchlist} />
-        ) : (
-          <div>There are no securities saved to your watchlist. </div>
+        {watchlist && (
+          <Fragment>
+            <div className="section-title">
+              <span>Watchlist</span>
+            </div>
+            {watchlist.length > 0 ? (
+              <StockList stockList={watchlist} />
+            ) : (
+              <div>There are no securities saved to your watchlist. </div>
+            )}
+          </Fragment>
         )}
       </Section>
     </AppWrapper>
