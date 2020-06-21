@@ -1,4 +1,14 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+![Snapstock Logo](https://raw.githubusercontent.com/jonyonson/snapstock-fe/master/src/images/snapstock_logo.svg)
+
+#### Deployed site: 
+[snapstockapp.com](https://snapstockapp.com)
+
+#### Backend repositories: 
+[github.com/jonyonson/snapstock-be](https://github.com/jonyonson/snapstock-be)
+[github.com/jonyonson/snapstock-flask](https://github.com/jonyonson/snapstock-flask)
+
+<hr>
 
 ## Available Scripts
 
