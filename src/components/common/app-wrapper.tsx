@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Header from '../header';
 import Container from './container';
 
-function AppWrapper({ children }) {
+const AppWrapper: React.FC = ({ children }) => {
   return (
     <StyledWrapper>
       <div>
@@ -34,7 +34,7 @@ function AppWrapper({ children }) {
       </StyledFooter>
     </StyledWrapper>
   );
-}
+};
 
 const StyledWrapper = styled.div`
   min-height: 100%;

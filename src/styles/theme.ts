@@ -1,4 +1,6 @@
-export default {
+import { DefaultTheme } from 'styled-components';
+
+const theme: DefaultTheme = {
   colors: {
     primary: '#044B7F', // header
     secondary: '#12939a', // chart stroke
@@ -24,3 +26,5 @@ export default {
 
   maxWidth: '1000px',
 };
+
+export { theme };

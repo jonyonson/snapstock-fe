@@ -3,7 +3,12 @@ import styled from 'styled-components';
 import { MdArrowDropUp, MdArrowDropDown } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
-function StockList({ stockList, displayLength }) {
+interface Props {
+  stockList: any;
+  displayLength: number;
+}
+
+const StockList: React.FC<Props> = ({ stockList, displayLength }) => {
   return (
     <Table>
       <div className="table">
@@ -18,10 +23,10 @@ function StockList({ stockList, displayLength }) {
         </div>
 
         {stockList
-          .filter((stock, index) =>
+          .filter((stock: any, index: number) =>
             displayLength ? index <= displayLength - 1 : true,
           )
-          .map((stock) => {
+          .map((stock: any) => {
             return (
               <Link
                 to={`/stocks/${stock.symbol.toLowerCase()}`}
@@ -52,7 +57,7 @@ function StockList({ stockList, displayLength }) {
       </div>
     </Table>
   );
-}
+};
 
 const Table = styled.section`
   display: flex;

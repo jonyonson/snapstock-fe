@@ -5,7 +5,11 @@ import isAuthenticated from '../utils/isAuthenticated';
 import Container from './common/container';
 import logo from '../images/snapstock_logo.svg';
 
-function Header({ setWatchlist }) {
+interface Props {
+  setWatchlist?: (x: any) => any; // TODO Type
+}
+
+const Header: React.FC<Props> = ({ setWatchlist }) => {
   const history = useHistory();
 
   const logout = () => {
@@ -23,7 +27,7 @@ function Header({ setWatchlist }) {
       <Container>
         <div className="header__inner">
           <Link className="logo" to="/" onClick={() => handleReset()}>
-            <img src={logo} alt="" />
+            <img src={String(logo)} alt="" />
           </Link>
           <div>
             <Link className="nav-item" to="/watchlist">
@@ -43,7 +47,7 @@ function Header({ setWatchlist }) {
       </Container>
     </StyledHeader>
   );
-}
+};
 
 const StyledHeader = styled.div`
   /* background-color: ${(props) => props.theme.colors.primary}; */

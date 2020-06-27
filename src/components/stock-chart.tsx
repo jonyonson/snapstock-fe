@@ -1,3 +1,7 @@
+/// <reference path="../react-vis.d.ts"/>
+// TODO
+// https://stackoverflow.com/questions/52761075/react-could-not-find-a-declaration-file-for-module-react-vis
+// https://raw.githubusercontent.com/evgsil/react-vis-typings/master/react-vis.d.ts
 import React, { useState, useEffect, Fragment } from 'react';
 import styled from 'styled-components';
 import format from 'date-fns/format';
@@ -7,10 +11,18 @@ import { useTheme } from 'styled-components';
 import { XYPlot, XAxis, YAxis, LineSeries, makeWidthFlexible } from 'react-vis';
 import { AiOutlinePlusSquare, AiOutlineMinusSquare } from 'react-icons/ai';
 import 'react-vis/dist/style.css';
-
 import { BASE_API_URL } from '../constants';
 
-function StockChart({ chart, setChart, symbol }) {
+// TODO Type
+interface Props {
+  chart: any;
+  setChart: any;
+  symbol: string | null;
+  chartLoading?: boolean;
+  setChartLoading?: any;
+}
+
+const StockChart: React.FC<Props> = ({ chart, setChart, symbol }) => {
   const [activeRangeButton, setActiveRangeButton] = useState('1d');
   const [isVisible, setIsVisible] = useState(true);
   const [chartLoading, setChartLoading] = useState(false);
@@ -23,18 +35,24 @@ function StockChart({ chart, setChart, symbol }) {
     setIsVisible((prevState) => !prevState);
   };
 
-  const displayChart = (range) => {
+  const displayChart = (range: string) => {
     // sets the button to active before the potential api call
     setActiveRangeButton(range);
     const url = `${BASE_API_URL}/api/stocks/${symbol}/chart/${range}`;
     setChartLoading(true);
     if (chart[range]) {
-      setChart((prev) => ({ ...prev, data: prev[range], type: range }));
+      setChart((prev: any) => ({ ...prev, data: prev[range], type: range })); // TODO any
       setChartLoading(false);
     } else {
       axios.get(url).then((res) => {
         const data = res.data;
-        setChart((prev) => ({ ...prev, [range]: data, type: range, data }));
+        setChart((prev: any) => ({
+          // TODO any
+          ...prev,
+          [range]: data,
+          type: range,
+          data,
+        }));
         setChartLoading(false);
       });
     }
@@ -43,21 +61,24 @@ function StockChart({ chart, setChart, symbol }) {
   const data =
     chart.type === '1d'
       ? chart['1d']
-          .filter((marker) => marker.high !== null)
-          .map((marker) => {
+          .filter((marker: any) => marker.high !== null) // TODO any
+          .map((marker: any) => {
+            // TODO any
             return {
               x: parse(marker.date, 'yyyy-MM-dd HH:mm:ss', new Date()),
               y: Number(marker.high),
             };
           })
-      : chart.data.map((marker) => {
+      : chart.data.map((marker: any) => {
+          // TODO any
           return {
             x: parse(marker.date, 'yyyy-MM-dd', new Date()),
             y: Number(marker.close),
           };
         });
 
-  const ranges = {
+  // TODO
+  const ranges: { [key: string]: string } = {
     '1d': 'h:mm',
     '5d': 'MMM d',
     '1m': 'MMM d',
@@ -70,8 +91,9 @@ function StockChart({ chart, setChart, symbol }) {
     // max: 'yyyy',
   };
 
-  const handleTickFormat = (tick) => {
-    return format(tick, ranges[chart.type]);
+  const handleTickFormat = (tick: any) => {
+    console.log('TICK', tick);
+    return format(tick, ranges[chart.type]); // TODO any
   };
 
   const FlexibleXYPlot = makeWidthFlexible(XYPlot);
@@ -125,7 +147,7 @@ function StockChart({ chart, setChart, symbol }) {
       )}
     </Section>
   ) : null;
-}
+};
 
 const Section = styled.section`
   margin-bottom: 2rem;

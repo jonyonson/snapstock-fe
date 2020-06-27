@@ -18,14 +18,14 @@ function Lookup() {
   const [symbol, setSymbol] = useState(null);
   const [quote, setQuote] = useState(null);
   const [stats, setStats] = useState(null);
-  const [chart, setChart] = useState({ data: [] });
+  const [chart, setChart] = useState<any>({ data: [] }); // TODO Type
   const [chartLoading, setChartLoading] = useState(false);
-  const [watchlist, setWatchlist] = useState(null);
+  const [watchlist, setWatchlist] = useState<null | any[]>(null); // TODO Type
   const [companyProfile, setCompanyProfile] = useState(null);
   const [logoURL, setLogoURL] = useState(null);
   const [error, setError] = useState(null);
 
-  const params = useParams();
+  const params: any = useParams(); // TODO Type
 
   useEffect(() => {
     if (!watchlist) {

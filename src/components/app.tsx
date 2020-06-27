@@ -5,7 +5,7 @@ import SignIn from '../pages/sign-in';
 import SignUp from '../pages/sign-up';
 import Watchlist from '../pages/watchlist';
 import GlobalStyle from '../styles/global-styles';
-import MostActive from '../components/most-active';
+import MostActive from './most-active';
 import Lookup from '../pages/lookup';
 
 function App() {

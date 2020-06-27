@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function Container({ children }) {
+const Container: React.FC = ({ children }) => {
   return <StyledContainer>{children}</StyledContainer>;
-}
+};
 
 const StyledContainer = styled.div`
   max-width: ${(props) => props.theme.maxWidth};

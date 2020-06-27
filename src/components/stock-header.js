@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
-import theme from '../styles/theme';
+import { theme } from '../styles/theme';
 import formatNumber from '../utils/formatNumber';
 import isAuthenticated from '../utils/isAuthenticated';
 import WatchlistButton from './watchlist-button';
