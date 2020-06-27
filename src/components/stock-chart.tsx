@@ -1,4 +1,4 @@
-/// <reference path="../react-vis.d.ts"/>
+/// <reference path="../@types/react-vis.d.ts"/>
 // TODO
 // https://stackoverflow.com/questions/52761075/react-could-not-find-a-declaration-file-for-module-react-vis
 // https://raw.githubusercontent.com/evgsil/react-vis-typings/master/react-vis.d.ts
