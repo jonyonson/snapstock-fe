@@ -1,7 +1,6 @@
+/// <reference path="../@types/styled.d.ts"/>
 /// <reference path="../@types/react-vis.d.ts"/>
-// TODO
-// https://stackoverflow.com/questions/52761075/react-could-not-find-a-declaration-file-for-module-react-vis
-// https://raw.githubusercontent.com/evgsil/react-vis-typings/master/react-vis.d.ts
+
 import React, { useState, useEffect, Fragment } from 'react';
 import styled from 'styled-components';
 import format from 'date-fns/format';
@@ -13,13 +12,57 @@ import { AiOutlinePlusSquare, AiOutlineMinusSquare } from 'react-icons/ai';
 import 'react-vis/dist/style.css';
 import { BASE_API_URL } from '../constants';
 
-// TODO Type
+type ChartRange = '1d' | '5d' | '1m' | '3m' | '6m' | 'ytd' | '1y' | '2y' | '5y';
+
+// type IntradayChartData = {
+//   close: string;
+//   date: string;
+//   high: string;
+//   low: string;
+//   open: string;
+//   volume: string;
+// };
+
+type ChartData = {
+  close: number | string;
+  date: number | string;
+  high: number | string;
+  low: number | string;
+  open: number | string;
+  volume: number | string;
+  change?: number;
+  changeOverTime?: number;
+  changePercent?: number;
+  label?: string;
+  uClose?: number;
+  uHigh?: number;
+  uLow?: number;
+  uOpen?: number;
+  uVolume?: number;
+};
+
+// TODO Types
+interface Chart {
+  data: any[];
+  // data: ChartData[];
+  '1d'?: [] | any[];
+  '5d'?: [] | any[];
+  '1m'?: [] | any[];
+  '3m'?: [] | any[];
+  '6m'?: [] | any[];
+  '1y'?: [] | any[];
+  '2y'?: [] | any[];
+  '5y'?: [] | any[];
+  ytd?: [] | any[];
+  type?: string;
+}
+
 interface Props {
-  chart: any;
-  setChart: any;
+  chart: Chart;
+  setChart: any; // TODO
   symbol: string | null;
   chartLoading?: boolean;
-  setChartLoading?: any;
+  setChartLoading?: any; // TODO
 }
 
 const StockChart: React.FC<Props> = ({ chart, setChart, symbol }) => {
@@ -35,11 +78,12 @@ const StockChart: React.FC<Props> = ({ chart, setChart, symbol }) => {
     setIsVisible((prevState) => !prevState);
   };
 
-  const displayChart = (range: string) => {
+  const displayChart = (range: ChartRange) => {
     // sets the button to active before the potential api call
     setActiveRangeButton(range);
     const url = `${BASE_API_URL}/api/stocks/${symbol}/chart/${range}`;
     setChartLoading(true);
+
     if (chart[range]) {
       setChart((prev: any) => ({ ...prev, data: prev[range], type: range })); // TODO any
       setChartLoading(false);
@@ -58,26 +102,30 @@ const StockChart: React.FC<Props> = ({ chart, setChart, symbol }) => {
     }
   };
 
-  const data =
-    chart.type === '1d'
-      ? chart['1d']
-          .filter((marker: any) => marker.high !== null) // TODO any
-          .map((marker: any) => {
-            // TODO any
-            return {
-              x: parse(marker.date, 'yyyy-MM-dd HH:mm:ss', new Date()),
-              y: Number(marker.high),
-            };
-          })
-      : chart.data.map((marker: any) => {
-          // TODO any
+  let data: any[];
+
+  if (chart.type === '1d') {
+    if (chart['1d'] === undefined) {
+      data = [];
+    } else {
+      data = chart['1d']
+        .filter((marker: any) => marker.high !== null)
+        .map((marker: any) => {
           return {
-            x: parse(marker.date, 'yyyy-MM-dd', new Date()),
-            y: Number(marker.close),
+            x: parse(marker.date, 'yyyy-MM-dd HH:mm:ss', new Date()),
+            y: Number(marker.high),
           };
         });
+    }
+  } else {
+    data = chart.data.map((marker: any) => {
+      return {
+        x: parse(marker.date, 'yyyy-MM-dd', new Date()),
+        y: Number(marker.close),
+      };
+    });
+  }
 
-  // TODO
   const ranges: { [key: string]: string } = {
     '1d': 'h:mm',
     '5d': 'MMM d',
@@ -88,12 +136,10 @@ const StockChart: React.FC<Props> = ({ chart, setChart, symbol }) => {
     '1y': 'MMM',
     '2y': 'MM-yy',
     '5y': 'yyyy',
-    // max: 'yyyy',
   };
 
-  const handleTickFormat = (tick: any) => {
-    console.log('TICK', tick);
-    return format(tick, ranges[chart.type]); // TODO any
+  const handleTickFormat = (tick: Date) => {
+    return format(tick, ranges[chart.type as ChartRange]);
   };
 
   const FlexibleXYPlot = makeWidthFlexible(XYPlot);
@@ -124,12 +170,13 @@ const StockChart: React.FC<Props> = ({ chart, setChart, symbol }) => {
               <button
                 key={range}
                 className={range === activeRangeButton ? 'active' : undefined}
-                onClick={() => displayChart(range)}
+                onClick={() => displayChart(range as ChartRange)}
               >
                 {range.toUpperCase()}
               </button>
             ))}
           </ChartRanges>
+
           <div className="chart-wrapper">
             <FlexibleXYPlot
               xType="time"
@@ -195,3 +242,22 @@ const LoadingMask = styled.div`
 `;
 
 export default StockChart;
+
+// interface ChartData {
+//   close: number | string;
+//   date: Date | string;
+//   high: number | string;
+//   low: number | string;
+//   open: string | number;
+//   volume: string | number;
+
+//   change?: number;
+//   changeOverTime?: number;
+//   changePercent?: number;
+//   label?: string;
+//   uClose?: number;
+//   uHigh?: number;
+//   uLow?: number;
+//   uOpen?: number;
+//   uVolume?: number;
+// };
