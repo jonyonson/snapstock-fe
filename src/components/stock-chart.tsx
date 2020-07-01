@@ -1,7 +1,7 @@
 /// <reference path="../@types/styled.d.ts"/>
 /// <reference path="../@types/react-vis.d.ts"/>
 
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 import styled from 'styled-components';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
@@ -13,15 +13,6 @@ import 'react-vis/dist/style.css';
 import { BASE_API_URL } from '../constants';
 
 type ChartRange = '1d' | '5d' | '1m' | '3m' | '6m' | 'ytd' | '1y' | '2y' | '5y';
-
-// type IntradayChartData = {
-//   close: string;
-//   date: string;
-//   high: string;
-//   low: string;
-//   open: string;
-//   volume: string;
-// };
 
 type ChartData = {
   close: number | string;
@@ -43,8 +34,6 @@ type ChartData = {
 
 // TODO Types
 interface Chart {
-  data: any[];
-  // data: ChartData[];
   '1d'?: [] | any[];
   '5d'?: [] | any[];
   '1m'?: [] | any[];
@@ -55,53 +44,58 @@ interface Chart {
   '5y'?: [] | any[];
   ytd?: [] | any[];
   type?: string;
+  data: any[];
+  // data: ChartData[];
 }
 
 interface Props {
-  chart: Chart;
-  setChart: any; // TODO
   symbol: string | null;
-  chartLoading?: boolean;
-  setChartLoading?: any; // TODO
+  chart: any; // TODO
+  setChart: (value: any) => any; // TODO
+  // chart: Chart;
+  // setChart: (value: React.SetStateAction<Chart>) => void;
 }
 
-const StockChart: React.FC<Props> = ({ chart, setChart, symbol }) => {
+const StockChart: React.FC<Props> = ({ chart, symbol, setChart }) => {
   const [activeRangeButton, setActiveRangeButton] = useState('1d');
   const [isVisible, setIsVisible] = useState(true);
-  const [chartLoading, setChartLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    setActiveRangeButton('1d');
-  }, [symbol]);
+  // useEffect(() => {
+  //   setActiveRangeButton('1d');
+  // }, [symbol]);
+
+  // useEffect(() => {
+  //   setActiveRangeButton(chart.type);
+  // }, [chart]);
 
   const toggleVisibility = () => {
     setIsVisible((prevState) => !prevState);
   };
 
   const displayChart = (range: ChartRange) => {
-    // sets the button to active before the potential api call
     setActiveRangeButton(range);
-    const url = `${BASE_API_URL}/api/stocks/${symbol}/chart/${range}`;
-    setChartLoading(true);
+    setIsLoading(true);
 
     if (chart[range]) {
-      setChart((prev: any) => ({ ...prev, data: prev[range], type: range })); // TODO any
-      setChartLoading(false);
+      setChart((prev: Chart) => ({ ...prev, data: prev[range], type: range }));
+      setIsLoading(false);
     } else {
+      const url = BASE_API_URL + '/api/stocks/' + symbol + '/chart/' + range;
       axios.get(url).then((res) => {
         const data = res.data;
-        setChart((prev: any) => ({
-          // TODO any
+        setChart((prev: Chart) => ({
           ...prev,
           [range]: data,
           type: range,
           data,
         }));
-        setChartLoading(false);
+        setIsLoading(false);
       });
     }
   };
 
+  // TODO
   let data: any[];
 
   if (chart.type === '1d') {
@@ -184,7 +178,7 @@ const StockChart: React.FC<Props> = ({ chart, setChart, symbol }) => {
               margin={{ left: 50 }}
               stroke={strokeColor}
             >
-              {chartLoading && <LoadingMask />}
+              {isLoading && <LoadingMask />}
               <XAxis tickTotal={6} tickFormat={handleTickFormat} />
               <YAxis />
               <LineSeries getNull={(d) => d.y !== null} data={data} />

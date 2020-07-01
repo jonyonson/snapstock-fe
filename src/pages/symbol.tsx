@@ -14,7 +14,7 @@ import AppWrapper from '../components/common/app-wrapper';
 
 import { BASE_API_URL } from '../constants';
 
-function Lookup() {
+function SymbolPage() {
   const [symbol, setSymbol] = useState(null);
   const [quote, setQuote] = useState(null);
   const [stats, setStats] = useState(null);
@@ -99,13 +99,7 @@ function Lookup() {
       </Flex>
       <Flex>
         <div className="flex-left">
-          <StockChart
-            chart={chart}
-            setChart={setChart}
-            symbol={symbol}
-            chartLoading={chartLoading}
-            setChartLoading={setChartLoading}
-          />
+          <StockChart chart={chart} setChart={setChart} symbol={symbol} />
           <KeyData quote={quote} stats={stats} />
         </div>
         <div className="flex-right">
@@ -153,4 +147,4 @@ const Error = styled.div`
   margin-top: 2rem;
   font-size: 22px;
 `;
-export default Lookup;
+export default SymbolPage;

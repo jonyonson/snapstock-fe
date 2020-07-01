@@ -6,14 +6,14 @@ import SignUp from '../pages/sign-up';
 import Watchlist from '../pages/watchlist';
 import GlobalStyle from '../styles/global-styles';
 import MostActive from './most-active';
-import Lookup from '../pages/lookup';
+import SymbolPage from '../pages/symbol';
 
 function App() {
   return (
     <Fragment>
       <Route exact path="/" component={Home} />
       <Route path="/watchlist" component={Watchlist} />
-      <Route path="/stocks/:symbol" component={Lookup} />
+      <Route path="/stocks/:symbol" component={SymbolPage} />
       <Route path="/signup" component={SignUp} />
       <Route path="/signin" component={SignIn} />
       <Route path="/active" component={MostActive} />
