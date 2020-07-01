@@ -4,7 +4,7 @@ import { MdArrowDropUp, MdArrowDropDown } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
 interface Props {
-  stockList: any;
+  stockList: any; // TODO
   displayLength: number;
 }
 
