@@ -81,7 +81,11 @@ function SearchBar() {
         // setMatches(res.data.bestMatches || []);
         setMatches(res.data || []);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        alert('Something went wrong. Try back later.\n' + err);
+        setValue('');
+      });
   };
 
   // Pass through arbitrary props to the input
