@@ -9,7 +9,18 @@
 
 [github.com/jonyonson/snapstock-flask](https://github.com/jonyonson/snapstock-flask)
 
+## TODO
+
+- [ ] Convert to TypeScript (WIP)
+- [ ] `biggest-gainers.tsx`, `biggest-losers.tsx`, `most-active.tsx` (DRY)
+- [x] Handle API errors in `SearchBar`
+- [x] Handle API errors in stock lists (right sidebar)
+- [ ] Handle API errors in stock chart
+- [ ] Handle API errors with news component
+
+
 <hr>
+
 
 ## Available Scripts
 
