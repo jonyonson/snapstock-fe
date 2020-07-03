@@ -1,15 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface AlertProps {
-  readonly type: string;
+interface Props {
+  type: 'info' | 'error';
+  children: React.ReactNode;
 }
 
-const Alert: React.FC<AlertProps> = ({ type, children }) => {
-  return <StyledAlert type={type}>{children}</StyledAlert>;
-};
+const Alert = ({ type, children }: Props) => (
+  <StyledAlert type={type}>{children}</StyledAlert>
+);
 
-const StyledAlert = styled.div<AlertProps>`
+const StyledAlert = styled.div<Props>`
   width: 100%;
   color: ${(props) => {
     if (props.type === 'info') {
