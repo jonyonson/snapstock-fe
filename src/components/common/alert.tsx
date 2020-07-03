@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface Props {
+type Props = {
   type: 'info' | 'error';
   children: React.ReactNode;
-}
+};
 
 const Alert = ({ type, children }: Props) => (
   <StyledAlert type={type}>{children}</StyledAlert>
