@@ -1,7 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Container: React.FC = ({ children }) => {
+type Props = {
+  children: React.ReactNode;
+};
+
+const Container = ({ children }: Props) => {
   return <StyledContainer>{children}</StyledContainer>;
 };
 

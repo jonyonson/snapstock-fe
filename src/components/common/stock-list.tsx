@@ -4,11 +4,11 @@ import { MdArrowDropUp, MdArrowDropDown } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
 interface Props {
-  stockList: any; // TODO
+  stockList: any;
   displayLength: number;
 }
 
-const StockList: React.FC<Props> = ({ stockList, displayLength }) => {
+const StockList = ({ stockList, displayLength }: Props) => {
   return (
     <Table>
       <div className="table">

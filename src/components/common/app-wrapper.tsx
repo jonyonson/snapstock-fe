@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 import Header from '../header';
 import Container from './container';
 
-const AppWrapper: React.FC = ({ children }) => {
+type Props = {
+  children: ReactNode;
+};
+
+const AppWrapper = ({ children }: Props) => {
   return (
     <StyledWrapper>
       <div>

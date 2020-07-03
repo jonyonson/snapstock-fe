@@ -48,15 +48,15 @@ interface Chart {
   // data: ChartData[];
 }
 
-interface Props {
+type Props = {
   symbol: string | null;
   chart: any; // TODO
   setChart: (value: any) => any; // TODO
   // chart: Chart;
   // setChart: (value: React.SetStateAction<Chart>) => void;
-}
+};
 
-const StockChart: React.FC<Props> = ({ chart, symbol, setChart }) => {
+const StockChart = ({ chart, symbol, setChart }: Props) => {
   const [activeRangeButton, setActiveRangeButton] = useState('1d');
   const [isVisible, setIsVisible] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
