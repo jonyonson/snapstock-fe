@@ -102,7 +102,7 @@ const StyledWidget = styled.div`
   }
 `;
 
-function Indices() {
+function MarketIndices() {
   const [dow, setDow] = useState(null);
   const [sp500, setSp500] = useState(null);
   const [nasdaq, setNasdaq] = useState(null);
@@ -146,4 +146,4 @@ const StyledContainer = styled.div`
   justify-content: space-between;
 `;
 
-export default Indices;
+export default MarketIndices;
