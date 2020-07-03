@@ -5,11 +5,11 @@ import isAuthenticated from '../utils/isAuthenticated';
 import Container from './common/container';
 import logo from '../images/snapstock_logo.svg';
 
-interface Props {
-  setWatchlist?: (x: any) => any; // TODO Type
-}
+type Props = {
+  setWatchlist?: React.Dispatch<React.SetStateAction<any[] | null>>;
+};
 
-const Header: React.FC<Props> = ({ setWatchlist }) => {
+const Header = ({ setWatchlist }: Props) => {
   const history = useHistory();
 
   const logout = () => {
