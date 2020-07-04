@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useHistory, Link } from 'react-router-dom';
 import isAuthenticated from '../utils/isAuthenticated';
 import Container from './common/container';
-import logo from '../images/snapstock_logo.svg';
+import logo from '../assets/snapstock_logo.svg';
 
 type Props = {
   setWatchlist?: React.Dispatch<React.SetStateAction<any[] | null>>;
