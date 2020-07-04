@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react';
 import { Route } from 'react-router-dom';
-import Home from '../pages/home';
-import SignIn from '../pages/sign-in';
-import SignUp from '../pages/sign-up';
-import Watchlist from '../pages/watchlist';
+import Home from '../containers/home';
+import SignIn from '../containers/sign-in';
+import SignUp from '../containers/sign-up';
+import Watchlist from '../containers/watchlist';
 import GlobalStyle from '../styles/global-styles';
 import MostActive from './most-active';
-import SymbolPage from '../pages/symbol';
+import SymbolPage from '../containers/symbol';
 
 function App() {
   return (
