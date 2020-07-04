@@ -1,5 +1,5 @@
-/// <reference path="../@types/styled.d.ts"/>
-/// <reference path="../@types/react-vis.d.ts"/>
+/// <reference path="../types/styled.d.ts"/>
+/// <reference path="../types/react-vis.d.ts"/>
 
 import React, { useState, Fragment } from 'react';
 import styled from 'styled-components';

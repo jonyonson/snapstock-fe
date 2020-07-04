@@ -2,7 +2,14 @@ import React, { useState, Fragment } from 'react';
 import styled from 'styled-components';
 import { AiOutlinePlusSquare, AiOutlineMinusSquare } from 'react-icons/ai';
 
-function CompanyProfile({ profile }) {
+interface Profile {
+  CEO: string;
+  description: string;
+  industry: string;
+  website: string;
+}
+
+const CompanyProfile = ({ profile }: { profile: Profile | null }) => {
   const [isVisible, setIsVisible] = useState(true);
 
   const toggleVisibility = () => {
@@ -50,7 +57,7 @@ function CompanyProfile({ profile }) {
       )}
     </Section>
   );
-}
+};
 
 const Section = styled.section`
   margin-bottom: 2rem;

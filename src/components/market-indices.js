@@ -108,10 +108,10 @@ function MarketIndices() {
   const [nasdaq, setNasdaq] = useState(null);
 
   const fetchData = () => {
-    const url = `${BASE_API_URL}/api/stocks/market/indices`;
+    // const url = `${BASE_API_URL}/api/stocks/market/indices`;
 
     axios
-      .get(url)
+      .get(BASE_API_URL + '/api/stocks/market/indices')
       .then((res) => {
         const { nasdaq, sp500, dow } = res.data;
         setDow(dow);
