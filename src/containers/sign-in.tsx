@@ -1,27 +1,33 @@
 import React, { useState } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { useLocation, useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
 import { BeatLoader } from 'react-spinners';
 import AuthWrapper from '../styles/auth.styled';
-import AppWrapper from '../components/common/app-wrapper';
 import Alert from '../components/common/alert';
+import AppWrapper from '../components/common/app-wrapper';
 import { BASE_API_URL } from '../constants';
 
-function SignUp() {
+type LocationState = {
+  referrer: string;
+};
+
+function SignIn() {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const history = useHistory();
+  const location = useLocation<LocationState>();
+  // const location = useLocation();
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     axios
-      .post(`${BASE_API_URL}/auth/register`, credentials)
+      .post(`${BASE_API_URL}/auth/login`, credentials)
       .then((res) => {
         setError(null);
         localStorage.setItem('token', res.data.token);
@@ -31,7 +37,6 @@ function SignUp() {
         setLoading(false);
         setError(err.response.data.message);
         // TODO: handle errors
-        // TODO: handle already registered
         console.log(err.response);
       });
   };
@@ -39,7 +44,14 @@ function SignUp() {
   return (
     <AppWrapper>
       <AuthWrapper>
-        <h1>Sign Up</h1>
+        <h1>Sign In</h1>
+        {location.state && location.state.referrer === 'watchlist' && (
+          <Alert type="info">
+            You must be signed in in order to save securities to your watchlist.
+            Log in below or <Link to="/signup">create an account.</Link>
+          </Alert>
+        )}
+
         {error && <Alert type="error">{error}</Alert>}
         <form onSubmit={handleSubmit}>
           <label>Email address</label>
@@ -59,16 +71,16 @@ function SignUp() {
             value={credentials.password}
           />
           <button type="submit">
-            {loading ? <BeatLoader size={12} color="#fff" /> : 'Sign Up'}
+            {loading ? <BeatLoader size={12} color="#fff" /> : 'Sign In'}
           </button>
         </form>
         <div className="link-text">
-          <span>Already have an account?</span>
-          <Link to="/signin">Sign in</Link>
+          <span>Don't have an account?</span>
+          <Link to="/signup">Sign up</Link>
         </div>
       </AuthWrapper>
     </AppWrapper>
   );
 }
 
-export default SignUp;
+export default SignIn;
