@@ -1,6 +1,5 @@
 /// <reference path="../types/styled.d.ts"/>
 /// <reference path="../types/react-vis.d.ts"/>
-
 import React, { useState, Fragment } from 'react';
 import styled from 'styled-components';
 import format from 'date-fns/format';
@@ -9,11 +8,11 @@ import axios from 'axios';
 import { useTheme } from 'styled-components';
 import { XYPlot, XAxis, YAxis, LineSeries, makeWidthFlexible } from 'react-vis';
 import { AiOutlinePlusSquare, AiOutlineMinusSquare } from 'react-icons/ai';
-import 'react-vis/dist/style.css';
 import { BASE_API_URL } from '../constants';
+import 'react-vis/dist/style.css';
 
+type FixMeLater = any;
 type ChartRange = '1d' | '5d' | '1m' | '3m' | '6m' | 'ytd' | '1y' | '2y' | '5y';
-
 type ChartData = {
   close: number | string;
   date: number | string;
@@ -32,26 +31,25 @@ type ChartData = {
   uVolume?: number;
 };
 
-// TODO Types
 interface Chart {
-  '1d'?: [] | any[];
-  '5d'?: [] | any[];
-  '1m'?: [] | any[];
-  '3m'?: [] | any[];
-  '6m'?: [] | any[];
-  '1y'?: [] | any[];
-  '2y'?: [] | any[];
-  '5y'?: [] | any[];
-  ytd?: [] | any[];
+  '1d'?: [] | FixMeLater[];
+  '5d'?: [] | FixMeLater[];
+  '1m'?: [] | FixMeLater[];
+  '3m'?: [] | FixMeLater[];
+  '6m'?: [] | FixMeLater[];
+  '1y'?: [] | FixMeLater[];
+  '2y'?: [] | FixMeLater[];
+  '5y'?: [] | FixMeLater[];
+  ytd?: [] | FixMeLater[];
   type?: string;
-  data: any[];
+  data: FixMeLater[];
   // data: ChartData[];
 }
 
 type Props = {
   symbol: string | null;
-  chart: any; // TODO
-  setChart: (value: any) => any; // TODO
+  chart: FixMeLater;
+  setChart: (value: FixMeLater) => FixMeLater;
   // chart: Chart;
   // setChart: (value: React.SetStateAction<Chart>) => void;
 };
@@ -95,16 +93,15 @@ const StockChart = ({ chart, symbol, setChart }: Props) => {
     }
   };
 
-  // TODO
-  let data: any[];
+  let data: FixMeLater[];
 
   if (chart.type === '1d') {
     if (chart['1d'] === undefined) {
       data = [];
     } else {
       data = chart['1d']
-        .filter((marker: any) => marker.high !== null)
-        .map((marker: any) => {
+        .filter((marker: FixMeLater) => marker.high !== null)
+        .map((marker: FixMeLater) => {
           return {
             x: parse(marker.date, 'yyyy-MM-dd HH:mm:ss', new Date()),
             y: Number(marker.high),
@@ -112,7 +109,7 @@ const StockChart = ({ chart, symbol, setChart }: Props) => {
         });
     }
   } else {
-    data = chart.data.map((marker: any) => {
+    data = chart.data.map((marker: FixMeLater) => {
       return {
         x: parse(marker.date, 'yyyy-MM-dd', new Date()),
         y: Number(marker.close),
@@ -120,7 +117,8 @@ const StockChart = ({ chart, symbol, setChart }: Props) => {
     });
   }
 
-  const ranges: { [key: string]: string } = {
+  // const ranges: { [key: string]: string } = {
+  const ranges = {
     '1d': 'h:mm',
     '5d': 'MMM d',
     '1m': 'MMM d',

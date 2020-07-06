@@ -5,8 +5,9 @@ import isAuthenticated from '../utils/isAuthenticated';
 import Container from './common/container';
 import logo from '../assets/snapstock_logo.svg';
 
+type FixMeLater = any;
 type Props = {
-  setWatchlist?: React.Dispatch<React.SetStateAction<any[] | null>>;
+  setWatchlist?: React.Dispatch<React.SetStateAction<FixMeLater[] | null>>;
 };
 
 const Header = ({ setWatchlist }: Props) => {
