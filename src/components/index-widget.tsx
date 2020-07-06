@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import formatNumber from '../utils/formatNumber';
+import format from '../utils/formatNumber';
 
 interface MarketIndex {
   change: number;
@@ -14,23 +14,22 @@ interface Props {
 }
 
 const Widget = ({ name, index }: Props) => {
+  const options = { change: true };
+  const change = index ? format(index.change, options) : '--';
+  const percentChange = index ? format(index.percentChange, options) : '--';
+  const price = index ? format(index.price) : '--';
+
   return (
     <StyledWidget index={index} name={name}>
       <div className="top">
         <div>{name}</div>
-        <div className="change">
-          {index ? formatNumber(index.change, { change: true }) : '--'}
-        </div>
+        <div className="change">{change}</div>
       </div>
-
       <div className="bottom">
         <div className="percent-change">
-          <span>
-            {index ? formatNumber(index.percentChange, { change: true }) : '--'}
-          </span>
+          <span>{percentChange}</span>
         </div>
-
-        <div className="price">{index ? formatNumber(index.price) : '--'}</div>
+        <div className="price">{price}</div>
       </div>
     </StyledWidget>
   );
