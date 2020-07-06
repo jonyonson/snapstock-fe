@@ -9,8 +9,8 @@ import StockHeader from '../components/stock-header';
 import StockChart from '../components/stock-chart';
 import KeyData from '../components/key-data';
 import CompanyProfile from '../components/company-profile';
-import BarLoader from '../components/common/bar-loader';
-import AppWrapper from '../components/common/app-wrapper';
+import BarLoader from '../components/bar-loader';
+import AppWrapper from '../components/app-wrapper';
 import { BASE_API_URL } from '../constants';
 
 type FixMeLater = any;

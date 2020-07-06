@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useHistory, Link } from 'react-router-dom';
 import isAuthenticated from '../utils/isAuthenticated';
-import Container from './common/container';
+import Container from './container';
 import logo from '../assets/snapstock_logo.svg';
 
 type FixMeLater = any;

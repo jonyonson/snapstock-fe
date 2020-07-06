@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios, { AxiosError } from 'axios';
-import StockList from './common/stock-list';
+import StockList from './stock-list';
 
 import { BASE_API_URL } from '../constants';
 

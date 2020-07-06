@@ -3,8 +3,8 @@ import { Redirect } from 'react-router-dom';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import styled from 'styled-components';
 import isAuthenticated from '../utils/isAuthenticated';
-import StockList from '../components/common/stock-list';
-import AppWrapper from '../components/common/app-wrapper';
+import StockList from '../components/stock-list';
+import AppWrapper from '../components/app-wrapper';
 import SearchBar from '../components/search-bar';
 
 import { BASE_API_URL } from '../constants';

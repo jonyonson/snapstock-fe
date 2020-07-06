@@ -6,7 +6,7 @@ import MostActive from '../components/most-active';
 import BiggestLosers from '../components/biggest-losers';
 import BiggestGainers from '../components/biggest-gainers';
 import MarketIndices from '../components/market-indices';
-import AppWrapper from '../components/common/app-wrapper';
+import AppWrapper from '../components/app-wrapper';
 
 function Home() {
   return (

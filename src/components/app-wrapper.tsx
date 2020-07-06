@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
-import Header from '../header';
+import Header from './header';
 import Container from './container';
 
 type Props = {

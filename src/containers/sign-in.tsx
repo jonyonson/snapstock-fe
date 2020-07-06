@@ -3,8 +3,8 @@ import { useLocation, useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
 import { BeatLoader } from 'react-spinners';
 import AuthWrapper from '../styles/auth.styled';
-import Alert from '../components/common/alert';
-import AppWrapper from '../components/common/app-wrapper';
+import Alert from '../components/alert';
+import AppWrapper from '../components/app-wrapper';
 import { BASE_API_URL } from '../constants';
 
 type LocationState = {
