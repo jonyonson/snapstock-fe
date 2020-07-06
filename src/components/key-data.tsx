@@ -4,7 +4,29 @@ import formatNumber from '../utils/formatNumber';
 import formatHugeNumber from '../utils/formatHugeNumber';
 import { AiOutlineMinusSquare, AiOutlinePlusSquare } from 'react-icons/ai';
 
-function KeyData({ quote, stats }) {
+interface Quote {
+  symbol: string;
+  open: number;
+  high: number;
+  low: number;
+  previousClose: number;
+  latestVolume: number;
+}
+
+interface Stats {
+  marketcap: number;
+  sharesOutstanding: number;
+  ttmDividendRate: number;
+  dividendYield: number;
+  year1ChangePercent: number;
+}
+
+interface Props {
+  quote: Quote | null;
+  stats: Stats | null;
+}
+
+const KeyData = ({ quote, stats }: Props) => {
   const [isVisible, setIsVisible] = useState(true);
 
   const toggleVisibility = () => {
@@ -85,7 +107,7 @@ function KeyData({ quote, stats }) {
       )}
     </Section>
   );
-}
+};
 
 const Section = styled.section`
   margin-bottom: 2rem;
