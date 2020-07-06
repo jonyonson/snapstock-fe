@@ -12,7 +12,7 @@
 ## TODO
 
 - [ ] Convert to TypeScript (WIP)
-- [ ] `biggest-gainers.tsx`, `biggest-losers.tsx`, `most-active.tsx` (DRY)
+- [ ] `biggest-gainers.tsx`, `biggest-losers.tsx`, `most-active.tsx` should be a single component
 - [x] Handle API errors in `SearchBar`
 - [x] Handle API errors in stock lists (right sidebar)
 - [ ] Handle API errors in stock chart
