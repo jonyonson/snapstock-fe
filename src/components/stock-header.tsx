@@ -97,7 +97,7 @@ const StockQuote = ({ quote, setWatchlist, watchlist }: Props) => {
             ? 'data-header__right green'
             : quote.changePercent < 0
             ? 'data-header__right red'
-            : 'data-header__right black'
+            : 'data-header__right'
         }
       >
         <div className="price-wrapper">
