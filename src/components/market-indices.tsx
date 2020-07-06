@@ -38,6 +38,45 @@ const Widget = ({ name, index }: Props) => {
   );
 };
 
+export default function MarketIndices() {
+  const [dow, setDow] = useState(null);
+  const [sp500, setSp500] = useState(null);
+  const [nasdaq, setNasdaq] = useState(null);
+
+  const fetchData = () => {
+    axios
+      .get(BASE_API_URL + '/api/stocks/market/indices')
+      .then((res) => {
+        const { nasdaq, sp500, dow } = res.data;
+        setDow(dow);
+        setNasdaq(nasdaq);
+        setSp500(sp500);
+      })
+      .catch((err) => console.error(err));
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchData();
+    }, 15000);
+
+    fetchData();
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <StyledContainer>
+      <Widget name="DOW" index={dow} />
+      <Widget name="NASDAQ" index={nasdaq} />
+      <Widget name="S&P 500" index={sp500} />
+    </StyledContainer>
+  );
+}
+const StyledContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 const StyledWidget = styled.div<Props>`
   display: flex;
   flex-direction: column;
@@ -101,44 +140,3 @@ const StyledWidget = styled.div<Props>`
     margin-bottom: 5px;
   }
 `;
-
-function MarketIndices() {
-  const [dow, setDow] = useState(null);
-  const [sp500, setSp500] = useState(null);
-  const [nasdaq, setNasdaq] = useState(null);
-
-  const fetchData = () => {
-    axios
-      .get(BASE_API_URL + '/api/stocks/market/indices')
-      .then((res) => {
-        const { nasdaq, sp500, dow } = res.data;
-        setDow(dow);
-        setNasdaq(nasdaq);
-        setSp500(sp500);
-      })
-      .catch((err) => console.error(err));
-  };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      fetchData();
-    }, 15000);
-
-    fetchData();
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <StyledContainer>
-      <Widget name="DOW" index={dow} />
-      <Widget name="NASDAQ" index={nasdaq} />
-      <Widget name="S&P 500" index={sp500} />
-    </StyledContainer>
-  );
-}
-const StyledContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-export default MarketIndices;
