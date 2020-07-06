@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import formatNumber from '../utils/formatNumber';
+import useInterval from '../hooks/use-interval';
 import { BASE_API_URL } from '../constants';
 
 interface Index {
@@ -14,6 +15,40 @@ interface Props {
   name: 'DOW' | 'NASDAQ' | 'S&P 500';
   index: Index | null;
 }
+
+export default function MarketIndices() {
+  const [dow, setDow] = useState(null);
+  const [sp500, setSp500] = useState(null);
+  const [nasdaq, setNasdaq] = useState(null);
+
+  const fetchMarketData = () => {
+    axios
+      .get(BASE_API_URL + '/api/stocks/market/indices')
+      .then((res) => {
+        const { nasdaq, sp500, dow } = res.data;
+        setDow(dow);
+        setNasdaq(nasdaq);
+        setSp500(sp500);
+      })
+      .catch((err) => console.error(err));
+  };
+
+  // Fetch market index data every 15 seconds
+  useInterval(fetchMarketData, 15000, true);
+
+  return (
+    <StyledContainer>
+      <Widget name="DOW" index={dow} />
+      <Widget name="NASDAQ" index={nasdaq} />
+      <Widget name="S&P 500" index={sp500} />
+    </StyledContainer>
+  );
+}
+
+const StyledContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 
 const Widget = ({ name, index }: Props) => {
   return (
@@ -37,45 +72,6 @@ const Widget = ({ name, index }: Props) => {
     </StyledWidget>
   );
 };
-
-export default function MarketIndices() {
-  const [dow, setDow] = useState(null);
-  const [sp500, setSp500] = useState(null);
-  const [nasdaq, setNasdaq] = useState(null);
-
-  const fetchData = () => {
-    axios
-      .get(BASE_API_URL + '/api/stocks/market/indices')
-      .then((res) => {
-        const { nasdaq, sp500, dow } = res.data;
-        setDow(dow);
-        setNasdaq(nasdaq);
-        setSp500(sp500);
-      })
-      .catch((err) => console.error(err));
-  };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      fetchData();
-    }, 15000);
-
-    fetchData();
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <StyledContainer>
-      <Widget name="DOW" index={dow} />
-      <Widget name="NASDAQ" index={nasdaq} />
-      <Widget name="S&P 500" index={sp500} />
-    </StyledContainer>
-  );
-}
-const StyledContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
 
 const StyledWidget = styled.div<Props>`
   display: flex;
