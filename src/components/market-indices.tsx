@@ -2,14 +2,22 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import formatNumber from '../utils/formatNumber';
-// import theme from '../styles/theme';
-// import { MdArrowDropUp, MdArrowDropDown } from 'react-icons/md';
-
 import { BASE_API_URL } from '../constants';
 
-function Widget({ name, index }) {
+interface Index {
+  change: number;
+  percentChange: number;
+  price: number;
+}
+
+interface Props {
+  name: 'DOW' | 'NASDAQ' | 'S&P 500';
+  index: Index | null;
+}
+
+const Widget = ({ name, index }: Props) => {
   return (
-    <StyledWidget index={index}>
+    <StyledWidget index={index} name={name}>
       <div className="top">
         <div>{name}</div>
         <div className="change">
@@ -19,13 +27,6 @@ function Widget({ name, index }) {
 
       <div className="bottom">
         <div className="percent-change">
-          {/* {index ? (
-            index.percentChange >= 0 ? (
-              <MdArrowDropUp size={22} color={theme.colors.gain} />
-            ) : (
-              <MdArrowDropDown size={22} color={theme.colors.loss} />
-            )
-          ) : null} */}
           <span>
             {index ? formatNumber(index.percentChange, '%', true) : '--'}
           </span>
@@ -35,9 +36,9 @@ function Widget({ name, index }) {
       </div>
     </StyledWidget>
   );
-}
+};
 
-const StyledWidget = styled.div`
+const StyledWidget = styled.div<Props>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -51,7 +52,6 @@ const StyledWidget = styled.div`
 
   @media (min-width: 375px) {
     width: 33%;
-    /* max-width: 180px; */
     font-size: 0.625rem;
     padding: 0.2rem;
   }
@@ -108,8 +108,6 @@ function MarketIndices() {
   const [nasdaq, setNasdaq] = useState(null);
 
   const fetchData = () => {
-    // const url = `${BASE_API_URL}/api/stocks/market/indices`;
-
     axios
       .get(BASE_API_URL + '/api/stocks/market/indices')
       .then((res) => {
@@ -118,10 +116,7 @@ function MarketIndices() {
         setNasdaq(nasdaq);
         setSp500(sp500);
       })
-      .catch((err) => {
-        // TODO: handle errors
-        console.error(err);
-      });
+      .catch((err) => console.error(err));
   };
 
   useEffect(() => {
