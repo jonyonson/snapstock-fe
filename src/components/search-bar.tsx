@@ -22,7 +22,6 @@ function SearchBar() {
   const history = useHistory();
 
   useEffect(() => {
-    console.log(matches);
     if (matches.length > 0) {
       const matchesToDisplay = matches.filter(
         (match: Suggestion) => !match.symbol.includes('.'),
