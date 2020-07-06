@@ -2,17 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 import { FaPlus, FaCheck } from 'react-icons/fa';
 
-function WatchlistButton({ followStock, isFollowing }) {
-  return (
-    <StyledButton onClick={followStock}>
-      {isFollowing ? <FaCheck /> : <FaPlus />}
-
-      <span className="button-text">
-        {isFollowing ? 'Following' : 'Follow'}
-      </span>
-    </StyledButton>
-  );
+interface Props {
+  followStock: () => void;
+  isFollowing: boolean;
 }
+
+const WatchlistButton = ({ followStock, isFollowing }: Props) => (
+  <StyledButton onClick={followStock}>
+    {isFollowing ? <FaCheck /> : <FaPlus />}
+    <span className="button-text">{isFollowing ? 'Following' : 'Follow'}</span>
+  </StyledButton>
+);
 
 const StyledButton = styled.button`
   text-transform: uppercase;
