@@ -1,10 +1,18 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect, Fragment, SyntheticEvent } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 import Autosuggest from 'react-autosuggest';
 import { FaSearch } from 'react-icons/fa';
 import '../styles/autosuggest.scss';
+
+type Suggestion = {
+  symbol: string;
+  securityName: string;
+  securityType: string;
+  region: string;
+  excahnge: string;
+};
 
 function SearchBar() {
   const [value, setValue] = useState('');
@@ -14,45 +22,42 @@ function SearchBar() {
   const history = useHistory();
 
   useEffect(() => {
+    console.log(matches);
     if (matches.length > 0) {
       const matchesToDisplay = matches.filter(
-        // (match) => !match['1. symbol'].includes('.'),
-        (match) => !match.symbol.includes('.'),
+        (match: Suggestion) => !match.symbol.includes('.'),
       );
-
       setSuggestions(matchesToDisplay);
     }
   }, [matches]);
 
   useEffect(() => {
-    if (value.length > 0) {
-      setShowPlaceholder(false);
-    } else {
-      setShowPlaceholder(true);
-    }
+    setShowPlaceholder(!value.length);
   }, [value]);
 
   // determine the input value for each suggestion
-  const getSuggestionValue = (suggestion) => {
-    // const symbol = suggestion['1. symbol'];
-    // const name = suggestion['2. name'];
+  const getSuggestionValue = (suggestion: {
+    symbol: string;
+    securityName: string;
+  }) => {
     const { symbol, securityName } = suggestion;
-
     return `${symbol}, ${securityName}`;
   };
 
-  const onSuggestionSelected = (_, { suggestion }) => {
-    // const { '1. symbol': symbol } = suggestion;
+  const onSuggestionSelected = (
+    _: SyntheticEvent,
+    { suggestion }: { suggestion: Suggestion },
+  ) => {
     const { symbol } = suggestion;
     setValue('');
     history.push(`/stocks/${symbol.toLowerCase()}`);
   };
 
-  const onChange = (_, { newValue }) => {
+  const onChange = (_: SyntheticEvent, { newValue }: { newValue: string }) => {
     setValue(newValue);
   };
 
-  const onSuggestionsFetchRequested = ({ value }) => {
+  const onSuggestionsFetchRequested = ({ value }: { value: string }) => {
     fetchBestMatches(value);
   };
 
@@ -60,7 +65,7 @@ function SearchBar() {
     setSuggestions([]);
   };
 
-  const renderSuggestion = (suggestion) => {
+  const renderSuggestion = (suggestion: Suggestion) => {
     return (
       <Fragment>
         <div>{suggestion.securityName}</div>
@@ -69,18 +74,13 @@ function SearchBar() {
     );
   };
 
-  const fetchBestMatches = (input) => {
+  const fetchBestMatches = (input: string) => {
     // const API_KEY = process.env.REACT_APP_ALPHA_VANTAGE_API_KEY;
-    // const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${input}&apikey=${API_KEY}`;
+    // const alphaVantageEndpoint = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${input}&apikey=${API_KEY}`;
     const API_KEY = process.env.REACT_APP_IEX_CLOUD_API_KEY;
-    const url = `https://cloud.iexapis.com/stable/search/${input}?token=${API_KEY}`;
     axios
-      .get(url)
-      .then((res) => {
-        console.log(res);
-        // setMatches(res.data.bestMatches || []);
-        setMatches(res.data || []);
-      })
+      .get(`https://cloud.iexapis.com/stable/search/${input}?token=${API_KEY}`)
+      .then((res) => setMatches(res.data || []))
       .catch((err) => {
         console.error(err);
         alert('Something went wrong. Try back later.\n' + err);
@@ -91,10 +91,10 @@ function SearchBar() {
   // Pass through arbitrary props to the input
   // Must contain at least `value` and `onChange`
   const inputProps = {
-    // placeholder: 'Search Quotes',
     type: 'search',
     onChange,
     value,
+    // placeholder: 'Search Quotes',
     // autoFocus: true,
   };
 
