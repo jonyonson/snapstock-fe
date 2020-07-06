@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import { MdArrowDropUp, MdArrowDropDown } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
+type FixMeLater = any;
 interface Props {
-  stockList: any;
+  stockList: FixMeLater;
   displayLength?: number;
 }
 
@@ -26,7 +27,7 @@ const StockList = ({ stockList, displayLength }: Props) => {
           .filter((stock: any, index: number) =>
             displayLength ? index <= displayLength - 1 : true,
           )
-          .map((stock: any) => {
+          .map((stock: FixMeLater) => {
             return (
               <Link
                 to={`/stocks/${stock.symbol.toLowerCase()}`}
