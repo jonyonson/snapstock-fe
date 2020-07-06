@@ -12,29 +12,32 @@ export default function formatNumber(
   let symbol = options?.symbol;
   let change = options?.change;
 
-  let number = Number(n)
+  let withCommas = Number(n)
     .toFixed(decimalPlaces)
     .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 
   if (!isNumberFloat(n)) {
-    number = number.split('.')[0];
+    withCommas = withCommas.split('.')[0];
   }
 
   // if number is a percent or a number presented in ...
   // billions (B) or millions (M) then add symbol to end
   // else symbol is a currency symbol and should be added to beginning
+  let withSymbols;
   if (symbol === '%' || symbol === 'B' || symbol === 'M') {
-    number += symbol;
+    withSymbols = withCommas + symbol;
   } else {
-    number = symbol ? symbol + number : number;
+    withSymbols = symbol ? symbol + withCommas : withCommas;
   }
+
+  let formattedNumber = withSymbols;
 
   // show the '+' sign to represent positive change
   if (change) {
-    number = Number(n) > 0 ? `+${number}` : number;
+    formattedNumber = Number(n) > 0 ? `+${formattedNumber}` : formattedNumber;
   }
 
-  return number;
+  return formattedNumber;
 }
 
 function isNumberFloat(n: number) {
