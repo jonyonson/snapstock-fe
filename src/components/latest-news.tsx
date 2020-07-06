@@ -5,7 +5,9 @@ import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
 import { BASE_API_URL } from '../constants';
 
-function formatDistanceFromNow(publishedAt) {
+type FixMeLater = any;
+
+function formatDistanceFromNow(publishedAt: Date) {
   let distanceInWords = formatDistanceToNow(new Date(publishedAt), {
     addSuffix: true,
   });
@@ -17,20 +19,14 @@ function formatDistanceFromNow(publishedAt) {
 }
 
 function LatestNews() {
-  const [headlines, setHeadlines] = useState([]);
+  const [headlines, setHeadlines] = useState<FixMeLater>([]);
   const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
-    const url = `${BASE_API_URL}/api/news/top-headlines`;
     axios
-      .get(url)
-      .then((res) => {
-        setHeadlines(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-        // TODO: handle errors
-      });
+      .get(BASE_API_URL + '/api/news/top-headlines')
+      .then((res) => setHeadlines(res.data))
+      .catch((err) => console.error(err));
   }, []);
 
   const title = headlines.length > 0 ? headlines[0].title : null;
@@ -75,8 +71,8 @@ function LatestNews() {
       <div className="latest-news">
         <div className="section-title">Latest News</div>
         {headlines
-          .filter((_, index) => index > 0 && index <= 5)
-          .map((story) => {
+          .filter((_: FixMeLater, index: FixMeLater) => index > 0 && index <= 5)
+          .map((story: FixMeLater) => {
             return (
               <a
                 href={story.url}
