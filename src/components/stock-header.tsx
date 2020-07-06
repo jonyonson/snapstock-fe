@@ -97,7 +97,9 @@ const StockQuote = ({ quote, setWatchlist, watchlist }: Props) => {
         className={
           quote.changePercent > 0
             ? 'data-header__right green'
-            : 'data-header__right red'
+            : quote.changePercent < 0
+            ? 'data-header__right red'
+            : 'data-header__right black'
         }
       >
         <div className="price-wrapper">
@@ -110,10 +112,14 @@ const StockQuote = ({ quote, setWatchlist, watchlist }: Props) => {
         </div>
         <div className="change-wrapper">
           <span className="change">
-            {formatNumber(quote.change, undefined, true)}
+            {formatNumber(quote.change, undefined, true) !== '0'
+              ? formatNumber(quote.change, undefined, true)
+              : 'UNCH'}
           </span>
           <span className="change-percent">
-            {formatNumber(quote.changePercent * 100, '%', true)}
+            {formatNumber(quote.changePercent * 100, '%', true) !== '0%'
+              ? formatNumber(quote.changePercent * 100, '%', true)
+              : '(0)'}
           </span>
         </div>
         <div className="latest-trading-day">Data as of {quote.latestTime}</div>
