@@ -101,7 +101,9 @@ const StockQuote = ({ quote, setWatchlist, watchlist }: Props) => {
         }
       >
         <div className="price-wrapper">
-          <span className="price">{formatNumber(quote.latestPrice, '$')}</span>
+          <span className="price">
+            {formatNumber(quote.latestPrice, { symbol: '$' })}
+          </span>
           {quote.changePercent > 0 ? (
             <ArrowUp size={24} color={theme.colors.gain} />
           ) : (
@@ -110,13 +112,19 @@ const StockQuote = ({ quote, setWatchlist, watchlist }: Props) => {
         </div>
         <div className="change-wrapper">
           <span className="change">
-            {formatNumber(quote.change, undefined, true) !== '0'
-              ? formatNumber(quote.change, undefined, true)
+            {formatNumber(quote.change, { change: true }) !== '0'
+              ? formatNumber(quote.change, { change: true })
               : 'UNCH'}
           </span>
           <span className="change-percent">
-            {formatNumber(quote.changePercent * 100, '%', true) !== '0%'
-              ? formatNumber(quote.changePercent * 100, '%', true)
+            {formatNumber(quote.changePercent * 100, {
+              symbol: '%',
+              change: true,
+            }) !== '0%'
+              ? formatNumber(quote.changePercent * 100, {
+                  symbol: '%',
+                  change: true,
+                })
               : '(0)'}
           </span>
         </div>

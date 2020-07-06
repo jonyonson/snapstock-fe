@@ -2,12 +2,15 @@ type Symbol = '%' | '$' | 'B' | 'M';
 
 export default function formatNumber(
   n: number,
-  symbol?: Symbol,
-  change?: boolean,
-  decimalPlaces?: number,
+  options?: {
+    symbol?: Symbol;
+    change?: boolean;
+    decimalPlaces?: number;
+  },
 ) {
-  change = change ?? false;
-  decimalPlaces = decimalPlaces ?? 2;
+  let decimalPlaces = options?.decimalPlaces ?? 2;
+  let symbol = options?.symbol;
+  let change = options?.change;
 
   let number = Number(n)
     .toFixed(decimalPlaces)
@@ -26,8 +29,10 @@ export default function formatNumber(
     number = symbol ? symbol + number : number;
   }
 
-  // show the '+' sign to represent change
-  if (change) number = Number(n) > 0 ? `+${number}` : number;
+  // show the '+' sign to represent positive change
+  if (change) {
+    number = Number(n) > 0 ? `+${number}` : number;
+  }
 
   return number;
 }

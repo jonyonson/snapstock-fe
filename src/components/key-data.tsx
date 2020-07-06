@@ -94,13 +94,15 @@ const KeyData = ({ quote, stats }: Props) => {
               <span>Div Yield</span>
               <span>
                 {stats.dividendYield
-                  ? formatNumber(stats.dividendYield * 100, '%')
+                  ? formatNumber(stats.dividendYield * 100, { symbol: '%' })
                   : '--'}
               </span>
             </div>
             <div>
               <span>1 Year % Chg</span>
-              <span>{formatNumber(stats.year1ChangePercent * 100, '%')}</span>
+              <span>
+                {formatNumber(stats.year1ChangePercent * 100, { symbol: '%' })}
+              </span>
             </div>
           </div>
         </div>

@@ -21,14 +21,14 @@ const Widget = ({ name, index }: Props) => {
       <div className="top">
         <div>{name}</div>
         <div className="change">
-          {index ? formatNumber(index.change, undefined, true) : '--'}
+          {index ? formatNumber(index.change, { change: true }) : '--'}
         </div>
       </div>
 
       <div className="bottom">
         <div className="percent-change">
           <span>
-            {index ? formatNumber(index.percentChange, '%', true) : '--'}
+            {index ? formatNumber(index.percentChange, { change: true }) : '--'}
           </span>
         </div>
 
