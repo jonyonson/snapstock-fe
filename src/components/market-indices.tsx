@@ -21,7 +21,7 @@ const Widget = ({ name, index }: Props) => {
       <div className="top">
         <div>{name}</div>
         <div className="change">
-          {index ? formatNumber(index.change, null, true) : '--'}
+          {index ? formatNumber(index.change, undefined, true) : '--'}
         </div>
       </div>
 

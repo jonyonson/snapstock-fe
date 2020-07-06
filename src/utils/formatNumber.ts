@@ -1,11 +1,21 @@
-function formatNumber(num, symbol = null, change = false, decimalPlaces = 2) {
-  const isFloat = Number(num) % 1 !== 0;
+type Symbol = '%' | '$' | 'B' | 'M';
 
-  let number = Number(num)
+export default function formatNumber(
+  n: number,
+  symbol?: Symbol,
+  change?: boolean,
+  decimalPlaces?: number,
+) {
+  change = change ?? false;
+  decimalPlaces = decimalPlaces ?? 2;
+
+  let number = Number(n)
     .toFixed(decimalPlaces)
     .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 
-  if (!isFloat) number = number.split('.')[0];
+  if (!isNumberFloat(n)) {
+    number = number.split('.')[0];
+  }
 
   // if number is a percent or a number presented in ...
   // billions (B) or millions (M) then add symbol to end
@@ -17,11 +27,11 @@ function formatNumber(num, symbol = null, change = false, decimalPlaces = 2) {
   }
 
   // show the '+' sign to represent change
-  if (change) {
-    number = Number(num) > 0 ? `+${number}` : number;
-  }
+  if (change) number = Number(n) > 0 ? `+${number}` : number;
 
   return number;
 }
 
-export default formatNumber;
+function isNumberFloat(n: number) {
+  return Number(n) % 1 !== 0;
+}

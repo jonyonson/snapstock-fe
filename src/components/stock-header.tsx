@@ -110,7 +110,7 @@ const StockQuote = ({ quote, setWatchlist, watchlist }: Props) => {
         </div>
         <div className="change-wrapper">
           <span className="change">
-            {formatNumber(quote.change, null, true)}
+            {formatNumber(quote.change, undefined, true)}
           </span>
           <span className="change-percent">
             {formatNumber(quote.changePercent * 100, '%', true)}

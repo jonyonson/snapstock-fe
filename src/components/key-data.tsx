@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import formatNumber from '../utils/formatNumber';
-import formatHugeNumber from '../utils/formatHugeNumber';
+import formatBigNumber from '../utils/formatBigNumber';
 import { AiOutlineMinusSquare, AiOutlinePlusSquare } from 'react-icons/ai';
 
 interface Quote {
@@ -80,11 +80,11 @@ const KeyData = ({ quote, stats }: Props) => {
             <div>
               <span>Market Cap</span>
               {/* <span>{formatNumber(stats.marketcap / 1000000)}</span> */}
-              <span>{formatHugeNumber(stats.marketcap)}</span>
+              <span>{formatBigNumber(stats.marketcap)}</span>
             </div>
             <div>
               <span>Shares Out</span>
-              <span>{formatHugeNumber(stats.sharesOutstanding)}</span>
+              <span>{formatBigNumber(stats.sharesOutstanding)}</span>
             </div>
             <div>
               <span>Dividend (TTM)</span>
