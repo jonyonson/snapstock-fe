@@ -81,8 +81,6 @@ const StockQuote = ({ quote, setWatchlist, watchlist }: Props) => {
     }
   };
 
-  console.log(watchlist);
-
   return !quote ? null : (
     <StockHeader>
       <div className="data-header__left">
