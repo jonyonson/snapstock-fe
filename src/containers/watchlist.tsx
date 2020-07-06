@@ -10,18 +10,19 @@ import SearchBar from '../components/search-bar';
 import { BASE_API_URL } from '../constants';
 
 function Watchlist() {
-  const [watchlist, setWatchlist] = useState(null);
+  const [watchlist, setWatchlist] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (isAuthenticated()) {
-      const url = `${BASE_API_URL}/api/watchlist`;
       axiosWithAuth()
-        .get(url)
+        .get(BASE_API_URL + '/api/watchlist')
         .then((res) => {
+          setIsLoading(false);
           setWatchlist(res.data);
         })
         .catch((err) => {
-          // TODO: handle errors
+          setIsLoading(false);
           console.error(err);
         });
     }
@@ -35,7 +36,7 @@ function Watchlist() {
         <div className="search-wrapper">
           <SearchBar />
         </div>
-        {watchlist && (
+        {!isLoading && (
           <Fragment>
             <div className="section-title">
               <span>Watchlist</span>

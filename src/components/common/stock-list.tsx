@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 interface Props {
   stockList: any;
-  displayLength: number;
+  displayLength?: number;
 }
 
 const StockList = ({ stockList, displayLength }: Props) => {
