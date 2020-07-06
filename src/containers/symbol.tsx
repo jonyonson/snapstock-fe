@@ -11,21 +11,32 @@ import KeyData from '../components/key-data';
 import CompanyProfile from '../components/company-profile';
 import BarLoader from '../components/common/bar-loader';
 import AppWrapper from '../components/common/app-wrapper';
-
 import { BASE_API_URL } from '../constants';
+
+type FixMeLater = any;
+
+export interface Stock {
+  id: number;
+  symbol: string;
+  company_name: string;
+  latestPrice: number;
+  change: number;
+  changePercent: number;
+  latestVolume: number;
+  volume: number;
+}
 
 function SymbolPage() {
   const [symbol, setSymbol] = useState(null);
   const [quote, setQuote] = useState(null);
   const [stats, setStats] = useState(null);
-  const [chart, setChart] = useState<any>({ data: [] }); // TODO Type
+  const [chart, setChart] = useState<FixMeLater>({ data: [] });
   const [chartLoading, setChartLoading] = useState(false);
-  const [watchlist, setWatchlist] = useState<null | any[]>(null); // TODO Type
+  const [watchlist, setWatchlist] = useState<null | Stock[]>(null);
   const [companyProfile, setCompanyProfile] = useState(null);
-  const [logoURL, setLogoURL] = useState(null);
   const [error, setError] = useState(null);
 
-  const params: any = useParams(); // TODO Type
+  const params: FixMeLater = useParams();
 
   useEffect(() => {
     if (!watchlist) {
@@ -60,7 +71,6 @@ function SymbolPage() {
             setQuote(quoteResponse.data.quote);
             setStats(quoteResponse.data.stats);
             setCompanyProfile(quoteResponse.data.company);
-            setLogoURL(quoteResponse.data.logo.url);
 
             const chartData = chartResponse.data;
             setChart({ '1d': chartData, data: chartData, type: '1d' });
@@ -73,7 +83,6 @@ function SymbolPage() {
           setQuote(null);
           setCompanyProfile(null);
           setError(error.response.data);
-          console.log(error.response);
         });
     }
   }, [symbol]);
@@ -93,7 +102,6 @@ function SymbolPage() {
             quote={quote}
             setWatchlist={setWatchlist}
             watchlist={watchlist}
-            logoURL={logoURL}
           />
         </div>
       </Flex>

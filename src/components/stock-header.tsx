@@ -10,20 +10,41 @@ import {
   FaLongArrowAltUp as ArrowUp,
   FaLongArrowAltDown as ArrowDown,
 } from 'react-icons/fa';
-
 import { BASE_API_URL } from '../constants';
+import { Stock } from '../containers/symbol';
 
-function StockQuote({ quote, setWatchlist, watchlist, logoURL }) {
-  const [isFollowing, setIsFollowing] = useState();
+type FixMeLater = any;
+
+interface Quote {
+  symbol: string;
+  companyName: string;
+  latestPrice: number;
+  changePercent: number;
+  change: number;
+  latestTime: any;
+}
+
+interface Props {
+  quote: Quote | null;
+  watchlist: Stock[] | null;
+  setWatchlist: React.Dispatch<React.SetStateAction<Stock[] | null>>;
+}
+
+const StockQuote = ({ quote, setWatchlist, watchlist }: Props) => {
+  const [isFollowing, setIsFollowing] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
     if (watchlist && quote) {
-      setIsFollowing(watchlist.some((stock) => stock.symbol === quote.symbol));
+      setIsFollowing(
+        watchlist.some((stock: Stock) => stock.symbol === quote.symbol),
+      );
     }
   }, [watchlist, quote]);
 
   const followStock = () => {
+    if (!quote) return;
+
     if (!isAuthenticated()) {
       history.push({
         pathname: '/signin',
@@ -31,26 +52,36 @@ function StockQuote({ quote, setWatchlist, watchlist, logoURL }) {
       });
     }
 
-    const URL = `${BASE_API_URL}/api/watchlist`;
+    const endpoint = `${BASE_API_URL}/api/watchlist`;
 
     if (!isFollowing) {
       const { symbol, companyName: company_name } = quote;
       axiosWithAuth()
-        .post(URL, { symbol, company_name })
+        .post(endpoint, { symbol, company_name })
         .then((res) => {
           const { id, symbol, company_name } = res.data;
-          setWatchlist((prev) => prev.concat({ id, symbol, company_name }));
+          setWatchlist((prev: FixMeLater) =>
+            prev.concat({ id, symbol, company_name }),
+          );
         })
         .catch((err) => console.error(err));
     } else {
-      const remove = watchlist.find((stock) => stock.symbol === quote.symbol);
-      setWatchlist(watchlist.filter((stock) => stock.id !== remove.id));
-      axiosWithAuth()
-        .delete(URL + `/${remove.id}`)
-        .then((res) => console.log(res))
-        .catch((err) => console.error(err));
+      if (watchlist) {
+        const remove = watchlist.find((stock) => stock.symbol === quote.symbol);
+
+        remove &&
+          setWatchlist(watchlist.filter((stock) => stock.id !== remove.id));
+
+        remove &&
+          axiosWithAuth()
+            .delete(endpoint + `/${remove.id}`)
+            .then((res) => console.log(res))
+            .catch((err) => console.error(err));
+      }
     }
   };
+
+  console.log(watchlist);
 
   return !quote ? null : (
     <StockHeader>
@@ -89,7 +120,7 @@ function StockQuote({ quote, setWatchlist, watchlist, logoURL }) {
       </div>
     </StockHeader>
   );
-}
+};
 
 const StockHeader = styled.div`
   margin-top: 2rem;
