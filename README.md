@@ -17,6 +17,7 @@
 - [x] Handle API errors in stock lists (right sidebar)
 - [ ] Handle API errors in stock chart
 - [ ] Handle API errors with news component
+- [ ] Handle market index widget errors
 - [ ] NotFound Page
 
 
