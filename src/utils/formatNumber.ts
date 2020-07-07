@@ -12,25 +12,23 @@ export default function formatNumber(
   let symbol = options?.symbol;
   let change = options?.change;
 
-  let withCommas = Number(n)
+  let numberWithCommas = Number(n)
     .toFixed(decimalPlaces)
     .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 
   if (!isNumberFloat(n)) {
-    withCommas = withCommas.split('.')[0];
+    numberWithCommas = numberWithCommas.split('.')[0];
   }
 
   // if number is a percent or a number presented in ...
   // billions (B) or millions (M) then add symbol to end
   // else symbol is a currency symbol and should be added to beginning
-  let withSymbols;
+  let formattedNumber;
   if (symbol === '%' || symbol === 'B' || symbol === 'M') {
-    withSymbols = withCommas + symbol;
+    formattedNumber = numberWithCommas + symbol;
   } else {
-    withSymbols = symbol ? symbol + withCommas : withCommas;
+    formattedNumber = symbol ? symbol + numberWithCommas : numberWithCommas;
   }
-
-  let formattedNumber = withSymbols;
 
   // show the '+' sign to represent positive change
   if (change) {
