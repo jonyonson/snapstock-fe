@@ -17,7 +17,6 @@ function SignIn() {
   const [error, setError] = useState(null);
   const history = useHistory();
   const location = useLocation<LocationState>();
-  // const location = useLocation();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -36,7 +35,6 @@ function SignIn() {
       .catch((err) => {
         setLoading(false);
         setError(err.response.data.message);
-        // TODO: handle errors
         console.log(err.response);
       });
   };

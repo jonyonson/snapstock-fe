@@ -30,8 +30,6 @@ function SignUp() {
       .catch((err) => {
         setLoading(false);
         setError(err.response.data.message);
-        // TODO: handle errors
-        // TODO: handle already registered
         console.log(err.response);
       });
   };
