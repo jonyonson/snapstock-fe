@@ -1,5 +1,3 @@
-/// <reference path="../types/styled.d.ts"/>
-/// <reference path="../types/react-vis.d.ts"/>
 import React, { useState, Fragment } from 'react';
 import styled from 'styled-components';
 import format from 'date-fns/format';
@@ -59,17 +57,7 @@ const StockChart = ({ chart, symbol, setChart }: Props) => {
   const [isVisible, setIsVisible] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
-  // useEffect(() => {
-  //   setActiveRangeButton('1d');
-  // }, [symbol]);
-
-  // useEffect(() => {
-  //   setActiveRangeButton(chart.type);
-  // }, [chart]);
-
-  const toggleVisibility = () => {
-    setIsVisible((prevState) => !prevState);
-  };
+  const toggleVisibility = () => setIsVisible((prevState) => !prevState);
 
   const displayChart = (range: ChartRange) => {
     setActiveRangeButton(range);
@@ -79,46 +67,34 @@ const StockChart = ({ chart, symbol, setChart }: Props) => {
       setChart((prev: Chart) => ({ ...prev, data: prev[range], type: range }));
       setIsLoading(false);
     } else {
-      const url = BASE_API_URL + '/api/stocks/' + symbol + '/chart/' + range;
-      axios.get(url).then((res) => {
-        const data = res.data;
-        setChart((prev: Chart) => ({
-          ...prev,
-          [range]: data,
-          type: range,
-          data,
-        }));
-        setIsLoading(false);
-      });
+      axios
+        .get(BASE_API_URL + '/api/stocks/' + symbol + '/chart/' + range)
+        .then((res) => {
+          const data = res.data;
+          setChart((p: Chart) => ({ ...p, [range]: data, type: range, data }));
+          setIsLoading(false);
+        });
     }
   };
 
-  let data: FixMeLater[];
+  let currentChart = chart[chart.type] ?? [];
 
-  if (chart.type === '1d') {
-    if (chart['1d'] === undefined) {
-      data = [];
-    } else {
-      data = chart['1d']
-        .filter((marker: FixMeLater) => marker.high !== null)
-        .map((marker: FixMeLater) => {
-          return {
-            x: parse(marker.date, 'yyyy-MM-dd HH:mm:ss', new Date()),
-            y: Number(marker.high),
-          };
-        });
-    }
-  } else {
-    data = chart.data.map((marker: FixMeLater) => {
+  const data = currentChart
+    .filter((marker: FixMeLater) => marker.high !== null)
+    .map((marker: FixMeLater) => {
+      const dateString =
+        chart.type === '1d' ? `${marker.date} ${marker.minute}` : marker.date;
+
+      const formatString =
+        chart.type === '1d' ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd';
+
       return {
-        x: parse(marker.date, 'yyyy-MM-dd', new Date()),
-        y: Number(marker.close),
+        x: parse(dateString, formatString, new Date()),
+        y: Number(marker.high),
       };
     });
-  }
 
-  // const ranges: { [key: string]: string } = {
-  const ranges = {
+  const ranges: { [key in ChartRange]: string } = {
     '1d': 'h:mm',
     '5d': 'MMM d',
     '1m': 'MMM d',
@@ -253,3 +229,11 @@ export default StockChart;
 //   uOpen?: number;
 //   uVolume?: number;
 // };
+
+// date: string or Date?
+// minute: string
+// label: string
+// high: number
+// low: number
+// open: nuber;
+// volum: number;

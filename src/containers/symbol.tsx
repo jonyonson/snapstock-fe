@@ -27,62 +27,50 @@ export interface Stock {
 }
 
 function SymbolPage() {
-  const [symbol, setSymbol] = useState(null);
+  const [symbol, setSymbol] = useState('');
   const [quote, setQuote] = useState(null);
   const [stats, setStats] = useState(null);
-  const [chart, setChart] = useState<FixMeLater>({ data: [] });
+  const [chart, setChart] = useState<FixMeLater>({ '1d': [], data: [] });
   const [chartLoading, setChartLoading] = useState(false);
   const [watchlist, setWatchlist] = useState<null | Stock[]>(null);
   const [companyProfile, setCompanyProfile] = useState(null);
   const [error, setError] = useState(null);
 
-  const params: FixMeLater = useParams();
+  const params: { symbol: string } = useParams();
 
   useEffect(() => {
     if (!watchlist) {
       if (isAuthenticated()) {
-        const url = `${BASE_API_URL}/api/watchlist`;
         axiosWithAuth()
-          .get(url)
+          .get(BASE_API_URL + '/api/watchlist')
           .then((res) => setWatchlist(res.data))
           .catch((err) => console.error(err));
       }
     }
   }, [watchlist]);
 
-  useEffect(() => {
-    if (params.symbol) {
-      setSymbol(params.symbol);
-    }
-  }, [params]);
+  useEffect(() => setSymbol(params.symbol), [params]);
 
   useEffect(() => {
     if (symbol) {
       setChartLoading(true);
-      const quoteURL = `${BASE_API_URL}/api/stocks/${symbol}`;
-      const chartURL = `${BASE_API_URL}/api/stocks/av/${symbol}/chart/1d`;
-      const quoteRequest = axios.get(quoteURL);
-      const chartRequest = axios.get(chartURL);
       axios
-        .all([quoteRequest, chartRequest])
-        .then(
-          axios.spread((quoteResponse, chartResponse) => {
-            setError(null);
-            setQuote(quoteResponse.data.quote);
-            setStats(quoteResponse.data.stats);
-            setCompanyProfile(quoteResponse.data.company);
-
-            const chartData = chartResponse.data;
-            setChart({ '1d': chartData, data: chartData, type: '1d' });
-            setChartLoading(false);
-          }),
-        )
-        .catch((error) => {
+        .get(BASE_API_URL + '/api/stocks/' + symbol)
+        .then((res) => {
+          const intraday = res.data['intraday-prices'];
+          setError(null);
+          setQuote(res.data.quote);
+          setStats(res.data.stats);
+          setCompanyProfile(res.data.company);
+          setChart({ '1d': intraday, data: intraday, type: '1d' });
           setChartLoading(false);
-          setChart({ data: [] });
+        })
+        .catch((err) => {
+          setChartLoading(false);
+          setChart({ '1d': [], data: [] });
           setQuote(null);
           setCompanyProfile(null);
-          setError(error.response.data);
+          setError(err.response.data);
         });
     }
   }, [symbol]);
