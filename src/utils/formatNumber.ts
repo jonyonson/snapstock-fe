@@ -8,9 +8,9 @@ export default function formatNumber(
     decimalPlaces?: number;
   },
 ) {
-  let decimalPlaces = options?.decimalPlaces ?? 2;
-  let symbol = options?.symbol;
-  let change = options?.change;
+  const decimalPlaces = options?.decimalPlaces ?? 2;
+  const symbol = options?.symbol;
+  const change = options?.change;
 
   let numberWithCommas = Number(n)
     .toFixed(decimalPlaces)
@@ -39,5 +39,5 @@ export default function formatNumber(
 }
 
 function isNumberFloat(n: number) {
-  return Number(n) % 1 !== 0;
+  return n % 1 !== 0;
 }
