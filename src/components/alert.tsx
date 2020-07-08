@@ -2,37 +2,37 @@ import React from 'react';
 import styled from 'styled-components';
 
 type Props = {
-  type: 'info' | 'error';
+  alertType: 'info' | 'error';
   children: React.ReactNode;
 };
 
-const Alert = ({ type, children }: Props) => (
-  <StyledAlert type={type}>{children}</StyledAlert>
+const Alert = ({ alertType, children }: Props) => (
+  <StyledAlert alertType={alertType}>{children}</StyledAlert>
 );
 
 const StyledAlert = styled.div<Props>`
   width: 100%;
   color: ${(props) => {
-    if (props.type === 'info') {
+    if (props.alertType === 'info') {
       return props.theme.colors.infoText;
-    } else if (props.type === 'error') {
+    } else if (props.alertType === 'error') {
       return props.theme.colors.errorText;
     }
   }};
 
   background-color: ${(props) => {
-    if (props.type === 'info') {
+    if (props.alertType === 'info') {
       return props.theme.colors.infoBackground;
-    } else if (props.type === 'error') {
+    } else if (props.alertType === 'error') {
       return props.theme.colors.errorBackground;
     }
   }};
 
   border: 1px solid
     ${(props) => {
-      if (props.type === 'info') {
+      if (props.alertType === 'info') {
         return props.theme.colors.infoBorder;
-      } else if (props.type === 'error') {
+      } else if (props.alertType === 'error') {
         return props.theme.colors.errorBorder;
       }
     }};
