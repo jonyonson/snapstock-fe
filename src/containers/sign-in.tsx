@@ -44,13 +44,13 @@ function SignIn() {
       <AuthWrapper>
         <h1>Sign In</h1>
         {location.state && location.state.referrer === 'watchlist' && (
-          <Alert type="info">
+          <Alert alertType="info">
             You must be signed in in order to save securities to your watchlist.
             Log in below or <Link to="/signup">create an account.</Link>
           </Alert>
         )}
 
-        {error && <Alert type="error">{error}</Alert>}
+        {error && <Alert alertType="error">{error}</Alert>}
         <form onSubmit={handleSubmit}>
           <label>Email address</label>
           <input

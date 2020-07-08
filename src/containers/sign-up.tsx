@@ -38,7 +38,7 @@ function SignUp() {
     <AppWrapper>
       <AuthWrapper>
         <h1>Sign Up</h1>
-        {error && <Alert type="error">{error}</Alert>}
+        {error && <Alert alertType="error">{error}</Alert>}
         <form onSubmit={handleSubmit}>
           <label>Email address</label>
           <input
