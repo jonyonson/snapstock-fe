@@ -13,8 +13,6 @@ import BarLoader from '../components/bar-loader';
 import AppWrapper from '../components/app-wrapper';
 import { BASE_API_URL } from '../constants';
 
-// type FixMeLater = any;
-
 export interface Stock {
   id: number;
   symbol: string;
@@ -34,18 +32,14 @@ function SymbolPage() {
   const initialState = {
     quote: null,
     stats: null,
-    // chartLoading: false,
     chartLoading: true,
-    companyProfile: null,
+    profile: null,
     error: null,
     chart: { '1d': [], data: [] },
   };
 
   const [state, dispatch] = useReducer((state: any, action: any) => {
     switch (action.type) {
-      // case 'FETCHING_DATA':
-      //   return { ...state, chartLoading: true };
-
       case 'FETCH_SUCCESS':
         return {
           ...state,
@@ -66,7 +60,7 @@ function SymbolPage() {
           ...state,
           chartLoading: false,
           error: action.payload,
-          companyProfile: null,
+          profile: null,
           quote: null,
           chart: { '1d': [], data: [] },
         };
@@ -103,7 +97,6 @@ function SymbolPage() {
 
   useEffect(() => {
     if (symbol) {
-      // dispatch({ type: 'FETCHING_DATA' });
       axios
         .get(BASE_API_URL + '/api/stocks/' + symbol)
         .then((res) => {
@@ -115,7 +108,7 @@ function SymbolPage() {
     }
   }, [symbol]);
 
-  let { chartLoading, error, quote, stats, companyProfile, chart } = state;
+  const { chartLoading, error, quote, stats, profile, chart } = state;
 
   return chartLoading ? (
     <AppWrapper>
@@ -145,7 +138,7 @@ function SymbolPage() {
           <KeyData quote={quote} stats={stats} />
         </div>
         <div className="flex-right">
-          <CompanyProfile profile={companyProfile} />
+          <CompanyProfile profile={profile} />
         </div>
       </Flex>
       {error && <Error>Something went wrong. Please try again.</Error>}
