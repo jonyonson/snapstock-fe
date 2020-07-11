@@ -47,7 +47,7 @@ function SymbolPage() {
           error: null,
           quote: action.payload.quote,
           stats: action.payload.stats,
-          companyProile: action.payload.company,
+          profile: action.payload.company,
           chart: {
             '1d': action.payload['intraday-prices'],
             data: action.payload['intraday-prices'],
@@ -109,7 +109,7 @@ function SymbolPage() {
   }, [symbol]);
 
   const { chartLoading, error, quote, stats, profile, chart } = state;
-
+  console.log('PROFILE', profile);
   return chartLoading ? (
     <AppWrapper>
       <BarLoader />
