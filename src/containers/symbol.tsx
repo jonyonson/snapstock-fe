@@ -34,7 +34,8 @@ function SymbolPage() {
   const initialState = {
     quote: null,
     stats: null,
-    chartLoading: false,
+    // chartLoading: false,
+    chartLoading: true,
     companyProfile: null,
     error: null,
     chart: { '1d': [], data: [] },
@@ -42,8 +43,8 @@ function SymbolPage() {
 
   const [state, dispatch] = useReducer((state: any, action: any) => {
     switch (action.type) {
-      case 'FETCHING_DATA':
-        return { ...state, chartLoading: true };
+      // case 'FETCHING_DATA':
+      //   return { ...state, chartLoading: true };
 
       case 'FETCH_SUCCESS':
         return {
@@ -67,10 +68,7 @@ function SymbolPage() {
           error: action.payload,
           companyProfile: null,
           quote: null,
-          chart: {
-            '1d': [],
-            data: [],
-          },
+          chart: { '1d': [], data: [] },
         };
 
       case 'UPDATE_RANGE':
@@ -90,9 +88,6 @@ function SymbolPage() {
     }
   }, initialState);
 
-  let { chartLoading, error, quote, stats, companyProfile, chart } = state;
-
-  console.log('CHART', chart);
   useEffect(() => {
     if (!watchlist) {
       if (isAuthenticated()) {
@@ -108,7 +103,7 @@ function SymbolPage() {
 
   useEffect(() => {
     if (symbol) {
-      dispatch({ type: 'FETCHING_DATA' });
+      // dispatch({ type: 'FETCHING_DATA' });
       axios
         .get(BASE_API_URL + '/api/stocks/' + symbol)
         .then((res) => {
@@ -119,6 +114,8 @@ function SymbolPage() {
         });
     }
   }, [symbol]);
+
+  let { chartLoading, error, quote, stats, companyProfile, chart } = state;
 
   return chartLoading ? (
     <AppWrapper>
