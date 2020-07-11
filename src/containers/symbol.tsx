@@ -12,6 +12,7 @@ import CompanyProfile from '../components/company-profile';
 import BarLoader from '../components/bar-loader';
 import AppWrapper from '../components/app-wrapper';
 import { BASE_API_URL } from '../constants';
+import reducer, { initialState } from '../reducers/symbolReducer';
 
 export interface Stock {
   id: number;
@@ -27,60 +28,17 @@ export interface Stock {
 function SymbolPage() {
   const [symbol, setSymbol] = useState('');
   const [watchlist, setWatchlist] = useState<null | Stock[]>(null);
+  const [state, dispatch] = useReducer(reducer, initialState);
   const params: { symbol: string } = useParams();
 
-  const initialState = {
-    quote: null,
-    stats: null,
-    chartLoading: true,
-    profile: null,
-    error: null,
-    chart: { '1d': [], data: [] },
-  };
-
-  const [state, dispatch] = useReducer((state: any, action: any) => {
-    switch (action.type) {
-      case 'FETCH_SUCCESS':
-        return {
-          ...state,
-          chartLoading: false,
-          error: null,
-          quote: action.payload.quote,
-          stats: action.payload.stats,
-          profile: action.payload.company,
-          chart: {
-            '1d': action.payload['intraday-prices'],
-            data: action.payload['intraday-prices'],
-            type: '1d',
-          },
-        };
-
-      case 'FETCH_FAIL':
-        return {
-          ...state,
-          chartLoading: false,
-          error: action.payload,
-          profile: null,
-          quote: null,
-          chart: { '1d': [], data: [] },
-        };
-
-      case 'UPDATE_RANGE':
-        console.log(action.payload);
-        return {
-          ...state,
-          chart: {
-            ...state.chart,
-            type: action.payload.type,
-            [action.payload.type]: action.payload.data,
-            data: action.payload.data,
-          },
-        };
-
-      default:
-        return state;
-    }
-  }, initialState);
+  // const initialState = {
+  //   quote: null,
+  //   stats: null,
+  //   chartLoading: true,
+  //   profile: null,
+  //   error: null,
+  //   chart: { '1d': [], data: [] },
+  // };
 
   useEffect(() => {
     if (!watchlist) {
@@ -97,6 +55,7 @@ function SymbolPage() {
 
   useEffect(() => {
     if (symbol) {
+      dispatch({ type: 'RESET_CHART' });
       axios
         .get(BASE_API_URL + '/api/stocks/' + symbol)
         .then((res) => {
@@ -109,7 +68,7 @@ function SymbolPage() {
   }, [symbol]);
 
   const { chartLoading, error, quote, stats, profile, chart } = state;
-  console.log('PROFILE', profile);
+
   return chartLoading ? (
     <AppWrapper>
       <BarLoader />
@@ -131,8 +90,9 @@ function SymbolPage() {
       <Flex>
         <div className="flex-left">
           <StockChart
-            chart={chart}
-            setChart={(payload) => dispatch({ type: 'UPDATE_RANGE', payload })}
+            // chart={chart}
+            initialChart={chart}
+            // setChart={(payload) => dispatch({ type: 'UPDATE_RANGE', payload })}
             symbol={symbol}
           />
           <KeyData quote={quote} stats={stats} />

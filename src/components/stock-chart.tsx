@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useReducer } from 'react';
 import styled from 'styled-components';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
@@ -7,72 +7,47 @@ import { useTheme } from 'styled-components';
 import { XYPlot, XAxis, YAxis, LineSeries, makeWidthFlexible } from 'react-vis';
 import { AiOutlinePlusSquare, AiOutlineMinusSquare } from 'react-icons/ai';
 import { BASE_API_URL } from '../constants';
+import reducer from '../reducers/chartReducer';
 import 'react-vis/dist/style.css';
 
 type FixMeLater = any;
 type ChartRange = '1d' | '5d' | '1m' | '3m' | '6m' | 'ytd' | '1y' | '2y' | '5y';
-type ChartData = {
-  close: number | string;
-  date: number | string;
-  high: number | string;
-  low: number | string;
-  open: number | string;
-  volume: number | string;
-  change?: number;
-  changeOverTime?: number;
-  changePercent?: number;
-  label?: string;
-  uClose?: number;
-  uHigh?: number;
-  uLow?: number;
-  uOpen?: number;
-  uVolume?: number;
-};
-
-interface Chart {
-  '1d'?: [] | FixMeLater[];
-  '5d'?: [] | FixMeLater[];
-  '1m'?: [] | FixMeLater[];
-  '3m'?: [] | FixMeLater[];
-  '6m'?: [] | FixMeLater[];
-  '1y'?: [] | FixMeLater[];
-  '2y'?: [] | FixMeLater[];
-  '5y'?: [] | FixMeLater[];
-  ytd?: [] | FixMeLater[];
-  type?: string;
-  data: FixMeLater[];
-  // data: ChartData[];
-}
 
 type Props = {
   symbol: string | null;
-  chart: FixMeLater;
-  setChart: (value: FixMeLater) => FixMeLater;
-  // chart: Chart;
-  // setChart: (value: React.SetStateAction<Chart>) => void;
+  initialChart: FixMeLater;
 };
 
-const StockChart = ({ chart, symbol, setChart }: Props) => {
+const StockChart = ({ initialChart, symbol }: Props) => {
   const [activeRangeButton, setActiveRangeButton] = useState('1d');
   const [isVisible, setIsVisible] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [chart, dispatch] = useReducer(reducer, initialChart);
 
   const toggleVisibility = () => setIsVisible((prevState) => !prevState);
+
+  console.log('CHART', chart);
 
   const displayChart = (range: ChartRange) => {
     setActiveRangeButton(range);
     setIsLoading(true);
 
     if (chart[range]) {
-      // setChart((prev: Chart) => ({ ...prev, data: prev[range], type: range }));
-      setChart({ data: chart[range], type: range });
+      dispatch({
+        type: 'CHANGE_CHART_RANGE',
+        payload: { data: chart[range], type: range },
+      });
       setIsLoading(false);
     } else {
       axios
         .get(BASE_API_URL + '/api/stocks/' + symbol + '/chart/' + range)
         .then((res) => {
           // setChart((p: Chart) => ({ ...p, [range]: data, type: range, data }));
-          setChart({ type: range, data: res.data });
+          // setChart({ type: range, data: res.data });
+          dispatch({
+            type: 'CHANGE_CHART_RANGE',
+            payload: { data: res.data, type: range },
+          });
           setIsLoading(false);
         });
     }
@@ -135,15 +110,18 @@ const StockChart = ({ chart, symbol, setChart }: Props) => {
       {isVisible && (
         <Fragment>
           <ChartRanges>
-            {Object.keys(ranges).map((range) => (
-              <button
-                key={range}
-                className={range === activeRangeButton ? 'active' : undefined}
-                onClick={() => displayChart(range as ChartRange)}
-              >
-                {range.toUpperCase()}
-              </button>
-            ))}
+            {Object.keys(ranges).map((range) => {
+              console.log(chart);
+              return (
+                <button
+                  key={range}
+                  className={range === activeRangeButton ? 'active' : undefined}
+                  onClick={() => displayChart(range as ChartRange)}
+                >
+                  {range.toUpperCase()}
+                </button>
+              );
+            })}
           </ChartRanges>
 
           <div className="chart-wrapper">
@@ -211,30 +189,3 @@ const LoadingMask = styled.div`
 `;
 
 export default StockChart;
-
-// interface ChartData {
-//   close: number | string;
-//   date: Date | string;
-//   high: number | string;
-//   low: number | string;
-//   open: string | number;
-//   volume: string | number;
-
-//   change?: number;
-//   changeOverTime?: number;
-//   changePercent?: number;
-//   label?: string;
-//   uClose?: number;
-//   uHigh?: number;
-//   uLow?: number;
-//   uOpen?: number;
-//   uVolume?: number;
-// };
-
-// date: string or Date?
-// minute: string
-// label: string
-// high: number
-// low: number
-// open: nuber;
-// volum: number;
