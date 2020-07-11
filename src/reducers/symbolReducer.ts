@@ -35,18 +35,7 @@ export default function symbolReducer(state: any, action: any) {
         chart: { '1d': [], data: [] },
       };
 
-    // case 'UPDATE_RANGE':
-    //   return {
-    //     ...state,
-    //     chart: {
-    //       ...state.chart,
-    //       type: action.payload.type,
-    //       [action.payload.type]: action.payload.data,
-    //       data: action.payload.data,
-    //     },
-    //   };
-
-    case 'RESET_CHART':
+    case 'RESET':
       return initialState;
 
     default:

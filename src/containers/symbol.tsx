@@ -55,7 +55,7 @@ function SymbolPage() {
 
   useEffect(() => {
     if (symbol) {
-      dispatch({ type: 'RESET_CHART' });
+      dispatch({ type: 'RESET' });
       axios
         .get(BASE_API_URL + '/api/stocks/' + symbol)
         .then((res) => {
