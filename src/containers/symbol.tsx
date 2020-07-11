@@ -31,15 +31,6 @@ function SymbolPage() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const params: { symbol: string } = useParams();
 
-  // const initialState = {
-  //   quote: null,
-  //   stats: null,
-  //   chartLoading: true,
-  //   profile: null,
-  //   error: null,
-  //   chart: { '1d': [], data: [] },
-  // };
-
   useEffect(() => {
     if (!watchlist) {
       if (isAuthenticated()) {
