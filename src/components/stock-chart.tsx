@@ -64,14 +64,15 @@ const StockChart = ({ chart, symbol, setChart }: Props) => {
     setIsLoading(true);
 
     if (chart[range]) {
-      setChart((prev: Chart) => ({ ...prev, data: prev[range], type: range }));
+      // setChart((prev: Chart) => ({ ...prev, data: prev[range], type: range }));
+      setChart({ data: chart[range], type: range });
       setIsLoading(false);
     } else {
       axios
         .get(BASE_API_URL + '/api/stocks/' + symbol + '/chart/' + range)
         .then((res) => {
-          const data = res.data;
-          setChart((p: Chart) => ({ ...p, [range]: data, type: range, data }));
+          // setChart((p: Chart) => ({ ...p, [range]: data, type: range, data }));
+          setChart({ type: range, data: res.data });
           setIsLoading(false);
         });
     }

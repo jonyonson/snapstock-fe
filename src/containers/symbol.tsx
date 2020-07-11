@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
@@ -13,7 +13,7 @@ import BarLoader from '../components/bar-loader';
 import AppWrapper from '../components/app-wrapper';
 import { BASE_API_URL } from '../constants';
 
-type FixMeLater = any;
+// type FixMeLater = any;
 
 export interface Stock {
   id: number;
@@ -28,16 +28,71 @@ export interface Stock {
 
 function SymbolPage() {
   const [symbol, setSymbol] = useState('');
-  const [quote, setQuote] = useState(null);
-  const [stats, setStats] = useState(null);
-  const [chart, setChart] = useState<FixMeLater>({ '1d': [], data: [] });
-  const [chartLoading, setChartLoading] = useState(false);
   const [watchlist, setWatchlist] = useState<null | Stock[]>(null);
-  const [companyProfile, setCompanyProfile] = useState(null);
-  const [error, setError] = useState(null);
-
   const params: { symbol: string } = useParams();
 
+  const initialState = {
+    quote: null,
+    stats: null,
+    chartLoading: false,
+    companyProfile: null,
+    error: null,
+    chart: { '1d': [], data: [] },
+  };
+
+  const [state, dispatch] = useReducer((state: any, action: any) => {
+    switch (action.type) {
+      case 'FETCHING_DATA':
+        return { ...state, chartLoading: true };
+
+      case 'FETCH_SUCCESS':
+        return {
+          ...state,
+          chartLoading: false,
+          error: null,
+          quote: action.payload.quote,
+          stats: action.payload.stats,
+          companyProile: action.payload.company,
+          chart: {
+            '1d': action.payload['intraday-prices'],
+            data: action.payload['intraday-prices'],
+            type: '1d',
+          },
+        };
+
+      case 'FETCH_FAIL':
+        return {
+          ...state,
+          chartLoading: false,
+          error: action.payload,
+          companyProfile: null,
+          quote: null,
+          chart: {
+            '1d': [],
+            data: [],
+          },
+        };
+
+      case 'UPDATE_RANGE':
+        console.log(action.payload);
+        return {
+          ...state,
+          chart: {
+            ...state.chart,
+            type: action.payload.type,
+            [action.payload.type]: action.payload.data,
+            data: action.payload.data,
+          },
+        };
+
+      default:
+        return state;
+    }
+  }, initialState);
+
+  let { chartLoading, error, quote, stats, companyProfile, chart } = state;
+
+  console.log('CHART', chart);
   useEffect(() => {
     if (!watchlist) {
       if (isAuthenticated()) {
@@ -53,24 +108,14 @@ function SymbolPage() {
 
   useEffect(() => {
     if (symbol) {
-      setChartLoading(true);
+      dispatch({ type: 'FETCHING_DATA' });
       axios
         .get(BASE_API_URL + '/api/stocks/' + symbol)
         .then((res) => {
-          const intraday = res.data['intraday-prices'];
-          setError(null);
-          setQuote(res.data.quote);
-          setStats(res.data.stats);
-          setCompanyProfile(res.data.company);
-          setChart({ '1d': intraday, data: intraday, type: '1d' });
-          setChartLoading(false);
+          dispatch({ type: 'FETCH_SUCCESS', payload: res.data });
         })
         .catch((err) => {
-          setChartLoading(false);
-          setChart({ '1d': [], data: [] });
-          setQuote(null);
-          setCompanyProfile(null);
-          setError(err.response.data);
+          dispatch({ type: 'FETCH_FAIL', payload: err.response.data });
         });
     }
   }, [symbol]);
@@ -95,7 +140,11 @@ function SymbolPage() {
       </Flex>
       <Flex>
         <div className="flex-left">
-          <StockChart chart={chart} setChart={setChart} symbol={symbol} />
+          <StockChart
+            chart={chart}
+            setChart={(payload) => dispatch({ type: 'UPDATE_RANGE', payload })}
+            symbol={symbol}
+          />
           <KeyData quote={quote} stats={stats} />
         </div>
         <div className="flex-right">
