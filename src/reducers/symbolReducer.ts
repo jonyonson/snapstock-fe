@@ -8,7 +8,6 @@ export const initialState = {
 };
 
 export default function symbolReducer(state: any, action: any) {
-  console.log('STATE', state);
   switch (action.type) {
     case 'FETCH_SUCCESS':
       return {

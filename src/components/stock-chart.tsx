@@ -10,12 +10,23 @@ import { BASE_API_URL } from '../constants';
 import reducer from '../reducers/chartReducer';
 import 'react-vis/dist/style.css';
 
-type FixMeLater = any;
 type ChartRange = '1d' | '5d' | '1m' | '3m' | '6m' | 'ytd' | '1y' | '2y' | '5y';
-
+type FixMeLater = any;
 type Props = {
   symbol: string | null;
   initialChart: FixMeLater;
+};
+
+const rangeToFormatString: { [key in ChartRange]: string } = {
+  '1d': 'h:mm',
+  '5d': 'MMM d',
+  '1m': 'MMM d',
+  '3m': 'MMMM',
+  '6m': 'MMM',
+  ytd: 'M/d',
+  '1y': 'MMM',
+  '2y': 'MM-yy',
+  '5y': 'yyyy',
 };
 
 const StockChart = ({ initialChart, symbol }: Props) => {
@@ -24,15 +35,17 @@ const StockChart = ({ initialChart, symbol }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [chart, dispatch] = useReducer(reducer, initialChart);
 
-  const toggleVisibility = () => setIsVisible((prevState) => !prevState);
+  function toggleVisibility() {
+    setIsVisible((prevState) => !prevState);
+  }
 
-  console.log('CHART', chart);
-
-  const displayChart = (range: ChartRange) => {
+  function changeChartRange(range: ChartRange) {
+    console.log('NOE');
     setActiveRangeButton(range);
     setIsLoading(true);
 
     if (chart[range]) {
+      // chart data already exists for this range
       dispatch({
         type: 'CHANGE_CHART_RANGE',
         payload: { data: chart[range], type: range },
@@ -42,8 +55,6 @@ const StockChart = ({ initialChart, symbol }: Props) => {
       axios
         .get(BASE_API_URL + '/api/stocks/' + symbol + '/chart/' + range)
         .then((res) => {
-          // setChart((p: Chart) => ({ ...p, [range]: data, type: range, data }));
-          // setChart({ type: range, data: res.data });
           dispatch({
             type: 'CHANGE_CHART_RANGE',
             payload: { data: res.data, type: range },
@@ -51,45 +62,36 @@ const StockChart = ({ initialChart, symbol }: Props) => {
           setIsLoading(false);
         });
     }
-  };
+  }
 
-  let currentChart = chart[chart.type] ?? [];
+  function parseChartData() {
+    const data = chart.data
+      .filter((marker: FixMeLater) => marker.high !== null)
+      .map((marker: FixMeLater) => {
+        const dateString =
+          chart.type === '1d' ? `${marker.date} ${marker.minute}` : marker.date;
 
-  const data = currentChart
-    .filter((marker: FixMeLater) => marker.high !== null)
-    .map((marker: FixMeLater) => {
-      const dateString =
-        chart.type === '1d' ? `${marker.date} ${marker.minute}` : marker.date;
+        const formatString =
+          chart.type === '1d' ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd';
 
-      const formatString =
-        chart.type === '1d' ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd';
+        return {
+          x: parse(dateString, formatString, new Date()),
+          y: Number(marker.high),
+        };
+      });
 
-      return {
-        x: parse(dateString, formatString, new Date()),
-        y: Number(marker.high),
-      };
-    });
+    return data;
+  }
 
-  const ranges: { [key in ChartRange]: string } = {
-    '1d': 'h:mm',
-    '5d': 'MMM d',
-    '1m': 'MMM d',
-    '3m': 'MMMM',
-    '6m': 'MMM',
-    ytd: 'M/d',
-    '1y': 'MMM',
-    '2y': 'MM-yy',
-    '5y': 'yyyy',
-  };
+  function handleTickFormat(tick: Date) {
+    return format(tick, rangeToFormatString[chart.type as ChartRange]);
+  }
 
-  const handleTickFormat = (tick: Date) => {
-    return format(tick, ranges[chart.type as ChartRange]);
-  };
-
+  const data = parseChartData();
   const FlexibleXYPlot = makeWidthFlexible(XYPlot);
   const strokeColor = useTheme().colors.secondary;
 
-  return chart.data.length ? (
+  return data.length ? (
     <Section>
       <div className="section-title">
         <span>Charts</span>
@@ -110,18 +112,15 @@ const StockChart = ({ initialChart, symbol }: Props) => {
       {isVisible && (
         <Fragment>
           <ChartRanges>
-            {Object.keys(ranges).map((range) => {
-              console.log(chart);
-              return (
-                <button
-                  key={range}
-                  className={range === activeRangeButton ? 'active' : undefined}
-                  onClick={() => displayChart(range as ChartRange)}
-                >
-                  {range.toUpperCase()}
-                </button>
-              );
-            })}
+            {Object.keys(rangeToFormatString).map((range) => (
+              <button
+                key={range}
+                className={range === activeRangeButton ? 'active' : undefined}
+                onClick={() => changeChartRange(range as ChartRange)}
+              >
+                {range.toUpperCase()}
+              </button>
+            ))}
           </ChartRanges>
 
           <div className="chart-wrapper">
