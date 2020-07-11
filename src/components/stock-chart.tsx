@@ -40,7 +40,6 @@ const StockChart = ({ initialChart, symbol }: Props) => {
   }
 
   function changeChartRange(range: ChartRange) {
-    console.log('NOE');
     setActiveRangeButton(range);
     setIsLoading(true);
 
