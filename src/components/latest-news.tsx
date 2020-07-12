@@ -56,13 +56,15 @@ function LatestNews() {
                   src={headlines[0].urlToImage}
                   alt=""
                 />
-                {/* <div className="fade" /> */}
               </div>
-
-              <div className="most-recent-story__link__image__headline">
-                {mostRecentHeadline}
-              </div>
-              {imageLoaded && <figcaption>{source}</figcaption>}
+              {imageLoaded && (
+                <>
+                  <div className="most-recent-story__link__image__headline">
+                    {mostRecentHeadline}
+                  </div>
+                  <figcaption>{source}</figcaption>
+                </>
+              )}
             </figure>
           </a>
         )}
