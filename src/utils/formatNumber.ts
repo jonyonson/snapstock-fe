@@ -1,41 +1,53 @@
-type Symbol = '%' | '$' | 'B' | 'M';
+type Suffix = '%' | 'B' | 'M';
+type Currency = 'USD' | 'BTC';
+
+const currencyToSymbol = {
+  USD: '$',
+  BTC: '₿',
+};
 
 export default function formatNumber(
   n: number,
   options?: {
-    symbol?: Symbol;
+    currency?: Currency;
+    suffix?: Suffix;
     change?: boolean;
     decimalPlaces?: number;
   },
 ) {
-  const decimalPlaces = options?.decimalPlaces ?? 2;
-  const symbol = options?.symbol;
+  const currency = options?.currency;
+  const suffix = options?.suffix;
   const change = options?.change;
+  const decimals = options?.decimalPlaces || 2;
 
-  let numberWithCommas = Number(n)
-    .toFixed(decimalPlaces)
-    .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+  let formattedNumber = commaSeparatedThousands(n, decimals);
 
   if (!isNumberFloat(n)) {
-    numberWithCommas = numberWithCommas.split('.')[0];
+    formattedNumber = formattedNumber.split('.')[0];
   }
 
-  // if number is a percent or a number presented in ...
-  // billions (B) or millions (M) then add symbol to end
-  // else symbol is a currency symbol and should be added to beginning
-  let formattedNumber;
-  if (symbol === '%' || symbol === 'B' || symbol === 'M') {
-    formattedNumber = numberWithCommas + symbol;
-  } else {
-    formattedNumber = symbol ? symbol + numberWithCommas : numberWithCommas;
+  // show currency symbol
+  if (currency) {
+    formattedNumber = currencyToSymbol[currency] + formattedNumber;
   }
 
-  // show the '+' sign to represent positive change
+  // show %, M (millions), or B (billions)
+  if (suffix) {
+    formattedNumber += suffix;
+  }
+
+  // show '+' prefix to represent positive change
   if (change) {
     formattedNumber = Number(n) > 0 ? `+${formattedNumber}` : formattedNumber;
   }
 
   return formattedNumber;
+}
+
+function commaSeparatedThousands(n: number, decimals: number) {
+  return Number(n)
+    .toFixed(decimals)
+    .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
 
 function isNumberFloat(n: number) {

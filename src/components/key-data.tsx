@@ -79,7 +79,6 @@ const KeyData = ({ quote, stats }: Props) => {
           <div className="table-section">
             <div>
               <span>Market Cap</span>
-              {/* <span>{formatNumber(stats.marketcap / 1000000)}</span> */}
               <span>{formatBigNumber(stats.marketcap)}</span>
             </div>
             <div>
@@ -94,14 +93,14 @@ const KeyData = ({ quote, stats }: Props) => {
               <span>Div Yield</span>
               <span>
                 {stats.dividendYield
-                  ? formatNumber(stats.dividendYield * 100, { symbol: '%' })
+                  ? formatNumber(stats.dividendYield * 100, { suffix: '%' })
                   : '--'}
               </span>
             </div>
             <div>
               <span>1 Year % Chg</span>
               <span>
-                {formatNumber(stats.year1ChangePercent * 100, { symbol: '%' })}
+                {formatNumber(stats.year1ChangePercent * 100, { suffix: '%' })}
               </span>
             </div>
           </div>

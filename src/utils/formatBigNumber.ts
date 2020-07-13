@@ -9,11 +9,11 @@ function formatBigNumber(num: number) {
   if (num > 1e9) {
     // get number in billions
     num /= 1e9;
-    numString = formatNumber(num, { symbol: 'B', decimalPlaces: 1 });
+    numString = formatNumber(num, { suffix: 'B', decimalPlaces: 1 });
   } else {
     // get number in millions
     num /= 1e6;
-    numString = formatNumber(num, { symbol: 'M', decimalPlaces: 1 });
+    numString = formatNumber(num, { suffix: 'M', decimalPlaces: 1 });
   }
 
   return numString;
