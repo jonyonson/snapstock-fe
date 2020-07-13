@@ -22,6 +22,8 @@ export default function formatNumber(
 
   let formattedNumber = commaSeparatedThousands(n, decimals);
 
+  // If a number comes in as a whole integer, return it as a whole integer
+  // volume should not be represented as a float for example
   if (!isNumberFloat(n)) {
     formattedNumber = formattedNumber.split('.')[0];
   }
