@@ -84,6 +84,7 @@ const Section = styled.section`
 
     span {
       font-size: 0.75rem;
+      min-width: 65px;
 
       @media (min-width: 900px) {
         font-size: 0.875rem;
