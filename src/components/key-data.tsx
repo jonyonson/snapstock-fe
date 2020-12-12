@@ -87,7 +87,7 @@ const KeyData = ({ quote, stats }: Props) => {
             </div>
             <div>
               <span>Dividend (TTM)</span>
-              <span>{stats.ttmDividendRate || '--'}</span>
+              <span>{stats.ttmDividendRate.toFixed(2) || '--'}</span>
             </div>
             <div>
               <span>Div Yield</span>
