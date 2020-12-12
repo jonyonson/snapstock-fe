@@ -1,5 +1,6 @@
 import React, { useState, Fragment } from 'react';
 import styled from 'styled-components';
+import trimUrl from '../utils/trimUrl';
 import { AiOutlinePlusSquare, AiOutlineMinusSquare } from 'react-icons/ai';
 
 interface Profile {
@@ -48,9 +49,7 @@ const CompanyProfile = ({ profile }: { profile: Profile | null }) => {
           <div className="flex">
             <span>Website</span>
             <a target="_blank" rel="noopener noreferrer" href={profile.website}>
-              {profile.website.includes('//')
-                ? profile.website.split('//')[1]
-                : profile.website}
+              {trimUrl(profile.website)}
             </a>
           </div>
         </Fragment>
