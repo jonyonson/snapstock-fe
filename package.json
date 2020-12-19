@@ -52,5 +52,8 @@
   "devDependencies": {
     "node-sass": "^4.13.1",
     "prettier": "^2.0.2"
+  },
+  "volta": {
+    "node": "12.20.0"
   }
 }
