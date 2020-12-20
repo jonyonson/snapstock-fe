@@ -10,7 +10,7 @@
 ## Roadmap
 
 - [x] Handle API errors in search bar
-- [x] Handle API errors in stock lists (right sidebar)
+- [x] Handle API errors in stock lists
 - [ ] Refactor stock lists into single component
 - [ ] Handle API errors in stock chart
 - [ ] Handle API errors with news component
