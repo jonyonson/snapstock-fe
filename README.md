@@ -1,29 +1,24 @@
 
 ![Snapstock Logo](https://raw.githubusercontent.com/jonyonson/snapstock-fe/master/src/assets/snapstock_logo.svg)
 
-#### Deployed site: 
-[snapstockapp.com](https://snapstockapp.com)
+#### Deployed site: [snapstockapp.com](https://snapstockapp.com)
 
-#### Backend repositories: 
-[github.com/jonyonson/snapstock-be](https://github.com/jonyonson/snapstock-be)
+#### Backend repositories: [github.com/jonyonson/snapstock-be](https://github.com/jonyonson/snapstock-be)
 
 [github.com/jonyonson/snapstock-flask](https://github.com/jonyonson/snapstock-flask)
 
 ## TODO
 
-- [ ] Convert to TypeScript (WIP)
-- [ ] `biggest-gainers.tsx`, `biggest-losers.tsx`, `most-active.tsx` should be a single component
-- [x] Handle API errors in `SearchBar`
+- [x] Handle API errors in search bar
 - [x] Handle API errors in stock lists (right sidebar)
+- [ ] Refactor stock lists into single component
 - [ ] Handle API errors in stock chart
 - [ ] Handle API errors with news component
 - [ ] Handle watchist errors
-- [ ] Handle market index widget errors
-- [ ] NotFound Page
-
+- [ ] Handle market index errors
+- [ ] 404 Page
 
 <hr>
-
 
 ## Available Scripts
 
