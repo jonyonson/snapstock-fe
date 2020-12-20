@@ -1,13 +1,13 @@
 
 ![Snapstock Logo](https://raw.githubusercontent.com/jonyonson/snapstock-fe/master/src/assets/snapstock_logo.svg)
 
-#### Deployed site: [snapstockapp.com](https://snapstockapp.com)
+### [snapstockapp.com](https://snapstockapp.com)
 
-#### Backend repositories: [github.com/jonyonson/snapstock-be](https://github.com/jonyonson/snapstock-be)
-
+#### Backend repositories: 
+[github.com/jonyonson/snapstock-be](https://github.com/jonyonson/snapstock-be)
 [github.com/jonyonson/snapstock-flask](https://github.com/jonyonson/snapstock-flask)
 
-## TODO
+## Roadmap
 
 - [x] Handle API errors in search bar
 - [x] Handle API errors in stock lists (right sidebar)
