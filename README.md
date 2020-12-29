@@ -5,6 +5,7 @@
 
 #### Backend repositories: 
 [github.com/jonyonson/snapstock-be](https://github.com/jonyonson/snapstock-be)
+
 [github.com/jonyonson/snapstock-flask](https://github.com/jonyonson/snapstock-flask)
 
 ## Roadmap
