@@ -1,0 +1,40 @@
+.Alert-root {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.45;
+  border-radius: 0.25rem;
+
+  a {
+    font-weight: bold;
+    color: inherit;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &:not(:first-of-type) {
+    margin-top: 1rem;
+  }
+}
+.Alert-error {
+  color: var(--c-text--error);
+  background-color: var(--c-background--error);
+}
+
+.Alert-info {
+  color: rgb(13, 60, 97);
+  background-color: rgb(232, 244, 253);
+}
+
+.Alert-warning {
+  color: rgb(102, 60, 0);
+  background-color: rgb(255, 244, 229);
+}
+
+.Alert-success {
+  color: rgb(30, 70, 32);
+  background-color: rgb(237, 247, 237);
+}

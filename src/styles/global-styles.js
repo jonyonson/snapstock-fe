@@ -1,6 +1,17 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
+
+:root {
+  --c-text--error: rgb(97, 26, 21);
+  --c-text--info: rgb(13, 60, 97);
+  --c-text--warning: rgb(102, 60, 0);
+  --c-text--success: rgb(30, 70, 32);
+  --c-background--error: rgb(253, 236, 234);
+  --c-background--info: rgb(232, 244, 253);
+  --c-background--warning:  rgb(255, 244, 229);
+  --c-background--success: rgb(237, 247, 237);
+}
   * {
     box-sizing: border-box;
     margin: 0;

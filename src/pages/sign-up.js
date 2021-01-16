@@ -4,7 +4,7 @@ import axios from 'axios';
 import { BeatLoader } from 'react-spinners';
 import AuthWrapper from '../styles/auth.styled';
 import AppWrapper from '../components/app-wrapper';
-import Alert from '../components/alert';
+import Alert from '../components/Alert';
 import { BASE_API_URL } from '../constants';
 
 function SignUp() {
@@ -38,7 +38,7 @@ function SignUp() {
     <AppWrapper>
       <AuthWrapper>
         <h1>Sign Up</h1>
-        {error && <Alert alertType="error">{error}</Alert>}
+        {error && <Alert severity="error">{error}</Alert>}
         <form onSubmit={handleSubmit}>
           <label>Email address</label>
           <input

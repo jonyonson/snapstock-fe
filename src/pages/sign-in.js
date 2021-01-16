@@ -3,7 +3,7 @@ import { useLocation, useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
 import { BeatLoader } from 'react-spinners';
 import AuthWrapper from '../styles/auth.styled';
-import Alert from '../components/alert';
+import Alert from '../components/Alert';
 import AppWrapper from '../components/app-wrapper';
 import { BASE_API_URL } from '../constants';
 
@@ -40,13 +40,13 @@ function SignIn() {
       <AuthWrapper>
         <h1>Sign In</h1>
         {location.state && location.state.referrer === 'watchlist' && (
-          <Alert alertType="info">
+          <Alert severity="info">
             You must be signed in in order to save securities to your watchlist.
-            Log in below or <Link to="/signup">create an account.</Link>
+            Log in below or <Link to="/signup">create an account</Link>.
           </Alert>
         )}
 
-        {error && <Alert alertType="error">{error}</Alert>}
+        {error && <Alert severity="error">{error}</Alert>}
         <form onSubmit={handleSubmit}>
           <label>Email address</label>
           <input
