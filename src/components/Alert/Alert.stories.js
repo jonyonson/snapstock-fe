@@ -4,7 +4,7 @@ import a from 'indefinite';
 import Alert from './Alert';
 
 export default {
-  title: 'Example/Alert',
+  title: 'Alert',
   component: Alert,
 };
 
