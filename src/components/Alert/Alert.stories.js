@@ -26,7 +26,7 @@ const MultipleTemplate = (args) => {
 
 export const Info = Template.bind({});
 Info.args = {
-  severity: 'error',
+  severity: 'info',
 };
 
 export const Error = Template.bind({});
