@@ -9,7 +9,7 @@ import StockHeader from '../components/stock-header';
 import StockChart from '../components/stock-chart';
 import KeyData from '../components/key-data';
 import CompanyProfile from '../components/company-profile';
-import BarLoader from '../components/bar-loader';
+import BarLoader from '../components/BarLoader';
 import AppWrapper from '../components/app-wrapper';
 import { BASE_API_URL } from '../constants';
 import reducer, { initialState } from '../reducers/symbol-reducer';
