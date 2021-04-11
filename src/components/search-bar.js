@@ -106,6 +106,13 @@ function SearchBar() {
 
 const Styled = styled.div`
   position: relative;
+  height: 100%;
+
+  .react-autosuggest__container,
+  .react-autosuggest__container input {
+    height: 100%;
+  }
+
   @media (min-width: 770px) {
     flex-grow: 1;
   }

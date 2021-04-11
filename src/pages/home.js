@@ -35,6 +35,7 @@ function Home() {
 }
 
 const ContentHeader = styled.div`
+  align-items: stretch;
   .flex-left {
     margin-top: 1rem;
     @media (min-width: 770px) {
