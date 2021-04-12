@@ -11,7 +11,7 @@ import AppWrapper from '../components/app-wrapper';
 function Home() {
   return (
     <AppWrapper>
-      <ContentHeader>
+      <ContentHeader className="test">
         <div className="flex-right">
           <SearchBar />
         </div>
@@ -35,7 +35,6 @@ function Home() {
 }
 
 const ContentHeader = styled.div`
-  align-items: stretch;
   .flex-left {
     margin-top: 1rem;
     @media (min-width: 770px) {
