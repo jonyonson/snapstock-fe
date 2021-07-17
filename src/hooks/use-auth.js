@@ -35,7 +35,7 @@ function useProvideAuth() {
 
   // Wrap any Firebase methods we want to use making sure ...
   // ... to save the user to state.
-  const signin = (email, password) => {
+  const signInWithEmailAndPassword = (email, password) => {
     return auth.signInWithEmailAndPassword(email, password).then((response) => {
       setUser(response.user);
       return response.user;
@@ -89,7 +89,7 @@ function useProvideAuth() {
   // Return the user object and auth methods
   return {
     user,
-    signin,
+    signInWithEmailAndPassword,
     signup,
     signout,
     sendPasswordResetEmail,
