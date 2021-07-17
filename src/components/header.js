@@ -1,16 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useHistory, Link } from 'react-router-dom';
-import isAuthenticated from '../utils/is-authenticated';
+// import isAuthenticated from '../utils/is-authenticated';
 import Container from './container';
 import logo from '../assets/snapstock_logo.svg';
+import { useAuth } from '../hooks/use-auth';
 
 const Header = ({ setWatchlist }) => {
   const history = useHistory();
+  const auth = useAuth();
 
   const logout = () => {
     handleReset();
-    localStorage.removeItem('token');
+    // localStorage.removeItem('token');
+    auth.signout();
     history.push('/');
   };
 
@@ -29,7 +32,7 @@ const Header = ({ setWatchlist }) => {
             <Link className="nav-item" to="/watchlist">
               Watchlist
             </Link>
-            {!isAuthenticated() ? (
+            {!auth.user ? (
               <Link className="nav-item login" to="/signin">
                 Sign in
               </Link>
@@ -57,8 +60,8 @@ const StyledHeader = styled.div`
     justify-content: space-between;
 
     @media (min-width: 500px) {
-        padding: 1.4rem 0;
-      }
+      padding: 1.4rem 0;
+    }
   }
 
   a {
@@ -114,7 +117,7 @@ const StyledHeader = styled.div`
     letter-spacing: 1px;
 
     @media (max-width: 375px) {
-      font-size: .6875rem;
+      font-size: 0.6875rem;
     }
 
     &:hover {

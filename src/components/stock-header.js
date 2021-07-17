@@ -2,19 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { axiosWithAuth } from '../utils/axios-with-auth';
+import axios from 'axios';
 import { theme } from '../styles/theme';
 import formatNumber from '../utils/format-number';
-import isAuthenticated from '../utils/is-authenticated';
+// import isAuthenticated from '../utils/is-authenticated';
 import WatchlistButton from './watchlist-button';
 import {
   FaLongArrowAltUp as ArrowUp,
   FaLongArrowAltDown as ArrowDown,
 } from 'react-icons/fa';
 import { BASE_API_URL } from '../constants';
+import { useAuth } from '../hooks/use-auth';
 
 const StockQuote = ({ quote, setWatchlist, watchlist }) => {
   const [isFollowing, setIsFollowing] = useState(false);
   const history = useHistory();
+  const auth = useAuth();
 
   useEffect(() => {
     if (watchlist && quote) {
@@ -25,7 +28,7 @@ const StockQuote = ({ quote, setWatchlist, watchlist }) => {
   const followStock = () => {
     if (!quote) return;
 
-    if (!isAuthenticated()) {
+    if (!auth.user) {
       history.push({
         pathname: '/signin',
         state: { referrer: 'watchlist' },
