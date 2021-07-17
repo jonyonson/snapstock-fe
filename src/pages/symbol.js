@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { axiosWithAuth } from '../utils/axios-with-auth';
 import styled from 'styled-components';
-import isAuthenticated from '../utils/is-authenticated';
 import SearchBar from '../components/search-bar';
 import StockHeader from '../components/stock-header';
 import StockChart from '../components/stock-chart';
@@ -13,23 +11,28 @@ import BarLoader from '../components/BarLoader';
 import AppWrapper from '../components/app-wrapper';
 import { BASE_API_URL } from '../constants';
 import reducer, { initialState } from '../reducers/symbol-reducer';
+import { useAuth } from '../hooks/use-auth';
 
 function SymbolPage() {
   const [symbol, setSymbol] = useState('');
   const [watchlist, setWatchlist] = useState(null);
   const [state, dispatch] = useReducer(reducer, initialState);
   const params = useParams();
+  const auth = useAuth();
 
   useEffect(() => {
+    console.log('watchlist', watchlist);
     if (!watchlist) {
-      if (isAuthenticated()) {
-        axiosWithAuth()
-          .get(BASE_API_URL + '/api/watchlist')
+      if (auth.user) {
+        axios
+          .get(BASE_API_URL + '/api/watchlist', {
+            params: { uuid: auth.user.uid },
+          })
           .then((res) => setWatchlist(res.data))
           .catch((err) => console.error(err));
       }
     }
-  }, [watchlist]);
+  }, [watchlist, auth.user]);
 
   useEffect(() => setSymbol(params.symbol), [params]);
 

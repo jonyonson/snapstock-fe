@@ -31,15 +31,12 @@ export const useAuth = () => {
 
 // Provider hook that creates auth object and handles state
 function useProvideAuth() {
-  // const isAuthenticated = JSON.parse(localStorage.getItem('isAuthenticated'));
-  // const [user, setUser] = useState(isAuthenticated);
   const [user, setUser] = useState(null);
 
   // Wrap any Firebase methods we want to use making sure ...
   // ... to save the user to state.
   const signin = (email, password) => {
     return auth.signInWithEmailAndPassword(email, password).then((response) => {
-      // localStorage.setItem('isAuthenticated', 'true');
       setUser(response.user);
       return response.user;
     });
@@ -49,7 +46,6 @@ function useProvideAuth() {
     return auth
       .createUserWithEmailAndPassword(email, password)
       .then((response) => {
-        // localStorage.setItem('isAuthenticated', 'true');
         setUser(response.user);
         return response.user;
       });
@@ -57,7 +53,6 @@ function useProvideAuth() {
 
   const signout = () => {
     return auth.signOut().then(() => {
-      // localStorage.removeItem('isAuthenticated');
       setUser(false);
     });
   };
