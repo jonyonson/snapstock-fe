@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import StockList from './stock-list';
 
-import { BASE_API_URL } from '../constants';
+import { PATHS } from '../config/constants';
 
 function BiggestLosers() {
   const [biggestLosers, setBiggestLosers] = useState([]);
@@ -16,7 +16,7 @@ function BiggestLosers() {
 
   useEffect(() => {
     axios
-      .get(BASE_API_URL + '/api/stocks/market/list/losers')
+      .get(PATHS.API.LOSERS)
       .then((res) => setBiggestLosers(res.data))
       .catch((err) => handleError(err));
   }, []);

@@ -9,7 +9,7 @@ import {
   FaLongArrowAltUp as ArrowUp,
   FaLongArrowAltDown as ArrowDown,
 } from 'react-icons/fa';
-import { BASE_API_URL, PATHS } from '../constants';
+import { PATHS } from '../config/constants';
 import { useAuth } from '../hooks/use-auth';
 
 const StockQuote = ({ quote, setWatchlist, watchlist }) => {
@@ -28,17 +28,19 @@ const StockQuote = ({ quote, setWatchlist, watchlist }) => {
 
     if (!auth.user) {
       history.push({
-        pathname: PATHS.SIGN_IN,
+        pathname: PATHS.ROUTES.SIGN_IN,
         state: { referrer: 'watchlist' },
       });
     }
 
-    const endpoint = `${BASE_API_URL}/api/watchlist`;
-
     if (!isFollowing) {
       const { symbol, companyName: company_name } = quote;
       axios
-        .post(endpoint, { symbol, company_name, uuid: auth.user.uid })
+        .post(PATHS.API.WATCHLIST, {
+          symbol,
+          company_name,
+          uuid: auth.user.uid,
+        })
         .then((res) => {
           const { id, symbol, company_name } = res.data;
           setWatchlist((prev) => prev.concat({ id, symbol, company_name }));
@@ -53,7 +55,7 @@ const StockQuote = ({ quote, setWatchlist, watchlist }) => {
 
         remove &&
           axios
-            .delete(endpoint + `/${remove.id}`, {
+            .delete(`${PATHS.API.WATCHLIST}/${remove.id}`, {
               params: { uuid: auth.user.uid },
             })
             .then((res) => console.log(res))

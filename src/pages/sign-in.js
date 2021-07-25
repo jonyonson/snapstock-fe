@@ -6,7 +6,7 @@ import AuthWrapper from '../styles/auth.styled';
 import Alert from '../components/Alert';
 import AppWrapper from '../components/app-wrapper';
 import { useAuth } from '../hooks/use-auth';
-import { PATHS } from '../constants';
+import { PATHS } from '../config/constants';
 
 function SignIn() {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
@@ -35,7 +35,7 @@ function SignIn() {
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         setError(null);
-        history.push(PATHS.HOME);
+        history.push(PATHS.ROUTES.HOME);
       })
       .catch((error) => {
         setLoading(false);
@@ -50,7 +50,8 @@ function SignIn() {
         {location.state && location.state.referrer === 'watchlist' && (
           <Alert severity="info">
             You must be signed in in order to save securities to your watchlist.
-            Log in below or <Link to={PATHS.SIGN_UP}>create an account</Link>.
+            Log in below or{' '}
+            <Link to={PATHS.ROUTES.SIGN_UP}>create an account</Link>.
           </Alert>
         )}
 
@@ -72,7 +73,7 @@ function SignIn() {
             onChange={handleChange}
             value={credentials.password}
           />
-          <Link to={PATHS.RESET_PASSWORD} className="forgot-password">
+          <Link to={PATHS.ROUTES.RESET_PASSWORD} className="forgot-password">
             Forgot Password?
           </Link>
           <button type="submit">
@@ -81,7 +82,7 @@ function SignIn() {
         </form>
         <div className="link-text">
           <span>Don't have an account?</span>
-          <Link to={PATHS.SIGN_UP}>Sign up</Link>
+          <Link to={PATHS.ROUTES.SIGN_UP}>Sign up</Link>
         </div>
       </AuthWrapper>
     </AppWrapper>

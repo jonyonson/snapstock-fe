@@ -9,7 +9,7 @@ import KeyData from '../components/key-data';
 import CompanyProfile from '../components/company-profile';
 import BarLoader from '../components/BarLoader';
 import AppWrapper from '../components/app-wrapper';
-import { BASE_API_URL } from '../constants';
+import { PATHS } from '../config/constants';
 import reducer, { initialState } from '../reducers/symbol-reducer';
 import { useAuth } from '../hooks/use-auth';
 
@@ -25,7 +25,7 @@ function SymbolPage() {
     if (!watchlist) {
       if (auth.user) {
         axios
-          .get(BASE_API_URL + '/api/watchlist', {
+          .get(PATHS.API.WATCHLIST, {
             params: { uuid: auth.user.uid },
           })
           .then((res) => setWatchlist(res.data))
@@ -40,7 +40,7 @@ function SymbolPage() {
     if (symbol) {
       dispatch({ type: 'RESET' });
       axios
-        .get(BASE_API_URL + '/api/stocks/' + symbol)
+        .get(PATHS.API.STOCKS + symbol)
         .then((res) => {
           dispatch({ type: 'FETCH_SUCCESS', payload: res.data });
         })

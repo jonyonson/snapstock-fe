@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
-import { BASE_API_URL } from '../constants';
+import { PATHS } from '../config/constants';
 
 function formatDistanceFromNow(publishedAt) {
   let distanceInWords = formatDistanceToNow(new Date(publishedAt), {
@@ -22,7 +22,7 @@ function LatestNews() {
 
   useEffect(() => {
     axios
-      .get(BASE_API_URL + '/api/news/top-headlines')
+      .get(PATHS.API.TOP_HEADLINES)
       .then((res) => setHeadlines(res.data))
       .catch((err) => console.error(err));
   }, []);

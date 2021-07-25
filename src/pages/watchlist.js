@@ -6,7 +6,7 @@ import { useAuth } from '../hooks/use-auth';
 import StockList from '../components/stock-list';
 import AppWrapper from '../components/app-wrapper';
 import SearchBar from '../components/search-bar';
-import { BASE_API_URL, PATHS } from '../constants';
+import { PATHS } from '../config/constants';
 
 function Watchlist() {
   const [watchlist, setWatchlist] = useState([]);
@@ -16,9 +16,7 @@ function Watchlist() {
   useEffect(() => {
     if (auth.user) {
       axios
-        .get(BASE_API_URL + '/api/watchlist', {
-          params: { uuid: auth.user.uid },
-        })
+        .get(PATHS.API.WATCHLIST, { params: { uuid: auth.user.uid } })
         .then((res) => {
           setIsLoading(false);
           setWatchlist(res.data);
@@ -32,7 +30,7 @@ function Watchlist() {
 
   return !auth.user ? (
     <Redirect
-      to={{ pathname: PATHS.SIGN_IN, state: { referrer: 'watchlist' } }}
+      to={{ pathname: PATHS.ROUTES.SIGN_IN, state: { referrer: 'watchlist' } }}
     />
   ) : (
     <AppWrapper>

@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useTheme } from 'styled-components';
 import { XYPlot, XAxis, YAxis, LineSeries, makeWidthFlexible } from 'react-vis';
 import { AiOutlinePlusSquare, AiOutlineMinusSquare } from 'react-icons/ai';
-import { BASE_API_URL } from '../constants';
+import { PATHS } from '../config/constants';
 import reducer from '../reducers/chart-reducer';
 import 'react-vis/dist/style.css';
 
@@ -44,15 +44,13 @@ const StockChart = ({ initialChart, symbol }) => {
       });
       setIsLoading(false);
     } else {
-      axios
-        .get(BASE_API_URL + '/api/stocks/' + symbol + '/chart/' + range)
-        .then((res) => {
-          dispatch({
-            type: 'CHANGE_CHART_RANGE',
-            payload: { data: res.data, type: range },
-          });
-          setIsLoading(false);
+      axios.get(PATHS.API.STOCKS + symbol + '/chart/' + range).then((res) => {
+        dispatch({
+          type: 'CHANGE_CHART_RANGE',
+          payload: { data: res.data, type: range },
         });
+        setIsLoading(false);
+      });
     }
   }
 

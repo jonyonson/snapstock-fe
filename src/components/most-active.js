@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import StockList from './stock-list';
 
-import { BASE_API_URL } from '../constants';
+import { PATHS } from '../config/constants';
 
 function MostActive() {
   const [mostActive, setMostActive] = useState([]);
@@ -16,7 +16,7 @@ function MostActive() {
 
   useEffect(() => {
     axios
-      .get(BASE_API_URL + '/api/stocks/market/list/mostactive')
+      .get(PATHS.API.MOST_ACTIVE)
       .then((res) => setMostActive(res.data))
       .catch((err) => handleError(err));
   }, []);

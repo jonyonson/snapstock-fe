@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import useInterval from '../hooks/use-interval';
-import { BASE_API_URL } from '../constants';
+import { PATHS } from '../config/constants';
 import Widget from './index-widget';
 
 export default function MarketIndices() {
@@ -12,7 +12,7 @@ export default function MarketIndices() {
 
   const fetchMarketData = () => {
     axios
-      .get(BASE_API_URL + '/api/stocks/market/indices')
+      .get(PATHS.API.MARKET_INDICES)
       .then((res) => {
         const { nasdaq, sp500, dow } = res.data;
         setDow(dow);

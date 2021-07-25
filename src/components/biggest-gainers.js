@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import StockList from './stock-list';
-
-import { BASE_API_URL } from '../constants';
+import { PATHS } from '../config/constants';
 
 function BiggestLosers() {
   const [biggestGainers, setBiggestGainers] = useState([]);
@@ -16,7 +15,7 @@ function BiggestLosers() {
 
   useEffect(() => {
     axios
-      .get(BASE_API_URL + '/api/stocks/market/list/gainers')
+      .get(PATHS.API.GAINERS)
       .then((res) => setBiggestGainers(res.data))
       .catch((err) => handleError(err));
   }, []);
