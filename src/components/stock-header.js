@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { axiosWithAuth } from '../utils/axios-with-auth';
+import axios from 'axios';
 import { theme } from '../styles/theme';
 import formatNumber from '../utils/format-number';
-import isAuthenticated from '../utils/is-authenticated';
 import WatchlistButton from './watchlist-button';
 import {
   FaLongArrowAltUp as ArrowUp,
   FaLongArrowAltDown as ArrowDown,
 } from 'react-icons/fa';
 import { BASE_API_URL } from '../constants';
+import { useAuth } from '../hooks/use-auth';
 
 const StockQuote = ({ quote, setWatchlist, watchlist }) => {
   const [isFollowing, setIsFollowing] = useState(false);
   const history = useHistory();
+  const auth = useAuth();
 
   useEffect(() => {
     if (watchlist && quote) {
@@ -25,7 +26,7 @@ const StockQuote = ({ quote, setWatchlist, watchlist }) => {
   const followStock = () => {
     if (!quote) return;
 
-    if (!isAuthenticated()) {
+    if (!auth.user) {
       history.push({
         pathname: '/signin',
         state: { referrer: 'watchlist' },
@@ -36,8 +37,8 @@ const StockQuote = ({ quote, setWatchlist, watchlist }) => {
 
     if (!isFollowing) {
       const { symbol, companyName: company_name } = quote;
-      axiosWithAuth()
-        .post(endpoint, { symbol, company_name })
+      axios
+        .post(endpoint, { symbol, company_name, uuid: auth.user.uid })
         .then((res) => {
           const { id, symbol, company_name } = res.data;
           setWatchlist((prev) => prev.concat({ id, symbol, company_name }));
@@ -51,8 +52,10 @@ const StockQuote = ({ quote, setWatchlist, watchlist }) => {
           setWatchlist(watchlist.filter((stock) => stock.id !== remove.id));
 
         remove &&
-          axiosWithAuth()
-            .delete(endpoint + `/${remove.id}`)
+          axios
+            .delete(endpoint + `/${remove.id}`, {
+              params: { uuid: auth.user.uid },
+            })
             .then((res) => console.log(res))
             .catch((err) => console.error(err));
       }

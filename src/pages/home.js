@@ -7,11 +7,15 @@ import BiggestLosers from '../components/biggest-losers';
 import BiggestGainers from '../components/biggest-gainers';
 import MarketIndices from '../components/market-indices';
 import AppWrapper from '../components/app-wrapper';
+import { useAuth } from '../hooks/use-auth';
 
 function Home() {
+  const auth = useAuth();
+
+  console.log(auth.user ? `Logged in as ${auth.user.email}` : 'Not logged in');
   return (
     <AppWrapper>
-      <ContentHeader className="test">
+      <ContentHeader>
         <div className="flex-right">
           <SearchBar />
         </div>

@@ -6,12 +6,14 @@ import AuthWrapper from '../styles/auth.styled';
 import AppWrapper from '../components/app-wrapper';
 import Alert from '../components/Alert';
 import { BASE_API_URL } from '../constants';
+import { useAuth } from '../hooks/use-auth';
 
 function SignUp() {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const history = useHistory();
+  const auth = useAuth();
 
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -20,17 +22,31 @@ function SignUp() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    axios
-      .post(`${BASE_API_URL}/auth/register`, credentials)
-      .then((res) => {
-        setError(null);
-        localStorage.setItem('token', res.data.token);
-        history.push('/');
+    const { email, password } = credentials;
+    auth
+      .signup(email, password)
+      .then((user) => {
+        axios
+          .post(`${BASE_API_URL}/auth/register`, {
+            uuid: user.uid,
+            email: user.email,
+            display_name: user.displayName,
+            photo_url: user.photoURL,
+            email_verified: user.emailVerified,
+          })
+          .then((res) => {
+            setError(null);
+            history.push('/');
+          })
+          .catch((err) => {
+            console.error(err.response);
+            setLoading(false);
+            setError(err.response.data);
+          });
       })
       .catch((err) => {
         setLoading(false);
-        setError(err.response.data.message);
-        console.log(err.response);
+        setError(err.message);
       });
   };
 
@@ -62,7 +78,7 @@ function SignUp() {
         </form>
         <div className="link-text">
           <span>Already have an account?</span>
-          <Link to="/signin">Sign in</Link>
+          <Link to="/accounts/signin">Sign in</Link>
         </div>
       </AuthWrapper>
     </AppWrapper>

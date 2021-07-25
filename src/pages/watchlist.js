@@ -1,8 +1,8 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
-import { axiosWithAuth } from '../utils/axios-with-auth';
+import axios from 'axios';
 import styled from 'styled-components';
-import isAuthenticated from '../utils/is-authenticated';
+import { useAuth } from '../hooks/use-auth';
 import StockList from '../components/stock-list';
 import AppWrapper from '../components/app-wrapper';
 import SearchBar from '../components/search-bar';
@@ -12,11 +12,14 @@ import { BASE_API_URL } from '../constants';
 function Watchlist() {
   const [watchlist, setWatchlist] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const auth = useAuth();
 
   useEffect(() => {
-    if (isAuthenticated()) {
-      axiosWithAuth()
-        .get(BASE_API_URL + '/api/watchlist')
+    if (auth.user) {
+      axios
+        .get(BASE_API_URL + '/api/watchlist', {
+          params: { uuid: auth.user.uid },
+        })
         .then((res) => {
           setIsLoading(false);
           setWatchlist(res.data);
@@ -26,10 +29,12 @@ function Watchlist() {
           console.error(err);
         });
     }
-  }, []);
+  }, [auth.user]);
 
-  return !isAuthenticated() ? (
-    <Redirect to={{ pathname: '/signin', state: { referrer: 'watchlist' } }} />
+  return !auth.user ? (
+    <Redirect
+      to={{ pathname: '/accounts/signin', state: { referrer: 'watchlist' } }}
+    />
   ) : (
     <AppWrapper>
       <Section>

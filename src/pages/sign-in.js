@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useLocation, useHistory, Link } from 'react-router-dom';
-import axios from 'axios';
+
 import { BeatLoader } from 'react-spinners';
 import AuthWrapper from '../styles/auth.styled';
 import Alert from '../components/Alert';
 import AppWrapper from '../components/app-wrapper';
-import { BASE_API_URL } from '../constants';
+import { useAuth } from '../hooks/use-auth';
 
 function SignIn() {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
@@ -13,25 +13,32 @@ function SignIn() {
   const [error, setError] = useState(null);
   const history = useHistory();
   const location = useLocation();
+  const auth = useAuth();
 
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
+  // const signInWithGoogle = () => {
+  //   auth.signInWithGoogle().then((result) => {
+  //     console.log('succcess', result);
+  //     console.log(auth.currentUser);
+  //   });
+  // };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    axios
-      .post(`${BASE_API_URL}/auth/login`, credentials)
-      .then((res) => {
+    const { email, password } = credentials;
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
         setError(null);
-        localStorage.setItem('token', res.data.token);
         history.push('/');
       })
-      .catch((err) => {
+      .catch((error) => {
         setLoading(false);
-        setError(err.response.data.message);
-        console.log(err.response);
+        setError(error.message);
       });
   };
 
@@ -64,13 +71,16 @@ function SignIn() {
             onChange={handleChange}
             value={credentials.password}
           />
+          <Link to="/accounts/password" className="forgot-password">
+            Forgot Password?
+          </Link>
           <button type="submit">
             {loading ? <BeatLoader size={12} color="#fff" /> : 'Sign In'}
           </button>
         </form>
         <div className="link-text">
           <span>Don't have an account?</span>
-          <Link to="/signup">Sign up</Link>
+          <Link to="/accounts/signup">Sign up</Link>
         </div>
       </AuthWrapper>
     </AppWrapper>

@@ -63,6 +63,12 @@ const AuthWrapper = styled.div`
       }
     }
   }
+
+  .forgot-password {
+    margin-top: -0.75rem;
+    text-align: right;
+    font-size: 0.8rem;
+  }
 `;
 
 export default AuthWrapper;
