@@ -1,0 +1,17 @@
+.FollowButton {
+  text-transform: uppercase;
+  background-color: #fff;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+  padding-left: 0;
+  padding-bottom: 0;
+  outline: none;
+
+  &-text {
+    font-weight: bold;
+    margin-left: 5px;
+  }
+}
