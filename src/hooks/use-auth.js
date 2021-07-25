@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, createContext } from 'react';
-import { auth, googleAuthProvider } from '../firebase';
+import { auth, googleAuthProvider } from '../config/firebase';
 
 const AuthContext = createContext();
 
