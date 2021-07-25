@@ -6,8 +6,7 @@ import { useAuth } from '../hooks/use-auth';
 import StockList from '../components/stock-list';
 import AppWrapper from '../components/app-wrapper';
 import SearchBar from '../components/search-bar';
-
-import { BASE_API_URL } from '../constants';
+import { BASE_API_URL, PATHS } from '../constants';
 
 function Watchlist() {
   const [watchlist, setWatchlist] = useState([]);
@@ -33,7 +32,7 @@ function Watchlist() {
 
   return !auth.user ? (
     <Redirect
-      to={{ pathname: '/accounts/signin', state: { referrer: 'watchlist' } }}
+      to={{ pathname: PATHS.SIGN_IN, state: { referrer: 'watchlist' } }}
     />
   ) : (
     <AppWrapper>

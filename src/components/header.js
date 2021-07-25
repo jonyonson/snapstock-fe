@@ -4,6 +4,7 @@ import { useHistory, Link } from 'react-router-dom';
 import Container from './container';
 import logo from '../assets/snapstock_logo.svg';
 import { useAuth } from '../hooks/use-auth';
+import { PATHS } from '../constants';
 
 const Header = ({ setWatchlist }) => {
   const history = useHistory();
@@ -12,7 +13,7 @@ const Header = ({ setWatchlist }) => {
   const logout = () => {
     handleReset();
     auth.signout();
-    history.push('/');
+    history.push(PATHS.HOME);
   };
 
   const handleReset = () => {
@@ -31,7 +32,7 @@ const Header = ({ setWatchlist }) => {
               Watchlist
             </Link>
             {!auth.user ? (
-              <Link className="nav-item login" to="/accounts/signin">
+              <Link className="nav-item login" to={PATHS.SIGN_IN}>
                 Sign in
               </Link>
             ) : (

@@ -9,7 +9,7 @@ import {
   FaLongArrowAltUp as ArrowUp,
   FaLongArrowAltDown as ArrowDown,
 } from 'react-icons/fa';
-import { BASE_API_URL } from '../constants';
+import { BASE_API_URL, PATHS } from '../constants';
 import { useAuth } from '../hooks/use-auth';
 
 const StockQuote = ({ quote, setWatchlist, watchlist }) => {
@@ -28,7 +28,7 @@ const StockQuote = ({ quote, setWatchlist, watchlist }) => {
 
     if (!auth.user) {
       history.push({
-        pathname: '/signin',
+        pathname: PATHS.SIGN_IN,
         state: { referrer: 'watchlist' },
       });
     }

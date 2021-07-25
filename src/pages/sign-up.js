@@ -7,6 +7,7 @@ import AppWrapper from '../components/app-wrapper';
 import Alert from '../components/Alert';
 import { BASE_API_URL } from '../constants';
 import { useAuth } from '../hooks/use-auth';
+import { PATHS } from '../constants';
 
 function SignUp() {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
@@ -36,7 +37,7 @@ function SignUp() {
           })
           .then((res) => {
             setError(null);
-            history.push('/');
+            history.push(PATHS.HOME);
           })
           .catch((err) => {
             console.error(err.response);
@@ -78,7 +79,7 @@ function SignUp() {
         </form>
         <div className="link-text">
           <span>Already have an account?</span>
-          <Link to="/accounts/signin">Sign in</Link>
+          <Link to={PATHS.SIGN_IN}>Sign in</Link>
         </div>
       </AuthWrapper>
     </AppWrapper>

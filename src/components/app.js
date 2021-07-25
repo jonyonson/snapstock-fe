@@ -8,16 +8,17 @@ import Watchlist from '../pages/watchlist';
 import GlobalStyle from '../styles/global-styles';
 import SymbolPage from '../pages/symbol';
 import { ProvideAuth } from '../hooks/use-auth';
+import { PATHS } from '../constants';
 
 function App() {
   return (
     <ProvideAuth>
-      <Route exact path="/" component={Home} />
-      <Route path="/watchlist" component={Watchlist} />
+      <Route exact path={PATHS.HOME} component={Home} />
+      <Route path={PATHS.WATCHLIST} component={Watchlist} />
       <Route path="/stocks/:symbol" component={SymbolPage} />
-      <Route path="/accounts/signup" component={SignUp} />
-      <Route path="/accounts/signin" component={SignIn} />
-      <Route path="/accounts/password" component={PasswordReset} />
+      <Route path={PATHS.SIGN_UP} component={SignUp} />
+      <Route path={PATHS.SIGN_IN} component={SignIn} />
+      <Route path={PATHS.RESET_PASSWORD} component={PasswordReset} />
       <GlobalStyle />
     </ProvideAuth>
   );
