@@ -79,12 +79,11 @@ function SearchBar() {
     type: 'search',
     onChange,
     value,
-    // placeholder: 'Search Quotes',
-    // autoFocus: true,
   };
 
   return (
     <Styled>
+      <input type="hidden" autoFocus={true} />
       <Autosuggest
         suggestions={suggestions}
         onSuggestionsFetchRequested={onSuggestionsFetchRequested}
