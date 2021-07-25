@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { theme } from '../styles/theme';
 import formatNumber from '../utils/format-number';
-import WatchlistButton from './watchlist-button';
+import FollowButton from './FollowButton';
 import {
   FaLongArrowAltUp as ArrowUp,
   FaLongArrowAltDown as ArrowDown,
@@ -70,7 +70,7 @@ const StockQuote = ({ quote, setWatchlist, watchlist }) => {
           <h2 className="company-name">{quote.companyName}</h2>
         </div>
 
-        <WatchlistButton followStock={followStock} isFollowing={isFollowing} />
+        <FollowButton followStock={followStock} isFollowing={isFollowing} />
       </div>
       <div
         className={
