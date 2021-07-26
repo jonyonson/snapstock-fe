@@ -5,7 +5,7 @@ import LatestNews from '../components/latest-news';
 import MostActive from '../components/most-active';
 import BiggestLosers from '../components/biggest-losers';
 import BiggestGainers from '../components/biggest-gainers';
-import MarketIndices from '../components/market-indices';
+import MarketIndixes from '../components/MarketIndexes';
 import AppWrapper from '../components/app-wrapper';
 import { useAuth } from '../hooks/use-auth';
 
@@ -20,7 +20,7 @@ function Home() {
           <SearchBar />
         </div>
         <div className="flex-left">
-          <MarketIndices />
+          <MarketIndixes />
         </div>
       </ContentHeader>
 

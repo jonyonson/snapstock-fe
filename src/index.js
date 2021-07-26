@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
 import App from './components/app';
 import 'sanitize.css/sanitize.css';
+import './styles/index.scss';
 
 ReactDOM.render(
   <BrowserRouter>

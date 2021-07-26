@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import axios from 'axios';
-import useInterval from '../hooks/use-interval';
-import { PATHS } from '../config/constants';
-import Widget from './index-widget';
+import useInterval from '../../hooks/use-interval';
+import { PATHS } from '../../config/constants';
+import Widget from './IndexWidget';
+import './MarketIndexes.scss';
 
-export default function MarketIndices() {
+export default function MarketIndixes() {
   const [dow, setDow] = useState(null);
   const [sp500, setSp500] = useState(null);
   const [nasdaq, setNasdaq] = useState(null);
@@ -26,15 +26,10 @@ export default function MarketIndices() {
   useInterval(fetchMarketData, 15000, true);
 
   return (
-    <StyledContainer>
+    <div className="market-indexes">
       <Widget name="DOW" index={dow} />
       <Widget name="NASDAQ" index={nasdaq} />
       <Widget name="S&P 500" index={sp500} />
-    </StyledContainer>
+    </div>
   );
 }
-
-const StyledContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
