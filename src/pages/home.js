@@ -6,7 +6,7 @@ import MostActive from '../components/most-active';
 import BiggestLosers from '../components/biggest-losers';
 import BiggestGainers from '../components/biggest-gainers';
 import MarketIndixes from '../components/MarketIndexes';
-import AppWrapper from '../components/app-wrapper';
+import Layout from '../components/Layout';
 import { useAuth } from '../hooks/use-auth';
 
 function Home() {
@@ -14,7 +14,7 @@ function Home() {
 
   console.log(auth.user ? `Logged in as ${auth.user.email}` : 'Not logged in');
   return (
-    <AppWrapper>
+    <Layout>
       <ContentHeader>
         <div className="flex-right">
           <SearchBar />
@@ -23,7 +23,6 @@ function Home() {
           <MarketIndixes />
         </div>
       </ContentHeader>
-
       <Flex>
         <div className="flex-left">
           <LatestNews />
@@ -34,7 +33,7 @@ function Home() {
           <BiggestGainers />
         </div>
       </Flex>
-    </AppWrapper>
+    </Layout>
   );
 }
 

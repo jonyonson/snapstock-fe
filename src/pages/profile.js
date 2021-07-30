@@ -1,5 +1,5 @@
 import React from 'react';
-import AppWrapper from '../components/app-wrapper';
+import Layout from '../components/Layout';
 import { useAuth } from '../hooks/use-auth';
 import { PATHS } from '../config/constants';
 import { Redirect } from 'react-router-dom';
@@ -8,13 +8,13 @@ function Profile() {
   const auth = useAuth();
 
   return localStorage.getItem('user') ? (
-    <AppWrapper>
+    <Layout>
       {auth.user && (
         <div>
           <div>email: {auth.user.email}</div>
         </div>
       )}
-    </AppWrapper>
+    </Layout>
   ) : (
     <Redirect to={PATHS.ROUTES.SIGN_IN} />
   );

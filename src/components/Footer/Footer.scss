@@ -1,0 +1,30 @@
+.Footer {
+  background-color: var(--color-primary);
+  color: white;
+  padding: 1.5rem 0;
+  margin-top: 2rem;
+  font-size: 0.8125rem;
+
+  &-container {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+
+    @media (min-width: 415px) {
+      flex-direction: row;
+    }
+  }
+
+  @media (min-width: 415px) {
+    font-size: 0.9375rem;
+  }
+
+  a {
+    color: white;
+  }
+
+  span a {
+    border-bottom: 1px solid white;
+  }
+}

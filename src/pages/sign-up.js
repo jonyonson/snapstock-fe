@@ -3,7 +3,7 @@ import { useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
 import { BeatLoader } from 'react-spinners';
 import AuthWrapper from '../styles/auth.styled';
-import AppWrapper from '../components/app-wrapper';
+import Layout from '../components/Layout';
 import Alert from '../components/Alert';
 import { useAuth } from '../hooks/use-auth';
 import { PATHS } from '../config/constants';
@@ -51,7 +51,7 @@ function SignUp() {
   };
 
   return (
-    <AppWrapper>
+    <Layout>
       <AuthWrapper>
         <h1>Sign Up</h1>
         {error && <Alert severity="error">{error}</Alert>}
@@ -81,7 +81,7 @@ function SignUp() {
           <Link to={PATHS.ROUTES.SIGN_IN}>Sign in</Link>
         </div>
       </AuthWrapper>
-    </AppWrapper>
+    </Layout>
   );
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useHistory, Link } from 'react-router-dom';
-import Container from './container';
+import Container from './Layout/Container';
 import logo from '../assets/snapstock_logo.svg';
 import { useAuth } from '../hooks/use-auth';
 import { PATHS } from '../config/constants';

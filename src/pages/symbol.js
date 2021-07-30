@@ -8,7 +8,7 @@ import StockChart from '../components/stock-chart';
 import KeyData from '../components/key-data';
 import CompanyProfile from '../components/company-profile';
 import BarLoader from '../components/BarLoader';
-import AppWrapper from '../components/app-wrapper';
+import Layout from '../components/Layout';
 import { PATHS } from '../config/constants';
 import reducer, { initialState } from '../reducers/symbol-reducer';
 import { useAuth } from '../hooks/use-auth';
@@ -53,11 +53,11 @@ function SymbolPage() {
   const { chartLoading, error, quote, stats, profile, chart } = state;
 
   return chartLoading ? (
-    <AppWrapper>
+    <Layout>
       <BarLoader />
-    </AppWrapper>
+    </Layout>
   ) : (
-    <AppWrapper>
+    <Layout>
       <Flex className={error ? 'error' : undefined}>
         <div className="flex-right">
           <SearchBar />
@@ -85,7 +85,7 @@ function SymbolPage() {
         </div>
       </Flex>
       {error && <Error>Something went wrong. Please try again.</Error>}
-    </AppWrapper>
+    </Layout>
   );
 }
 

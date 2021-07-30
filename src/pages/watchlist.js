@@ -4,7 +4,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { useAuth } from '../hooks/use-auth';
 import StockList from '../components/stock-list';
-import AppWrapper from '../components/app-wrapper';
+import Layout from '../components/Layout';
 import SearchBar from '../components/search-bar';
 import { PATHS } from '../config/constants';
 
@@ -33,7 +33,7 @@ function Watchlist() {
       to={{ pathname: PATHS.ROUTES.SIGN_IN, state: { referrer: 'watchlist' } }}
     />
   ) : (
-    <AppWrapper>
+    <Layout>
       <Section>
         <div className="search-wrapper">
           <SearchBar />
@@ -51,7 +51,7 @@ function Watchlist() {
           </Fragment>
         )}
       </Section>
-    </AppWrapper>
+    </Layout>
   );
 }
 

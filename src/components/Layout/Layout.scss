@@ -1,0 +1,17 @@
+.Layout {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.Container {
+  // max-width: ${(props) => props.theme.maxWidth};
+  max-width: var(--width-container);
+  margin: 0 auto;
+  padding: 0 1rem;
+
+  @media (min-width: 415px) {
+    padding: 0 1.5rem;
+  }
+}

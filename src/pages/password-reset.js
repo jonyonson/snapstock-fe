@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BeatLoader } from 'react-spinners';
 import AuthWrapper from '../styles/auth.styled';
-import AppWrapper from '../components/app-wrapper';
+import Layout from '../components/Layout';
 import { useAuth } from '../hooks/use-auth';
 
 function SignIn() {
@@ -32,7 +32,7 @@ function SignIn() {
   };
 
   return (
-    <AppWrapper>
+    <Layout>
       <AuthWrapper>
         <h1>Reset Password</h1>
         <form onSubmit={handleSubmit}>
@@ -56,7 +56,7 @@ function SignIn() {
           </button>
         </form>
       </AuthWrapper>
-    </AppWrapper>
+    </Layout>
   );
 }
 

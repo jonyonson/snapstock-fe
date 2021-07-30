@@ -6,6 +6,8 @@ if (process.env.NODE_ENV === 'development') {
   BASE_API_URL = 'https://snapstock.herokuapp.com';
 }
 
+BASE_API_URL = 'https://snapstock.herokuapp.com';
+
 export const PATHS = {
   ROUTES: {
     HOME: '/',
@@ -30,5 +32,13 @@ export const PATHS = {
 
   AUTH: {
     REGISTER: `${BASE_API_URL}/auth/register`,
+  },
+};
+
+export const STRINGS = {
+  URL: {
+    PRIVACY_POLICY:
+      'https://www.freeprivacypolicy.com/privacy/view/c6ca6de4535056aa3ab9331aa2f12158',
+    IEX_CLOUD: 'https://iexcloud.io',
   },
 };

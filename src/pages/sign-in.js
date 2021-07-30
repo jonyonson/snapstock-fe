@@ -4,7 +4,7 @@ import { useLocation, useHistory, Link } from 'react-router-dom';
 import { BeatLoader } from 'react-spinners';
 import AuthWrapper from '../styles/auth.styled';
 import Alert from '../components/Alert';
-import AppWrapper from '../components/app-wrapper';
+import Layout from '../components/Layout';
 import { useAuth } from '../hooks/use-auth';
 import { PATHS } from '../config/constants';
 
@@ -44,7 +44,7 @@ function SignIn() {
   };
 
   return (
-    <AppWrapper>
+    <Layout>
       <AuthWrapper>
         <h1>Sign In</h1>
         {location.state && location.state.referrer === 'watchlist' && (
@@ -85,7 +85,7 @@ function SignIn() {
           <Link to={PATHS.ROUTES.SIGN_UP}>Sign up</Link>
         </div>
       </AuthWrapper>
-    </AppWrapper>
+    </Layout>
   );
 }
 
