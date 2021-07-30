@@ -20,6 +20,8 @@ const Header = ({ setWatchlist }) => {
     setWatchlist && setWatchlist(null);
   };
 
+  const isAuthenticated = localStorage.getItem('user');
+
   return (
     <StyledHeader>
       <Container>
@@ -28,17 +30,17 @@ const Header = ({ setWatchlist }) => {
             <img src={String(logo)} alt="" />
           </Link>
           <div>
-            <Link className="nav-item" to="/watchlist">
+            <Link className="nav-item" to={PATHS.ROUTES.WATCHLIST}>
               Watchlist
             </Link>
-            {!auth.user ? (
-              <Link className="nav-item login" to={PATHS.ROUTES.SIGN_IN}>
-                Sign in
-              </Link>
-            ) : (
+            {isAuthenticated ? (
               <button className="nav-item logout" onClick={logout}>
                 Sign out
               </button>
+            ) : (
+              <Link className="nav-item login" to={PATHS.ROUTES.SIGN_IN}>
+                Sign in
+              </Link>
             )}
           </div>
         </div>

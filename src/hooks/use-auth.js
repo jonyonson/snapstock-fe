@@ -72,8 +72,10 @@ function useProvideAuth() {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         setUser(user);
+        localStorage.setItem('user', JSON.stringify(user));
       } else {
         setUser(false);
+        localStorage.removeItem('user');
       }
     });
 

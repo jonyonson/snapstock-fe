@@ -9,11 +9,12 @@ if (process.env.NODE_ENV === 'development') {
 export const PATHS = {
   ROUTES: {
     HOME: '/',
+    PROFILE: '/profile',
+    RESET_PASSWORD: '/accounts/password',
     SIGN_IN: '/accounts/signin',
     SIGN_UP: '/accounts/signup',
-    WATCHLIST: '/watchlist',
     SYMBOL: '/stocks/:symbol',
-    RESET_PASSWORD: '/accounts/password',
+    WATCHLIST: '/watchlist',
   },
 
   API: {

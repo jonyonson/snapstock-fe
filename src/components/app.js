@@ -7,6 +7,7 @@ import PasswordReset from '../pages/password-reset';
 import Watchlist from '../pages/watchlist';
 import GlobalStyle from '../styles/global-styles';
 import SymbolPage from '../pages/symbol';
+import Profile from '../pages/profile';
 import { ProvideAuth } from '../hooks/use-auth';
 import { PATHS } from '../config/constants';
 
@@ -19,6 +20,7 @@ function App() {
       <Route path={PATHS.ROUTES.SIGN_UP} component={SignUp} />
       <Route path={PATHS.ROUTES.SIGN_IN} component={SignIn} />
       <Route path={PATHS.ROUTES.RESET_PASSWORD} component={PasswordReset} />
+      <Route path={PATHS.ROUTES.PROFILE} component={Profile} />
       <GlobalStyle />
     </ProvideAuth>
   );
