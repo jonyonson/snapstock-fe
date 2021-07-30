@@ -9,7 +9,12 @@ export default {
 
 const Template = (args) => <FollowButton {...args} />;
 
-export const Default = Template.bind({});
-Default.args = {
+export const Following = Template.bind({});
+Following.args = {
   isFollowing: true,
+};
+
+export const NotFollowing = Template.bind({});
+NotFollowing.args = {
+  isFollowing: false,
 };
