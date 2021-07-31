@@ -1,4 +1,4 @@
-.index-widget {
+.IndexWidget {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -45,11 +45,11 @@
     background-color: rgba(0, 0, 0, 0.2);
   }
 
-  &--up {
+  &--positive {
     background-color: var(--color-gain);
   }
 
-  &--down {
+  &--negative {
     background-color: var(--color-loss);
   }
 

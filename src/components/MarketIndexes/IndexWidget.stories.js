@@ -7,14 +7,22 @@ export default {
   component: Widget,
 };
 
-const Template = (args) => <Widget {...args} />;
+const Template = (args) => {
+  return (
+    <div style={{ maxWidth: '600px' }}>
+      <Widget {...args} />
+    </div>
+  );
+};
 
 const MultipleTemplate = (args) => {
   return (
-    <div className="market-indexes">
-      <Widget name="DOW" index={index} />
-      <Widget name="S&P 500" index={index} />
-      <Widget name="NASDAQ" index={index} />
+    <div style={{ maxWidth: '600px' }}>
+      <div className="market-indexes">
+        <Widget name="DOW" index={index} />
+        <Widget name="S&P 500" index={index} />
+        <Widget name="NASDAQ" index={index} />
+      </div>
     </div>
   );
 };
@@ -31,14 +39,14 @@ const index = {
   yearRange: '25,992.28 - 35,095.33',
 };
 
-export const inTheGreen = Template.bind({});
-inTheGreen.args = {
+export const Positive = Template.bind({});
+Positive.args = {
   name: 'DOW',
   index,
 };
 
-export const inTheRed = Template.bind({});
-inTheRed.args = {
+export const Negative = Template.bind({});
+Negative.args = {
   name: 'DOW',
   index: {
     ...index,

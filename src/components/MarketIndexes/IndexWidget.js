@@ -10,29 +10,29 @@ const Widget = ({ name, index }) => {
     : '--';
   const price = index ? format(index.price) : '--';
 
-  let classNames = 'index-widget';
+  let classNames = 'IndexWidget';
 
   if (!index) {
-    classNames += ' index-widget--loading';
+    classNames += ' IndexWidget--loading';
   } else {
     if (index.percentChange >= 0) {
-      classNames += ' index-widget--up';
+      classNames += ' IndexWidget--positive';
     } else {
-      classNames += ' index-widget--down';
+      classNames += ' IndexWidget--negative';
     }
   }
 
   return (
     <div className={classNames} name={name} data-testid="index-widget">
-      <div className="index-widget__top">
+      <div className="IndexWidget__top">
         <div>{name}</div>
         <div className="change">{change}</div>
       </div>
-      <div className="index-widget__bottom">
-        <div className="index-widget__percent-change">
+      <div className="IndexWidget__bottom">
+        <div className="IndexWidget__percent-change">
           <span>{percentChange}</span>
         </div>
-        <div className="index-widget__price">{price}</div>
+        <div className="IndexWidget__price">{price}</div>
       </div>
     </div>
   );

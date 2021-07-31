@@ -19,7 +19,7 @@ describe('IndexWidget', () => {
   it('contains the correct modifier class when index is up', () => {
     render(<IndexWidget index={index} name="DOW" />);
     const widget = screen.getByTestId('index-widget');
-    expect(widget).toHaveClass('index-widget--up');
+    expect(widget).toHaveClass('IndexWidget--positive');
   });
 
   it('contains the correct modifier class when index is down', () => {
@@ -27,13 +27,13 @@ describe('IndexWidget', () => {
       <IndexWidget index={{ ...index, percentChange: -0.2 }} name="DOW" />,
     );
     const widget = screen.getByTestId('index-widget');
-    expect(widget).toHaveClass('index-widget--down');
+    expect(widget).toHaveClass('IndexWidget--negative');
   });
 
   it('contains the correct modifier class when loading', () => {
     render(<IndexWidget index={null} name="DOW" />);
     const widget = screen.getByTestId('index-widget');
-    expect(widget).toHaveClass('index-widget--loading');
+    expect(widget).toHaveClass('IndexWidget--loading');
   });
 
   it('shows numbers in correct format when index is up', () => {
