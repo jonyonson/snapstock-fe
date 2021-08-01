@@ -11,46 +11,65 @@ function Button({
   label,
   href,
   loading,
+  onClick,
   style,
+  disabled,
   ...props
 }) {
   const variantClass = ` Button--${variant}`;
   const sizeClass = ` Button--${size}`;
-  const classNames = ['Button', sizeClass, variantClass].join('');
+  let classNames = ['Button', sizeClass, variantClass].join('');
   const styles = backgroundColor ? { backgroundColor, ...style } : style;
 
-  console.log(style);
+  let loaderSize = 8;
+  if (size === 'small') loaderSize = 6;
+  if (size === 'large') loaderSize = 10;
 
   return href ? (
-    <Link className={classNames} to={href} style={styles}>
+    <Link className={classNames} to={href} style={styles} {...props}>
       {label}
     </Link>
   ) : (
-    <button type="button" className={classNames} style={styles} {...props}>
-      {loading ? <BeatLoader size={12} color="#fff" /> : label}
+    <button
+      onClick={onClick}
+      className={classNames}
+      style={styles}
+      disabled={disabled || loading}
+      {...props}
+    >
+      {variant === 'primary' ? (
+        <>
+          {!loading && label}
+          <BeatLoader loading={loading} size={loaderSize} color="#FFF" />
+        </>
+      ) : (
+        label
+      )}
     </button>
   );
 }
 
 Button.propTypes = {
-  variant: PropTypes.oneOf(['primary', 'secondary', 'ghost', 'text']),
   backgroundColor: PropTypes.string,
-  size: PropTypes.oneOf(['small', 'medium', 'large']),
-  label: PropTypes.string.isRequired,
-  onClick: PropTypes.func,
+  disabled: PropTypes.bool,
   href: PropTypes.string,
+  label: PropTypes.string.isRequired,
   loading: PropTypes.bool,
+  onClick: PropTypes.func,
+  size: PropTypes.oneOf(['small', 'medium', 'large']),
   style: PropTypes.object,
+  variant: PropTypes.oneOf(['primary', 'secondary', 'ghost', 'text']),
 };
 
 Button.defaultProps = {
   backgroundColor: null,
-  variant: 'primary',
-  size: 'medium',
-  onClick: undefined,
+  disabled: false,
   href: null,
   loading: false,
+  onClick: undefined,
+  size: 'medium',
   style: null,
+  variant: 'primary',
 };
 
 export default Button;
