@@ -1,0 +1,58 @@
+.Button {
+  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-block;
+  line-height: 1;
+
+  &--small {
+    font-size: 0.75rem;
+    padding: 0.625rem 1rem;
+  }
+
+  &--medium {
+    font-size: 0.875rem;
+    padding: 0.75rem 1.25rem;
+  }
+
+  &--large {
+    font-size: 1.125rem;
+    padding: 0.8rem 1.4rem;
+  }
+
+  &--primary {
+    color: var(--color-white);
+    background-color: var(--color-primary);
+
+    &:hover {
+      // background-color: lighten(var(--color-primary), 0.1));
+    }
+  }
+
+  &--secondary {
+    color: #333;
+    background-color: transparent;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
+  }
+
+  &--ghost {
+    color: var(--color-black);
+    background-color: transparent;
+
+    &:hover {
+      box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
+    }
+  }
+
+  &--text {
+    color: var(--color-black);
+    background-color: transparent;
+    padding: 0;
+
+    &:hover {
+      color: var(--color-secondary);
+    }
+  }
+}
