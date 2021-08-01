@@ -20,21 +20,21 @@
   }
 }
 .Alert-error {
-  color: var(--c-text--error);
-  background-color: var(--c-background--error);
+  color: var(--color-text--error);
+  background-color: var(--color-background--error);
 }
 
 .Alert-info {
-  color: rgb(13, 60, 97);
-  background-color: rgb(232, 244, 253);
+  color: var(--color-text--info);
+  background-color: var(--color-background--info);
 }
 
 .Alert-warning {
-  color: rgb(102, 60, 0);
-  background-color: rgb(255, 244, 229);
+  color: var(--color-text--warning);
+  background-color: var(--color-background--warning);
 }
 
 .Alert-success {
-  color: rgb(30, 70, 32);
-  background-color: rgb(237, 247, 237);
+  color: var(--color-text--success);
+  background-color: var(--color-background--success);
 }
