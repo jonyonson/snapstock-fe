@@ -18,12 +18,14 @@ function formatDistanceFromNow(publishedAt) {
 
 function LatestNews() {
   const [headlines, setHeadlines] = useState([]);
-  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     axios
       .get(PATHS.API.TOP_HEADLINES)
-      .then((res) => setHeadlines(res.data))
+      .then((res) => {
+        const withImages = res.data.filter((story) => !!story.urlToImage);
+        setHeadlines(withImages);
+      })
       .catch((err) => console.error(err));
   }, []);
 
@@ -49,20 +51,14 @@ function LatestNews() {
           >
             <figure>
               <div className="most-recent-story__link__image">
-                <img
-                  onLoad={() => setImageLoaded(true)}
-                  src={headlines[0].urlToImage}
-                  alt=""
-                />
+                <img src={headlines[0].urlToImage} alt="" />
               </div>
-              {imageLoaded && (
-                <>
-                  <div className="most-recent-story__link__image__headline">
-                    {mostRecentHeadline}
-                  </div>
-                  <figcaption>{source}</figcaption>
-                </>
-              )}
+              <div>
+                <div className="most-recent-story__link__image__headline">
+                  {mostRecentHeadline}
+                </div>
+                <figcaption>{source}</figcaption>
+              </div>
             </figure>
           </a>
         )}
@@ -110,6 +106,13 @@ const Section = styled.div`
 
     @media (min-width: 770px) {
       margin-bottom: 0;
+    }
+
+    figure {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      min-height: 400px;
     }
   }
 
