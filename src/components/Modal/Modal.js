@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import MicroModal from 'micromodal';
 import './Modal.scss';
 
 function Modal({ id, title, children }) {

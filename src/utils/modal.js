@@ -9,7 +9,7 @@ const DEFAULT_OPTIONS = {
   disableScroll: true,
   // disableFocus: false,
   // awaitOpenAnimation: false,
-  awaitCloseAnimation: true,
+  // awaitCloseAnimation: false,
   // debugMode: false
 };
 
