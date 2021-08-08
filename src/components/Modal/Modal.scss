@@ -20,7 +20,7 @@
   &__container {
     background-color: var(--color-white);
     padding: 1rem;
-    width: 500px;
+    width: var(--width-modal);
     max-width: 100%;
     max-height: 100vh;
     border-radius: 4px;
@@ -35,6 +35,8 @@
 
   &__title {
     color: var(--color-black);
+    font-size: 1.75rem;
+    font-weight: 700;
   }
 
   &__close {
@@ -43,12 +45,13 @@
     margin: 0;
 
     &:before {
+      font-size: 1.25rem;
       content: '\2715';
     }
   }
 
   &__content {
-    margin: 2rem 0;
+    margin: 1rem 0;
   }
 
   &__container,
