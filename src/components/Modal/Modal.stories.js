@@ -21,7 +21,7 @@ const Template = (args) => {
     <>
       <button onClick={showTheDangModal}>Trigger</button>
       <Modal {...args}>
-        <div>
+        <div className="u-mb-3">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis
           harum nulla consequatur quos dolorum inventore, deleniti error quis
           voluptatum numquam molestiae exercitationem ipsum animi labore
