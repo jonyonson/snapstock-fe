@@ -19,7 +19,7 @@ const Template = (args) => {
 
   return (
     <>
-      <button onClick={showTheDangModal}>Trigger</button>
+      <Button variant="secondary" onClick={showTheDangModal} label="Trigger" />
       <Modal {...args}>
         <div className="u-mb-3">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis
@@ -29,6 +29,7 @@ const Template = (args) => {
         </div>
         <Button
           variant="primary"
+          className="u-mr-1"
           label="OK"
           onClick={() => {
             alert('success');

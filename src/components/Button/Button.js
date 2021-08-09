@@ -14,11 +14,13 @@ function Button({
   onClick,
   style,
   disabled,
+  className,
   ...props
 }) {
   const variantClass = ` Button--${variant}`;
   const sizeClass = ` Button--${size}`;
   let classNames = ['Button', sizeClass, variantClass].join('');
+  if (className) classNames += ` ${className}`;
   const styles = backgroundColor ? { backgroundColor, ...style } : style;
 
   let loaderSize = 8;
@@ -59,6 +61,7 @@ Button.propTypes = {
   size: PropTypes.oneOf(['small', 'medium', 'large']),
   style: PropTypes.object,
   variant: PropTypes.oneOf(['primary', 'secondary', 'ghost', 'text']),
+  className: PropTypes.string,
 };
 
 Button.defaultProps = {
