@@ -112,6 +112,10 @@ const Styled = styled.div`
     height: 50px;
   }
 
+  .react-autosuggest__input {
+    cursor: text;
+  }
+
   @media (min-width: 770px) {
     flex-grow: 1;
   }
