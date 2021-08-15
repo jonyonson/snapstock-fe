@@ -12,6 +12,7 @@ const Header = ({ setWatchlist }) => {
 
   const logout = () => {
     handleReset();
+    localStorage.removeItem('user');
     auth.signout();
     history.push(PATHS.ROUTES.HOME);
   };

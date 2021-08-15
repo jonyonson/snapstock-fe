@@ -33,8 +33,9 @@ function SignIn() {
     const { email, password } = credentials;
     auth
       .signInWithEmailAndPassword(email, password)
-      .then(() => {
+      .then((user) => {
         setError(null);
+        localStorage.setItem('user', user);
         history.push(PATHS.ROUTES.HOME);
       })
       .catch((error) => {
