@@ -112,7 +112,7 @@ const Section = styled.div`
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      min-height: 350px;
+      min-height: 300px;
     }
   }
 
