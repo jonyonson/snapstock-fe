@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import Autosuggest from 'react-autosuggest';
 import { FaSearch } from 'react-icons/fa';
+import { PATHS } from '../config/constants';
 import '../styles/autosuggest.scss';
 
 function SearchBar() {
@@ -60,11 +61,8 @@ function SearchBar() {
   };
 
   const fetchBestMatches = (input) => {
-    // const API_KEY = process.env.REACT_APP_ALPHA_VANTAGE_API_KEY;
-    // const alphaVantageEndpoint = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${input}&apikey=${API_KEY}`;
-    const API_KEY = process.env.REACT_APP_IEX_CLOUD_API_KEY;
     axios
-      .get(`https://cloud.iexapis.com/stable/search/${input}?token=${API_KEY}`)
+      .get(`${PATHS.API.SEARCH}/${input}`)
       .then((res) => setMatches(res.data || []))
       .catch((err) => {
         console.error(err);
