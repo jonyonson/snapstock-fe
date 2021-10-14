@@ -26,6 +26,7 @@ export const PATHS = {
     MARKET_INDICES: `${BASE_API_URL}/api/stocks/market/indices`,
     WATCHLIST: `${BASE_API_URL}/api/watchlist`,
     STOCKS: `${BASE_API_URL}/api/stocks/`,
+    SEARCH: `${BASE_API_URL}/api/stocks/search`,
   },
 
   AUTH: {
