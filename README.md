@@ -1,14 +1,15 @@
 
 ![Snapstock Logo](https://raw.githubusercontent.com/jonyonson/snapstock-fe/master/src/assets/snapstock_logo.svg)
 
-### [snapstockapp.com](https://snapstockapp.com)
+---
 
-#### Backend repositories: 
-[github.com/jonyonson/snapstock-be](https://github.com/jonyonson/snapstock-be)
+### [https://snapstockapp.com](https://snapstockapp.com)
+#### Backend
+- [github.com/jonyonson/snapstock-be](https://github.com/jonyonson/snapstock-be)
 
-[github.com/jonyonson/snapstock-flask](https://github.com/jonyonson/snapstock-flask)
+- [github.com/jonyonson/snapstock-flask](https://github.com/jonyonson/snapstock-flask)
 
-## Roadmap
+## TODO
 
 - [x] Handle API errors in search bar
 - [x] Handle API errors in stock lists
@@ -25,6 +26,7 @@
 
 In the project directory, you can run:
 
+
 ### `yarn start`
 
 Runs the app in the development mode.<br />
@@ -34,6 +36,9 @@ The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
 ### `yarn test`
+
+### `yarn storybook`
+Open [http://localhost:6006](http://localhost:6006) to view it in the browser.
 
 Launches the test runner in the interactive watch mode.<br />
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
