@@ -64,6 +64,12 @@ const StockQuote = ({ quote, setWatchlist, watchlist }) => {
     }
   };
 
+  const change = formatNumber(quote.change, { change: true, decimalPlaces: 2 });
+  const changePercent = formatNumber(quote.changePercent * 100, {
+    suffix: '%',
+    change: true,
+  });
+
   return !quote ? null : (
     <StockHeader>
       <div className="data-header__left">
@@ -94,21 +100,9 @@ const StockQuote = ({ quote, setWatchlist, watchlist }) => {
           )}
         </div>
         <div className="change-wrapper">
-          <span className="change">
-            {formatNumber(quote.change, { change: true }) !== '0'
-              ? formatNumber(quote.change, { change: true })
-              : 'UNCH'}
-          </span>
+          <span className="change">{change !== 0 ? change : 'UNCH'}</span>
           <span className="change-percent">
-            {formatNumber(quote.changePercent * 100, {
-              suffix: '%',
-              change: true,
-            }) !== '0%'
-              ? formatNumber(quote.changePercent * 100, {
-                  suffix: '%',
-                  change: true,
-                })
-              : '(0)'}
+            {changePercent !== '0%' ? changePercent : '(0)'}
           </span>
         </div>
         <div className="latest-trading-day">Data as of {quote.latestTime}</div>
