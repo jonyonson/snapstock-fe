@@ -38,7 +38,7 @@ const StockQuote = ({ quote, setWatchlist, watchlist }) => {
       axios
         .post(PATHS.API.WATCHLIST, {
           symbol,
-          company_name,
+          name: company_name,
           uuid: auth.user.uid,
         })
         .then((res) => {
