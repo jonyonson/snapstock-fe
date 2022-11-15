@@ -28,7 +28,7 @@ export const PATHS = {
     MARKET_INDICES: `${RENDER_BASE_API_URL}/api/stocks/market/indices`,
     WATCHLIST: `${RENDER_BASE_API_URL}/api/watchlist`,
     STOCKS: `${HEROKU_BASE_API_URL}/api/stocks/`,
-    SEARCH: `${HEROKU_BASE_API_URL}/api/stocks/search`,
+    SEARCH: `${RENDER_BASE_API_URL}/api/stocks/search`,
   },
 
   AUTH: {
