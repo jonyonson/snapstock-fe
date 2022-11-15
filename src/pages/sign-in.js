@@ -7,6 +7,7 @@ import Alert from '../components/Alert';
 import Layout from '../components/Layout';
 import { useAuth } from '../hooks/use-auth';
 import { PATHS } from '../config/constants';
+import axios from 'axios';
 
 function SignIn() {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
@@ -20,13 +21,6 @@ function SignIn() {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
-  // const signInWithGoogle = () => {
-  //   auth.signInWithGoogle().then((result) => {
-  //     console.log('succcess', result);
-  //     console.log(auth.currentUser);
-  //   });
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
@@ -34,9 +28,18 @@ function SignIn() {
     auth
       .signInWithEmailAndPassword(email, password)
       .then((user) => {
-        setError(null);
         localStorage.setItem('user', user);
-        history.push(PATHS.ROUTES.HOME);
+        axios
+          .post(PATHS.AUTH.LOGIN, { email, password })
+          .then((res) => {
+            setError(null);
+            history.push(PATHS.ROUTES.HOME);
+          })
+          .catch((err) => {
+            console.error(err);
+            setLoading(false);
+            setError(err.response.data);
+          });
       })
       .catch((error) => {
         setLoading(false);

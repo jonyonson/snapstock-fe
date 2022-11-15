@@ -93,7 +93,6 @@ const Flex = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    /* margin-bottom: 3rem; */
   }
 `;
 

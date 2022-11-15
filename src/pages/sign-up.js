@@ -28,11 +28,12 @@ function SignUp() {
       .then((user) => {
         axios
           .post(PATHS.AUTH.REGISTER, {
-            uuid: user.uid,
             email: user.email,
-            display_name: user.displayName,
-            photo_url: user.photoURL,
-            email_verified: user.emailVerified,
+            name: user.displayName || null,
+            image: user.photoURL || null,
+            emailVerified: user.emailVerified,
+            authProviderId: user.uid,
+            password,
           })
           .then((res) => {
             setError(null);
