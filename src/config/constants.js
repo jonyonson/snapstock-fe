@@ -21,9 +21,9 @@ export const PATHS = {
 
   API: {
     BASE_URL: HEROKU_BASE_API_URL,
-    GAINERS: `${HEROKU_BASE_API_URL}/api/stocks/market/list/gainers`,
-    LOSERS: `${HEROKU_BASE_API_URL}/api/stocks/market/list/losers`,
-    MOST_ACTIVE: `${HEROKU_BASE_API_URL}/api/stocks/market/list/mostactive`,
+    GAINERS: `${RENDER_BASE_API_URL}/api/stocks/market/list/gainers`,
+    LOSERS: `${RENDER_BASE_API_URL}/api/stocks/market/list/losers`,
+    MOST_ACTIVE: `${RENDER_BASE_API_URL}/api/stocks/market/list/mostactive`,
     TOP_HEADLINES: `${HEROKU_BASE_API_URL}/api/news/top-headlines`,
     MARKET_INDICES: `${RENDER_BASE_API_URL}/api/stocks/market/indices`,
     WATCHLIST: `${RENDER_BASE_API_URL}/api/watchlist`,
