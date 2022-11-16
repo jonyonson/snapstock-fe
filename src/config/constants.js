@@ -12,7 +12,8 @@ export const PATHS = {
   ROUTES: {
     HOME: '/',
     PROFILE: '/profile',
-    RESET_PASSWORD: '/accounts/password',
+    RESET_PASSWORD: '/accounts/reset-password',
+    FORGOT_PASSWORD: '/accounts/forgot-password',
     SIGN_IN: '/accounts/signin',
     SIGN_UP: '/accounts/signup',
     SYMBOL: '/stocks/:symbol',

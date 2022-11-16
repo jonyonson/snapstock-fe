@@ -1,32 +1,48 @@
 import React, { useState } from 'react';
 import { BeatLoader } from 'react-spinners';
 import AuthWrapper from '../styles/auth.styled';
+import useQueryParams from '../hooks/use-query-params';
 import Layout from '../components/Layout';
 import { useAuth } from '../hooks/use-auth';
 
-function SignIn() {
-  const [email, setEmail] = useState('');
+function ResetPassword() {
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const auth = useAuth();
 
+  const query = useQueryParams();
+  const code = query.get('oobCode');
+  console.log(code);
+
   const handleChange = (e) => {
     setDisabled(false);
-    setEmail(e.target.value);
+    setPassword(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
 
+    // verify the password reset code is valid.
+    // auth
+    //   .verifyPasswordReset(code)
+    //   .then((email) => {
+    //     console.log(email);
+    //     // Display a "new password" form with the user's email address
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+
     auth
-      .sendPasswordResetEmail(email)
-      .then((result) => {
+      .confirmPasswordReset(code, password)
+      .then(() => {
         setLoading(false);
-        setDisabled(true);
+        // reset the password in the database
+        // redirect to login with success message
       })
       .catch((err) => {
-        // TODO handle error
         console.log(err);
       });
   };
@@ -36,22 +52,19 @@ function SignIn() {
       <AuthWrapper>
         <h1>Reset Password</h1>
         <form onSubmit={handleSubmit}>
-          <label>Email address</label>
+          <label>New Password</label>
           <input
-            name="email"
-            type="email"
-            autoComplete="email"
+            name="password"
+            type="password"
             onChange={handleChange}
-            value={email}
+            value={password}
           />
 
           <button type="submit" disabled={disabled}>
             {loading ? (
               <BeatLoader size={12} color="#fff" />
-            ) : disabled ? (
-              'Please Check Your Email'
             ) : (
-              'Send Password Reset'
+              'Create New Passwod'
             )}
           </button>
         </form>
@@ -60,4 +73,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default ResetPassword;
