@@ -27,7 +27,7 @@ export const PATHS = {
     TOP_HEADLINES: `${HEROKU_BASE_API_URL}/api/news/top-headlines`,
     MARKET_INDICES: `${RENDER_BASE_API_URL}/api/stocks/market/indices`,
     WATCHLIST: `${RENDER_BASE_API_URL}/api/watchlist`,
-    STOCKS: `${HEROKU_BASE_API_URL}/api/stocks/`,
+    STOCKS: `${RENDER_BASE_API_URL}/api/stocks/`,
     SEARCH: `${RENDER_BASE_API_URL}/api/stocks/search`,
   },
 
