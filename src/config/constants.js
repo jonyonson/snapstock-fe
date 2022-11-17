@@ -1,11 +1,9 @@
-let HEROKU_BASE_API_URL, RENDER_BASE_API_URL;
+let BASE_API_URL;
 
 if (process.env.NODE_ENV === 'development') {
-  HEROKU_BASE_API_URL = 'http://localhost:5000';
-  RENDER_BASE_API_URL = 'http://localhost:4000';
+  BASE_API_URL = 'http://localhost:4000';
 } else if (process.env.NODE_ENV === 'production') {
-  HEROKU_BASE_API_URL = 'https://snapstock.herokuapp.com';
-  RENDER_BASE_API_URL = 'https://snapstock-node.onrender.com';
+  BASE_API_URL = 'https://snapstock-node.onrender.com';
 }
 
 export const PATHS = {
@@ -21,20 +19,20 @@ export const PATHS = {
   },
 
   API: {
-    BASE_URL: HEROKU_BASE_API_URL,
-    GAINERS: `${RENDER_BASE_API_URL}/api/stocks/market/list/gainers`,
-    LOSERS: `${RENDER_BASE_API_URL}/api/stocks/market/list/losers`,
-    MOST_ACTIVE: `${RENDER_BASE_API_URL}/api/stocks/market/list/mostactive`,
-    TOP_HEADLINES: `${HEROKU_BASE_API_URL}/api/news/top-headlines`,
-    MARKET_INDICES: `${RENDER_BASE_API_URL}/api/stocks/market/indices`,
-    WATCHLIST: `${RENDER_BASE_API_URL}/api/watchlist`,
-    STOCKS: `${RENDER_BASE_API_URL}/api/stocks/`,
-    SEARCH: `${RENDER_BASE_API_URL}/api/stocks/search`,
+    BASE_URL: BASE_API_URL,
+    GAINERS: `${BASE_API_URL}/api/stocks/market/list/gainers`,
+    LOSERS: `${BASE_API_URL}/api/stocks/market/list/losers`,
+    MOST_ACTIVE: `${BASE_API_URL}/api/stocks/market/list/mostactive`,
+    TOP_HEADLINES: `${BASE_API_URL}/api/news/latest`,
+    MARKET_INDICES: `${BASE_API_URL}/api/stocks/market/indices`,
+    WATCHLIST: `${BASE_API_URL}/api/watchlist`,
+    STOCKS: `${BASE_API_URL}/api/stocks/`,
+    SEARCH: `${BASE_API_URL}/api/stocks/search`,
   },
 
   AUTH: {
-    REGISTER: `${RENDER_BASE_API_URL}/auth/register`,
-    LOGIN: `${RENDER_BASE_API_URL}/auth/login`,
+    REGISTER: `${BASE_API_URL}/auth/register`,
+    LOGIN: `${BASE_API_URL}/auth/login`,
   },
 };
 
