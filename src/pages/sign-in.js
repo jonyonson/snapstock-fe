@@ -77,7 +77,7 @@ function SignIn() {
             onChange={handleChange}
             value={credentials.password}
           />
-          <Link to={PATHS.ROUTES.RESET_PASSWORD} className="forgot-password">
+          <Link to={PATHS.ROUTES.FORGOT_PASSWORD} className="forgot-password">
             Forgot Password?
           </Link>
           <button type="submit">

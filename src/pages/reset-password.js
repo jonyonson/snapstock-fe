@@ -4,11 +4,14 @@ import AuthWrapper from '../styles/auth.styled';
 import useQueryParams from '../hooks/use-query-params';
 import Layout from '../components/Layout';
 import { useAuth } from '../hooks/use-auth';
+import { PATHS } from '../config/constants';
+import { useHistory } from 'react-router-dom';
 
 function ResetPassword() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(false);
+  const history = useHistory();
   const auth = useAuth();
 
   const query = useQueryParams();
@@ -41,6 +44,10 @@ function ResetPassword() {
         setLoading(false);
         // reset the password in the database
         // redirect to login with success message
+        history.push({
+          pathname: PATHS.ROUTES.SIGN_IN,
+          state: { referrer: 'password-reset' },
+        });
       })
       .catch((err) => {
         console.log(err);
