@@ -5,7 +5,7 @@ import { PATHS } from '../../config/constants';
 import Widget from './IndexWidget';
 import './MarketIndexes.scss';
 
-export default function MarketIndixes() {
+export default function MarketIndexes() {
   const [dow, setDow] = useState(null);
   const [sp500, setSp500] = useState(null);
   const [nasdaq, setNasdaq] = useState(null);
