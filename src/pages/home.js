@@ -7,12 +7,32 @@ import BiggestLosers from '../components/biggest-losers';
 import BiggestGainers from '../components/biggest-gainers';
 import MarketIndexes from '../components/MarketIndexes';
 import Layout from '../components/Layout';
+import useStore from '../store';
+import { useEffect } from 'react';
+import { PATHS } from '../config/constants';
 import { useAuth } from '../hooks/use-auth';
 
 function Home() {
   const auth = useAuth();
 
-  console.log(auth.user ? `Logged in as ${auth.user.email}` : 'Not logged in');
+  // console.log(auth.user);
+  const store = useStore((state) => state);
+
+  useEffect(() => {
+    const fetchWatchlist = async () => {
+      const params = new URLSearchParams({ uuid: auth.user.uid });
+      const res = await fetch(`${PATHS.API.WATCHLIST}?${params}`);
+      const data = await res.json();
+      console.log('res', data);
+      store.load(data);
+    };
+
+    if (auth.user && store.watchlist === null) {
+      // store.load([{ symbol: 'AAPL', name: 'Apple', uuid: '123' }]);
+      fetchWatchlist();
+    }
+  }, [auth.user]);
+
   return (
     <Layout>
       <ContentHeader>

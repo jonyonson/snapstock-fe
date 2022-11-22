@@ -9,13 +9,7 @@ const addToWatchlist = (watchlist, symbol, name, uuid) => [
 const useStore = create((set) => ({
   watchlist: null,
   load: (watchlist) => {
-    // const params = new URLSearchParams({ uuid });
-    // const res = await fetch(`${PATHS.API.WATCHLIST}?${params}`);
-    // const data = await res.json();
-    // console.log('res', data);
-    // set({ watchlist: data });
-    console.log('watchlist from', watchlist);
-    set((state) => ({ watchlist }));
+    set(() => ({ watchlist }));
   },
   addToWatchlist: (symbol, name, uuid) =>
     set((state) => ({

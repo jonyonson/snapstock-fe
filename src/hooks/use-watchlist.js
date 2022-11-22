@@ -12,7 +12,6 @@ function useWatchlist(userId) {
     if (!userId) {
       return { watchlist: null, loading: false };
     }
-    // console.log(userId);
 
     const fetchWatchlist = async () => {
       // const res = await axios.get(PATHS.API.WATCHLIST);
@@ -20,19 +19,15 @@ function useWatchlist(userId) {
       const res = await fetch(`${PATHS.API.WATCHLIST}?${params}`);
       const data = await res.json();
       store.load(data);
-      console.log({ store });
 
-      console.log({ data });
       setWatchlist(data);
       setLoading(false);
     };
 
     if (!store.watchlist) {
-      console.log('either here');
       fetchWatchlist();
       // store.load(watchlist);
     } else {
-      console.log('or here');
       console.log('store.watchlist', store.watchlist);
     }
   }, []);
